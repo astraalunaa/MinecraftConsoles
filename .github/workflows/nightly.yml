@@ -12,7 +12,7 @@ on:
 
 jobs:
   build:
-    name: Build Windows64
+    name: Build Windows64 & ARM64CE
     runs-on: windows-latest
 
     steps:
@@ -22,12 +22,18 @@ jobs:
     - name: Setup msbuild
       uses: microsoft/setup-msbuild@v2
     
-    - name: Build
+    - name: Build x64
       run: MSBuild.exe MinecraftConsoles.sln /p:Configuration=Release /p:Platform="Windows64"
 
-    - name: Zip Build
-      run: 7z a -r LCEWindows64.zip ./x64/Release/*
+    - name: Build arm64
+      run: MSBuild.exe MinecraftConsoles.sln /p:Configuration=Release /p:Platform="ARM64EC"
 
+    - name: Zip Build (x64)
+      run: 7z a -r LCEWindows64.zip ./x64/Release/*
+      
+    - name: Zip Build (arm64)
+      run: 7z a -r LCEARM64EC.zip ./ARM64EC/Release/*
+      
     - name: Update release
       uses: andelf/nightly-release@main
 
@@ -38,10 +44,12 @@ jobs:
         name: Nightly Release
         body: |
           Requires at least Windows 7 and DirectX 11 compatible GPU to run. Compiled with MSVC v14.44.35207 in Release mode with Whole Program Optimization, as well as `/O2 /Ot /Oi /Ob3 /GF /fp:precise`.
+          ARM64EC version requires at least Windows 11 Build 22000 (22H2)
           
           # 🚨 First time here? 🚨
           If you've never downloaded the game before, you need to download `LCEWindows64.zip` and extract it to the folder where you'd like to keep the game. The other files are included in this `.zip` file!
         files: |
             LCEWindows64.zip
+            LCEARM64EC.zip
             ./x64/Release/Minecraft.Client.exe
             ./x64/Release/Minecraft.Client.pdb
