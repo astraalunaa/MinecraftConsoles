@@ -7,7 +7,7 @@ else()
 endif()
 
 if(NOT CMAKE_SIZEOF_VOID_P EQUAL 8)
-  message(FATAL_ERROR "Use a 64-bit generator/toolchain (x64).")
+  message(FATAL_ERROR "Use a 64-bit generator/toolchain.")
 endif()
 
 set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
@@ -36,9 +36,9 @@ if(WIN32)
 endif()
 if(ANDROID)
   list(APPEND MINECRAFT_CLIENT_SOURCES
-    "${CMAKE_CURRENT_SOURCE_DIR}/Minecraft.Client/Android/4J_Render_Android.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/Minecraft.Client/Android/4J_Input_Android.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/Minecraft.Client/Android/4J_Profile_Android.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Minecraft.Client/Android/Crossole/libs/Crossole_Input.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Minecraft.Client/Android/Crossole/libs/Crossole_Profile.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Minecraft.Client/Android/Crossole/libs/Crossole_Render.cpp"
   )
 endif()
 

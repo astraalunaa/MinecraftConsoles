@@ -1,42 +1,34 @@
-// 4J_Input_Android.cpp
-// Stub implementation of C_4JInput for Android.
-// Touch and gamepad input wired up via Android GameActivity input events.
-// Replace TODO sections with real AInputEvent handling.
-
 #include "platform_android.h"
-#include "4J_Input.h"
+#include "../inc/Crossole_Input.h"
 #include <android/log.h>
-#include <string.h>
+#include <cstring>
 
-#define LOG_TAG "4JInput"
+#define LOG_TAG "Crossole_Input"
 #define LOGI(...) __android_log_print(ANDROID_LOG_INFO,  LOG_TAG, __VA_ARGS__)
 
 // Global singleton instance
 C_4JInput InputManager;
 
-// ─── Internal state ───────────────────────────────────────────────────────────
+// Internal State
 
-static uint32_t s_buttonsCurrent[4]  = {};  // current frame button bitmask per pad
-static uint32_t s_buttonsPrevious[4] = {};  // previous frame bitmask (for pressed/released)
+static uint32_t s_buttonsCurrent[4]  = {};
+static uint32_t s_buttonsPrevious[4] = {};
 static float    s_axisLX[4] = {}, s_axisLY[4] = {};
 static float    s_axisRX[4] = {}, s_axisRY[4] = {};
 static uint8_t  s_triggerL[4] = {}, s_triggerR[4] = {};
-static bool     s_padConnected[4] = { true, false, false, false };  // pad 0 always present
-
-// Touch stub state
-static SceTouchData s_touchData[4] = {};
-
-// ─── Called each frame by game loop ───────────────────────────────────────────
+static bool     s_padConnected[4] = { false, false, false, false };
+static CrossoleTouchData s_touchData[4] = {};
 
 void C_4JInput::Tick(void)
 {
-    // Rotate button state
+    // Set current buttons to previous
     memcpy(s_buttonsPrevious, s_buttonsCurrent, sizeof(s_buttonsCurrent));
+
+
+
     // TODO: poll Android GameActivity input queue here and fill s_buttonsCurrent,
     //       s_axisLX/LY/RX/RY, s_triggerL/R, s_touchData
 }
-
-// ─── Init ─────────────────────────────────────────────────────────────────────
 
 void C_4JInput::Initialise(int iInputStateC, unsigned char ucMapC, unsigned char ucActionC, unsigned char ucMenuActionC)
 {
@@ -45,7 +37,7 @@ void C_4JInput::Initialise(int iInputStateC, unsigned char ucMapC, unsigned char
     memset(s_buttonsPrevious, 0, sizeof(s_buttonsPrevious));
 }
 
-// ─── Configuration ────────────────────────────────────────────────────────────
+// Configuration
 
 void          C_4JInput::SetDeadzoneAndMovementRange(unsigned int uiDeadzone, unsigned int uiMovementRangeMax) {}
 void          C_4JInput::SetGameJoypadMaps(unsigned char ucMap, unsigned char ucAction, unsigned int uiActionVal) {}
@@ -60,7 +52,9 @@ void          C_4JInput::SetDebugSequence(const char *chSequenceA, int(*Func)(LP
 void          C_4JInput::SetMenuDisplayed(int iPad, bool bVal) {}
 void          C_4JInput::SetCircleCrossSwapped(bool swapped) {}
 bool          C_4JInput::IsCircleCrossSwapped() { return false; }
-bool          C_4JInput::IsVitaTV() { return false; }
+bool          C_4JInput::HasTouchScreen() { return false; }
+bool          C_4JInput::HasPhysicalGamepad() { return false; }
+bool          C_4JInput::IsLargeScreen() { return false; }
 
 // ─── Button queries ───────────────────────────────────────────────────────────
 
@@ -101,26 +95,23 @@ float         C_4JInput::GetJoypadStick_RY(int iPad, bool bCheckMenuDisplay) { r
 unsigned char C_4JInput::GetJoypadLTrigger(int iPad, bool bCheckMenuDisplay) { return (iPad>=0&&iPad<4) ? s_triggerL[iPad] : 0; }
 unsigned char C_4JInput::GetJoypadRTrigger(int iPad, bool bCheckMenuDisplay) { return (iPad>=0&&iPad<4) ? s_triggerR[iPad] : 0; }
 
-// ─── Misc ─────────────────────────────────────────────────────────────────────
-
+// Misc
 FLOAT C_4JInput::GetIdleSeconds(int iPad)   { return 0.f; }
 bool  C_4JInput::IsPadConnected(int iPad)   { return (iPad == 0); }  // touch always "pad 0"
 
-// ─── Touch ────────────────────────────────────────────────────────────────────
-
+// Touch
 void C_4JInput::MapTouchInput(int iPad, unsigned int uiActionVal)
 {
     // TODO: map screen regions to button bitmask entries in s_buttonsCurrent
 }
 
-SceTouchData* C_4JInput::GetTouchPadData(int iPad, bool bCheckMenuDisplay)
+CrossoleTouchData* C_4JInput::GetTouchPadData(int iPad, bool bCheckMenuDisplay)
 {
     if (iPad < 0 || iPad >= 4) return nullptr;
     return &s_touchData[iPad];
 }
 
-// ─── Keyboard ─────────────────────────────────────────────────────────────────
-
+// Keyboard
 EKeyboardResult C_4JInput::RequestKeyboard(LPCWSTR Title, LPCWSTR Text, DWORD dwPad,
                                             UINT uiMaxChars, int(*Func)(LPVOID, const bool),
                                             LPVOID lpParam, C_4JInput::EKeyboardMode eMode)
