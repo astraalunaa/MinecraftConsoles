@@ -4,6 +4,16 @@
 //
 #pragma once
 
+#ifdef __PS3__
+#else
+#endif
+
+#if ( defined _XBOX || defined _WINDOWS64  || defined _DURANGO )
+typedef unsigned __int64 __uint64;
+#elif defined _ANDROID
+typedef long long __int64;
+typedef unsigned long long __uint64;
+#endif
 #include <cstdint>
 
 #ifdef _WINDOWS64
@@ -83,6 +93,11 @@ typedef XUID GameSessionUID;
 #include "PSVitaTypes.h"
 #include "PSVitaStubs.h"
 #include "PSVitaMaths.h"
+#elif defined _ANDROID
+#include <unordered_map>
+#include <unordered_set>
+#include <vector>
+#include "platform_android.h"
 #else
 #include <unordered_map>
 #include <unordered_set>
@@ -110,7 +125,11 @@ typedef XUID GameSessionUID;
 #endif
 
 #ifndef _XBOX
+#ifndef _ANDROID
 #include "extraX64.h"
+#else
+#include "extraAndroid.h"
+#endif
 #else
 #include "..\Minecraft.Client\xbox\network\extra.h"
 #endif

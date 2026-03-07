@@ -4,7 +4,11 @@
 #include <string>
 #include <functional>
 
+#ifdef _ANDROID
+#include "../../Minecraft.Client/SkinBox.h"
+#else
 #include "..\..\Minecraft.Client\SkinBox.h"
+#endif
 
 
 #include <vector>
