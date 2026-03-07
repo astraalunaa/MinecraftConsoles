@@ -1670,18 +1670,18 @@ void UIController::setupCustomDrawGameState()
 
 	// 4J Stu - We don't need to clear this here as iggy hasn't written anything to the depth buffer.
 	// We DO however clear after we render which is why we still setup the rectangle here
-	//RenderManager.Clear(GL_DEPTH_BUFFER_BIT, &m_customRenderingClearRect);
-	//glClear(GL_DEPTH_BUFFER_BIT);
+	//RenderManager.Clear(C4J_DEPTH_BUFFER_BIT, &m_customRenderingClearRect);
+	//glClear(C4J_DEPTH_BUFFER_BIT);
 
 	PIXBeginNamedEvent(0,"Final setup");
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glOrtho(0, m_fScreenWidth, m_fScreenHeight, 0, 1000, 3000);
 	glMatrixMode(GL_MODELVIEW);
-	glEnable(GL_ALPHA_TEST);
-	glAlphaFunc(GL_GREATER, 0.1f);
-	glEnable(GL_DEPTH_TEST);
-	glDepthFunc(GL_LEQUAL);
+	glEnable(C4JALPHA_TEST);
+	glAlphaFunc(C4J_GREATER, 0.1f);
+	glEnable(C4JDEPTH_TEST);
+	glDepthFunc(C4J_LEQUAL);
 	glDepthMask(true);
 	PIXEndNamedEvent();
 }
@@ -1746,13 +1746,13 @@ void UIController::endCustomDrawGameState()
 {
 #ifdef __ORBIS__
 	// TO BE IMPLEMENTED
-	RenderManager.Clear(GL_DEPTH_BUFFER_BIT);
+	RenderManager.Clear(C4J_DEPTH_BUFFER_BIT);
 #else
-	RenderManager.Clear(GL_DEPTH_BUFFER_BIT, &m_customRenderingClearRect);
+	RenderManager.Clear(C4J_DEPTH_BUFFER_BIT, &m_customRenderingClearRect);
 #endif
-	//glClear(GL_DEPTH_BUFFER_BIT);
+	//glClear(C4J_DEPTH_BUFFER_BIT);
 	glDepthMask(false);
-	glDisable(GL_ALPHA_TEST);
+	glDisable(C4JALPHA_TEST);
 }
 
 void UIController::endCustomDrawMatrices()

@@ -36,18 +36,18 @@ void TntRenderer::render(shared_ptr<Entity> _tnt, double x, double y, double z, 
     renderer->renderTile(Tile::tnt, 0, brightness);
     if (tnt->life / 5 % 2 == 0)
 	{
-        glDisable(GL_TEXTURE_2D);
+        glDisable(C4JTEXTURE_2D);
         glDisable(GL_LIGHTING);
-        glEnable(GL_BLEND);
-        glBlendFunc(GL_SRC_ALPHA, GL_DST_ALPHA);
+        glEnable(C4JBLEND);
+        glBlendFunc(C4J_SRC_ALPHA, C4J_DST_ALPHA);
         glColor4f(1, 1, 1, br);
 		renderer->setColor = false;					// 4J added so that renderTile doesn't set its own colour here
         renderer->renderTile(Tile::tnt, 0, 1);
 		renderer->setColor = true;					// 4J added so that renderTile doesn't set its own colour here
         glColor4f(1, 1, 1, 1);
-        glDisable(GL_BLEND);
+        glDisable(C4JBLEND);
         glEnable(GL_LIGHTING);
-        glEnable(GL_TEXTURE_2D);
+        glEnable(C4JTEXTURE_2D);
     }
     glPopMatrix();
 }

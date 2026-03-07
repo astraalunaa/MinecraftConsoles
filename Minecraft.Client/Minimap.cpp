@@ -122,10 +122,10 @@ void Minimap::render(shared_ptr<Player> player, Textures *textures, shared_ptr<M
 
     float vo = 0;
 
-    glBindTexture(GL_TEXTURE_2D, mapTexture);
-    glEnable(GL_BLEND);
-	glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-    glDisable(GL_ALPHA_TEST);
+    glBindTexture(C4JTEXTURE_2D, mapTexture);
+    glEnable(C4JBLEND);
+	glBlendFunc(C4J_ONE, C4J_ONE_MINUS_SRC_ALPHA);
+    glDisable(C4JALPHA_TEST);
     t->begin();
 	// 4J - moved to -0.02 to stop z fighting ( was -0.01)
 	// AP - Vita still has issues so push it a bit more
@@ -138,8 +138,8 @@ void Minimap::render(shared_ptr<Player> player, Textures *textures, shared_ptr<M
     t->vertexUV((float)(x + w - vo), (float)( y + 0 + vo), (float)( Offset), (float)( 1), (float)( 0));
     t->vertexUV((float)(x + 0 + vo), (float)( y + 0 + vo), (float)( Offset), (float)( 0), (float)( 0));
     t->end();
-    glEnable(GL_ALPHA_TEST);
-    glDisable(GL_BLEND);
+    glEnable(C4JALPHA_TEST);
+    glDisable(C4JBLEND);
 
 
     textures->bind(textures->loadTexture(TN_MISC_MAPICONS));//L"/misc/mapicons.png"));

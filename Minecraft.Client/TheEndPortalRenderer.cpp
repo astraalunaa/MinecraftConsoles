@@ -39,14 +39,14 @@ void TheEndPortalRenderer::render(shared_ptr<TileEntity> _table, double x, doubl
 			br = 0.1f;
 			dist = 65;
 			sscale = 1 / 8.0f;
-			glEnable(GL_BLEND);
-			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+			glEnable(C4JBLEND);
+			glBlendFunc(C4J_SRC_ALPHA, C4J_ONE_MINUS_SRC_ALPHA);
 		}
 		if (i == 1)
 		{
 			this->bindTexture(&END_PORTAL_LOCATION);
-			glEnable(GL_BLEND);
-			glBlendFunc(GL_ONE, GL_ONE);
+			glEnable(C4JBLEND);
+			glBlendFunc(C4J_ONE, C4J_ONE);
 			sscale = 1 / 2.0f;
 		}
 
@@ -61,24 +61,24 @@ void TheEndPortalRenderer::render(shared_ptr<TileEntity> _table, double x, doubl
 		}
 		// 4J - note that the glTexGeni/glEnable calls don't actually do anything in our opengl wrapper version, everything is currently just inferred from the glTexGen calls.
 
-		glTexGeni(GL_S, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
-		glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
-		glTexGeni(GL_R, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
-		glTexGeni(GL_Q, GL_TEXTURE_GEN_MODE, GL_EYE_LINEAR);
+		glTexGeni(GL_S, C4J_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
+		glTexGeni(GL_T, C4J_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
+		glTexGeni(GL_R, C4J_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
+		glTexGeni(GL_Q, C4J_TEXTURE_GEN_MODE, GL_EYE_LINEAR);
 
 		glTexGen(GL_S, GL_OBJECT_PLANE, getBuffer(1, 0, 0, 0));
 		glTexGen(GL_T, GL_OBJECT_PLANE, getBuffer(0, 0, 1, 0));
 		glTexGen(GL_R, GL_OBJECT_PLANE, getBuffer(0, 0, 0, 1));
 		glTexGen(GL_Q, GL_EYE_PLANE, getBuffer(0, 1, 0, 0));
 
-		glEnable(GL_TEXTURE_GEN_S);
-		glEnable(GL_TEXTURE_GEN_T);
-		glEnable(GL_TEXTURE_GEN_R);
-		glEnable(GL_TEXTURE_GEN_Q);
+		glEnable(C4J_TEXTURE_GEN_S);
+		glEnable(C4J_TEXTURE_GEN_T);
+		glEnable(C4J_TEXTURE_GEN_R);
+		glEnable(C4J_TEXTURE_GEN_Q);
 
 
 		glPopMatrix();
-		glMatrixMode(GL_TEXTURE);
+		glMatrixMode(C4J_TEXTURE);
 
 		glPushMatrix();
 		glLoadIdentity();
@@ -111,12 +111,12 @@ void TheEndPortalRenderer::render(shared_ptr<TileEntity> _table, double x, doubl
 		glPopMatrix();
 		glMatrixMode(GL_MODELVIEW);
 	}
-	glDisable(GL_BLEND);
+	glDisable(C4JBLEND);
 
-	glDisable(GL_TEXTURE_GEN_S);
-	glDisable(GL_TEXTURE_GEN_T);
-	glDisable(GL_TEXTURE_GEN_R);
-	glDisable(GL_TEXTURE_GEN_Q);
+	glDisable(C4J_TEXTURE_GEN_S);
+	glDisable(C4J_TEXTURE_GEN_T);
+	glDisable(C4J_TEXTURE_GEN_R);
+	glDisable(C4J_TEXTURE_GEN_Q);
 	glEnable(GL_LIGHTING);
 }
 

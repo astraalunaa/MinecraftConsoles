@@ -96,9 +96,9 @@ void ParticleEngine::render(shared_ptr<Entity> player, float a, int list)
     Particle::zOff = (player->zOld + (player->z - player->zOld) * a);
 	int l = level->dimension->id == 0 ? 0 : ( level->dimension->id == -1 ? 1 : 2 );
 
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glAlphaFunc(GL_GREATER, 1.0f / 255.0f);
+	glEnable(C4JBLEND);
+	glBlendFunc(C4J_SRC_ALPHA, C4J_ONE_MINUS_SRC_ALPHA);
+	glAlphaFunc(C4J_GREATER, 1.0f / 255.0f);
 
 	for (int tt = 0; tt < TEXTURE_COUNT; tt++)
 	{
@@ -144,9 +144,9 @@ void ParticleEngine::render(shared_ptr<Entity> player, float a, int list)
 		}
     }
 
-	glDisable(GL_BLEND);
+	glDisable(C4JBLEND);
 	glDepthMask(true);
-	glAlphaFunc(GL_GREATER, .1f);
+	glAlphaFunc(C4J_GREATER, .1f);
 }
 
 void ParticleEngine::renderLit(shared_ptr<Entity> player, float a, int list)

@@ -281,14 +281,14 @@ void ItemRenderer::renderItemBillboard(shared_ptr<ItemEntity> entity, Icon *icon
 
 			if (item != NULL && item->isFoil())
 			{
-				glDepthFunc(GL_EQUAL);
+				glDepthFunc(C4J_EQUAL);
 				glDisable(GL_LIGHTING);
 				entityRenderDispatcher->textures->bindTexture(&ItemInHandRenderer::ENCHANT_GLINT_LOCATION);
-				glEnable(GL_BLEND);
-				glBlendFunc(GL_SRC_COLOR, GL_ONE);
+				glEnable(C4JBLEND);
+				glBlendFunc(C4J_SRC_COLOR, C4J_ONE);
 				float br = 0.76f;
 				glColor4f(0.5f * br, 0.25f * br, 0.8f * br, 1);
-				glMatrixMode(GL_TEXTURE);
+				glMatrixMode(C4J_TEXTURE);
 				glPushMatrix();
 				float ss = 1 / 8.0f;
 				glScalef(ss, ss, ss);
@@ -306,9 +306,9 @@ void ItemRenderer::renderItemBillboard(shared_ptr<ItemEntity> entity, Icon *icon
 				ItemInHandRenderer::renderItem3D(t, 0, 0, 1, 1, 255, 255, width, true, bIsTerrain);
 				glPopMatrix();
 				glMatrixMode(GL_MODELVIEW);
-				glDisable(GL_BLEND);
+				glDisable(C4JBLEND);
 				glEnable(GL_LIGHTING);
-				glDepthFunc(GL_LEQUAL);
+				glDepthFunc(C4J_LEQUAL);
 			}
 		}
 
@@ -468,7 +468,7 @@ void ItemRenderer::renderGuiItem(Font *font, Textures *textures, shared_ptr<Item
 		PIXEndNamedEvent();
 
     }
-    glEnable(GL_CULL_FACE);
+    glEnable(C4JCULL_FACE);
 
 }
 
@@ -498,14 +498,14 @@ void ItemRenderer::renderAndDecorateItem(Font *font, Textures *textures, const s
 
 	if (isFoil || item->isFoil())
 	{
-		glDepthFunc(GL_GREATER);
+		glDepthFunc(C4J_GREATER);
 		glDisable(GL_LIGHTING);
 		glDepthMask(false);
 		textures->bindTexture(&ItemInHandRenderer::ENCHANT_GLINT_LOCATION); // 4J was "%blur%/misc/glint.png"
 		blitOffset -= 50;
-		if( !isConstantBlended )	glEnable(GL_BLEND);
+		if( !isConstantBlended )	glEnable(C4JBLEND);
 
-		glBlendFunc(GL_DST_COLOR, GL_ONE);		// 4J - changed blend equation from GL_DST_COLOR, GL_DST_COLOR so we can fade this out
+		glBlendFunc(C4J_DST_COLOR, C4J_ONE);		// 4J - changed blend equation from C4J_DST_COLOR, C4J_DST_COLOR so we can fade this out
 
 		float blendFactor = isConstantBlended ? Gui::currentGuiBlendFactor : 1.0f;
 
@@ -521,14 +521,14 @@ void ItemRenderer::renderAndDecorateItem(Font *font, Textures *textures, const s
 			blitGlint(x * 431278612 + y * 32178161, x - 2, y - 2, 20, 20);
 		}
 		glColor4f(1.0f, 1.0f, 1.0f, 1);	// 4J added
-		if( !isConstantBlended ) glDisable(GL_BLEND);
+		if( !isConstantBlended ) glDisable(C4JBLEND);
 
 		glDepthMask(true);
 		blitOffset += 50;
 		glEnable(GL_LIGHTING);
-		glDepthFunc(GL_LEQUAL);
+		glDepthFunc(C4J_LEQUAL);
 
-		if( isConstantBlended ) glBlendFunc(GL_CONSTANT_ALPHA, GL_ONE_MINUS_CONSTANT_ALPHA);
+		if( isConstantBlended ) glBlendFunc(C4J_CONSTANT_ALPHA, C4J_ONE_MINUS_CONSTANT_ALPHA);
 	}
 }
 
@@ -570,8 +570,8 @@ void ItemRenderer::blitGlint(int id, float x, float y, float w, float h)
 
 	for (int i = 0; i < 2; i++)
 	{
-		if (i == 0) glBlendFunc(GL_SRC_COLOR, GL_ONE);
-		if (i == 1) glBlendFunc(GL_SRC_COLOR, GL_ONE);
+		if (i == 0) glBlendFunc(C4J_SRC_COLOR, C4J_ONE);
+		if (i == 1) glBlendFunc(C4J_SRC_COLOR, C4J_ONE);
 		float sx = Minecraft::currentTimeMillis() % (3000 + i * 1873) / (3000.0f + i * 1873) * 256;
 		float sy = 0;
 		Tesselator *t = Tesselator::getInstance();
@@ -616,10 +616,10 @@ void ItemRenderer::renderGuiItemDecorations(Font *font, Textures *textures, shar
 		}
 		MemSect(0);
         glDisable(GL_LIGHTING);
-        glDisable(GL_DEPTH_TEST);
+        glDisable(C4JDEPTH_TEST);
         font->drawShadow(amount, x + 19 - 2 - font->width(amount), y + 6 + 3, 0xffffff |(((unsigned int)(fAlpha * 0xff))<<24));
         glEnable(GL_LIGHTING);
-        glEnable(GL_DEPTH_TEST);
+        glEnable(C4JDEPTH_TEST);
     }
 
     if (item->isDamaged())
@@ -627,8 +627,8 @@ void ItemRenderer::renderGuiItemDecorations(Font *font, Textures *textures, shar
         int p = (int) Math::round(13.0 - (double) item->getDamageValue() * 13.0 / (double) item->getMaxDamage());
         int cc = (int) Math::round(255.0 - (double) item->getDamageValue() * 255.0 / (double) item->getMaxDamage());
         glDisable(GL_LIGHTING);
-        glDisable(GL_DEPTH_TEST);
-        glDisable(GL_TEXTURE_2D);
+        glDisable(C4JDEPTH_TEST);
+        glDisable(C4JTEXTURE_2D);
 
         Tesselator *t = Tesselator::getInstance();
 
@@ -638,16 +638,16 @@ void ItemRenderer::renderGuiItemDecorations(Font *font, Textures *textures, shar
         fillRect(t, x + 2, y + 13, 12, 1, cb);
         fillRect(t, x + 2, y + 13, p, 1, ca);
 
-        glEnable(GL_TEXTURE_2D);
+        glEnable(C4JTEXTURE_2D);
         glEnable(GL_LIGHTING);
-        glEnable(GL_DEPTH_TEST);
+        glEnable(C4JDEPTH_TEST);
         glColor4f(1, 1, 1, 1);
     }
 	else if(item->hasPotionStrengthBar())
 	{
 		glDisable(GL_LIGHTING);
-		glDisable(GL_DEPTH_TEST);
-		glDisable(GL_TEXTURE_2D);
+		glDisable(C4JDEPTH_TEST);
+		glDisable(C4JTEXTURE_2D);
 
 		Tesselator *t = Tesselator::getInstance();
 
@@ -659,12 +659,12 @@ void ItemRenderer::renderGuiItemDecorations(Font *font, Textures *textures, shar
 		fillRect(t, x + 2 + 3+3+3, y + 13, 1, 2, 0x000000);
 
 
-		glEnable(GL_TEXTURE_2D);
+		glEnable(C4JTEXTURE_2D);
 		glEnable(GL_LIGHTING);
-		glEnable(GL_DEPTH_TEST);
+		glEnable(C4JDEPTH_TEST);
 		glColor4f(1, 1, 1, 1);
 	}
-	glDisable(GL_BLEND);
+	glDisable(C4JBLEND);
 }
 
 const int ItemRenderer::m_iPotionStrengthBarWidth[]=

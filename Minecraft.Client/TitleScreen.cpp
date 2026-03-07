@@ -135,7 +135,7 @@ void TitleScreen::render(int xm, int ym, float a)
     int logoX = width / 2 - logoWidth / 2;
     int logoY = 30;
 
-    glBindTexture(GL_TEXTURE_2D, minecraft->textures->loadTexture(L"/title/mclogo.png"));
+    glBindTexture(C4JTEXTURE_2D, minecraft->textures->loadTexture(L"/title/mclogo.png"));
     glColor4f(1, 1, 1, 1);
     blit(logoX + 0, logoY + 0, 0, 0, 155, 44);
     blit(logoX + 155, logoY + 0, 0, 45, 155, 44);

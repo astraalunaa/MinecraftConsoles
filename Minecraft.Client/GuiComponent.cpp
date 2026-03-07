@@ -43,9 +43,9 @@ void GuiComponent::fill(int x0, int y0, int x1, int y1, int col)
     float g = ((col >> 8) & 0xff) / 255.0f;
     float b = ((col) & 0xff) / 255.0f;
     Tesselator *t = Tesselator::getInstance();
-    glEnable(GL_BLEND);
-    glDisable(GL_TEXTURE_2D);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glEnable(C4JBLEND);
+    glDisable(C4JTEXTURE_2D);
+    glBlendFunc(C4J_SRC_ALPHA, C4J_ONE_MINUS_SRC_ALPHA);
     glColor4f(r, g, b, a);
     t->begin();
     t->vertex(static_cast<float>(x0), static_cast<float>(y1), static_cast<float>(0));
@@ -53,8 +53,8 @@ void GuiComponent::fill(int x0, int y0, int x1, int y1, int col)
     t->vertex(static_cast<float>(x1), static_cast<float>(y0), static_cast<float>(0));
     t->vertex(static_cast<float>(x0), static_cast<float>(y0), static_cast<float>(0));
     t->end();
-    glEnable(GL_TEXTURE_2D);
-    glDisable(GL_BLEND);
+    glEnable(C4JTEXTURE_2D);
+    glDisable(C4JBLEND);
 }
 
 void GuiComponent::fillGradient(int x0, int y0, int x1, int y1, int col1, int col2)
@@ -68,10 +68,10 @@ void GuiComponent::fillGradient(int x0, int y0, int x1, int y1, int col1, int co
     float r2 = ((col2 >> 16) & 0xff) / 255.0f;
     float g2 = ((col2 >> 8) & 0xff) / 255.0f;
     float b2 = ((col2) & 0xff) / 255.0f;
-    glDisable(GL_TEXTURE_2D);
-    glEnable(GL_BLEND);
-    glDisable(GL_ALPHA_TEST);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glDisable(C4JTEXTURE_2D);
+    glEnable(C4JBLEND);
+    glDisable(C4JALPHA_TEST);
+    glBlendFunc(C4J_SRC_ALPHA, C4J_ONE_MINUS_SRC_ALPHA);
     glShadeModel(GL_SMOOTH);
 
     Tesselator *t = Tesselator::getInstance();
@@ -85,9 +85,9 @@ void GuiComponent::fillGradient(int x0, int y0, int x1, int y1, int col1, int co
     t->end();
 
     glShadeModel(GL_FLAT);
-    glDisable(GL_BLEND);
-    glEnable(GL_ALPHA_TEST);
-    glEnable(GL_TEXTURE_2D);
+    glDisable(C4JBLEND);
+    glEnable(C4JALPHA_TEST);
+    glEnable(C4JTEXTURE_2D);
 }
 
 GuiComponent::GuiComponent()

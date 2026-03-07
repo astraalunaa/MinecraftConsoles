@@ -128,7 +128,7 @@ typedef struct {
    U8 blkx, blky;    // compressed block size in pixels (for compressed formats)
    U8 blkbytes;      // block bytes
    GLenum intfmt;    // GL internal format
-   GLenum fmt;       // GL_TEXTURE_COMPRESSED for compressed formats!
+   GLenum fmt;       // C4J_TEXTURE_COMPRESSED for compressed formats!
    GLenum type;
 } TextureFormatDesc;
 
@@ -246,19 +246,19 @@ static struct
 // make a texture with reasonable default state
 static void make_texture(GLuint tex)
 {
-   glBindTexture(GL_TEXTURE_2D, tex);
-   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+   glBindTexture(C4JTEXTURE_2D, tex);
+   glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_MIN_FILTER, C4J_LINEAR);
+   glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_MAG_FILTER, C4J_LINEAR);
+   glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+   glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 }
 
 static void make_rendertarget(GDrawHandle *t, GLuint tex, GLenum int_type, GLenum ext_type, GLenum data_type, S32 w, S32 h, S32 size)
 {
-   glBindTexture(GL_TEXTURE_2D, tex);
-   glTexImage2D(GL_TEXTURE_2D, 0, int_type, w, h, 0, ext_type, data_type, NULL);
+   glBindTexture(C4JTEXTURE_2D, tex);
+   glTexImage2D(C4JTEXTURE_2D, 0, int_type, w, h, 0, ext_type, data_type, NULL);
    make_texture(tex);
-   glBindTexture(GL_TEXTURE_2D, 0);
+   glBindTexture(C4JTEXTURE_2D, 0);
 }
 
 static void api_free_resource(GDrawHandle *r)
@@ -296,13 +296,13 @@ extern GDrawTexture *gdraw_GLx_(WrappedTextureCreate)(S32 gl_texture_handle, S32
    GDrawHandle *p = gdraw_res_alloc_begin(gdraw->texturecache, 0, &stats); // it may need to free one item to give us a handle
    GLint old;
 
-   glGetIntegerv(GL_TEXTURE_BINDING_2D, &old);
-   glBindTexture(GL_TEXTURE_2D, gl_texture_handle);
+   glGetIntegerv(C4J_TEXTURE_BINDING_2D, &old);
+   glBindTexture(C4JTEXTURE_2D, gl_texture_handle);
    if (has_mipmaps)
-      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+      glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_MIN_FILTER, C4J_LINEAR_MIPMAP_LINEAR);
    else
-      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-   glBindTexture(GL_TEXTURE_2D, old);
+      glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_MIN_FILTER, C4J_LINEAR);
+   glBindTexture(C4JTEXTURE_2D, old);
 
    p->bytes = 0;
    p->handle.tex.gl = gl_texture_handle;
@@ -318,13 +318,13 @@ extern void gdraw_GLx_(WrappedTextureChange)(GDrawTexture *tex, S32 new_gl_textu
    GDrawHandle *p = (GDrawHandle *) tex;
    GLint old;
 
-   glGetIntegerv(GL_TEXTURE_BINDING_2D, &old);
-   glBindTexture(GL_TEXTURE_2D, new_gl_texture_handle);
+   glGetIntegerv(C4J_TEXTURE_BINDING_2D, &old);
+   glBindTexture(C4JTEXTURE_2D, new_gl_texture_handle);
    if (has_mipmaps)
-      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+      glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_MIN_FILTER, C4J_LINEAR_MIPMAP_LINEAR);
    else
-      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-   glBindTexture(GL_TEXTURE_2D, old);
+      glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_MIN_FILTER, C4J_LINEAR);
+   glBindTexture(C4JTEXTURE_2D, old);
 
    p->handle.tex.gl = new_gl_texture_handle;
    p->handle.tex.w = new_width;
@@ -407,14 +407,14 @@ static GDrawTexture * RADLINK gdraw_MakeTextureEnd(GDraw_MakeTexture_ProcessingI
    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
    if (format == GDRAW_TEXTURE_FORMAT_font)
-      glTexImage2D(GL_TEXTURE_2D, 0, GL_ALPHA, width, height, 0, GL_ALPHA, GL_UNSIGNED_BYTE, p->texture_data);
+      glTexImage2D(C4JTEXTURE_2D, 0, GL_ALPHA, width, height, 0, GL_ALPHA, GL_UNSIGNED_BYTE, p->texture_data);
    else
-      glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, p->texture_data);
+      glTexImage2D(C4JTEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, p->texture_data);
    e = glGetError();
    break_on_err(e);
 
    if (mipmap)
-      glGenerateMipmap(GL_TEXTURE_2D);
+      glGenerateMipmap(C4JTEXTURE_2D);
    if (!e) e = glGetError();
 
    if (e != 0) {
@@ -430,13 +430,13 @@ static GDrawTexture * RADLINK gdraw_MakeTextureEnd(GDraw_MakeTexture_ProcessingI
    }
 
    // default wrap mode is clamp to edge
-   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+   glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+   glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
    if (mipmap)
-      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+      glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_MIN_FILTER, C4J_LINEAR_MIPMAP_LINEAR);
    else
-      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+      glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_MIN_FILTER, C4J_LINEAR);
 
    IggyGDrawFree(p->texture_data);
 
@@ -452,10 +452,10 @@ static rrbool RADLINK gdraw_UpdateTextureBegin(GDrawTexture *tex, void *unique_i
 
 static void   RADLINK gdraw_UpdateTextureRect(GDrawTexture *tex, void *unique_id, S32 x, S32 y, S32 stride, S32 w, S32 h, U8 *data, gdraw_texture_format format)
 {
-   glBindTexture(GL_TEXTURE_2D, ((GDrawHandle *) tex)->handle.tex.gl);
+   glBindTexture(C4JTEXTURE_2D, ((GDrawHandle *) tex)->handle.tex.gl);
    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
    // @TODO: use 'stride'
-   glTexSubImage2D(GL_TEXTURE_2D, 0, x, y, w, h, (format == GDRAW_TEXTURE_FORMAT_font) ? GL_ALPHA : GL_RGBA, GL_UNSIGNED_BYTE, data);
+   glTexSubImage2D(C4JTEXTURE_2D, 0, x, y, w, h, (format == GDRAW_TEXTURE_FORMAT_font) ? GL_ALPHA : GL_RGBA, GL_UNSIGNED_BYTE, data);
    opengl_check();
 }
 
@@ -500,7 +500,7 @@ static void RADLINK gdraw_SetAntialiasTexture(S32 width, U8 *rgba)
 
    make_texture(gdraw->aa_tex);
    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-   glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, 1, 0, GL_RGBA, GL_UNSIGNED_BYTE, rgba);
+   glTexImage2D(C4JTEXTURE_2D, 0, GL_RGBA, width, 1, 0, GL_RGBA, GL_UNSIGNED_BYTE, rgba);
    opengl_check();
 }
 
@@ -827,18 +827,18 @@ static void clear_renderstate(void)
    clear_renderstate_platform_specific();
 
    // deactivate aa_tex
-   glActiveTexture(GL_TEXTURE0 + AATEX_SAMPLER);
-   glBindTexture(GL_TEXTURE_2D, 0);
+   glActiveTexture(C4J_TEXTURE0 + AATEX_SAMPLER);
+   glBindTexture(C4JTEXTURE_2D, 0);
 
    glColorMask(1,1,1,1);
    glDepthMask(GL_TRUE);
 
-   glDisable(GL_CULL_FACE);
-   glDisable(GL_BLEND);
-   glDisable(GL_DEPTH_TEST);
+   glDisable(C4JCULL_FACE);
+   glDisable(C4JBLEND);
+   glDisable(C4JDEPTH_TEST);
    glDisable(GL_STENCIL_TEST);
    glDisable(GL_SCISSOR_TEST);
-   glActiveTexture(GL_TEXTURE0);
+   glActiveTexture(C4J_TEXTURE0);
 
    glUseProgram(0);
    opengl_check();
@@ -849,9 +849,9 @@ static void set_common_renderstate(void)
    clear_renderstate();
 
    // activate aa_tex
-   glActiveTexture(GL_TEXTURE0 + AATEX_SAMPLER);
-   glBindTexture(GL_TEXTURE_2D, gdraw->aa_tex);
-   glActiveTexture(GL_TEXTURE0);
+   glActiveTexture(C4J_TEXTURE0 + AATEX_SAMPLER);
+   glBindTexture(C4JTEXTURE_2D, gdraw->aa_tex);
+   glActiveTexture(C4J_TEXTURE0);
 }
 
 void gdraw_GLx_(SetTileOrigin)(S32 x, S32 y, U32 framebuffer)
@@ -972,7 +972,7 @@ static void set_render_target_state(void)
    } else {
 #endif
       h = gdraw->cur->color_buffer ? gdraw->cur->color_buffer->handle.tex.gl : 0;
-      glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 , GL_TEXTURE_2D, h, 0);
+      glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 , C4JTEXTURE_2D, h, 0);
       if (gdraw->cur->stencil_depth) {
          glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT,   GL_RENDERBUFFER, gdraw->cur->stencil_depth->handle.tex.gl);
          glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_STENCIL_ATTACHMENT, GL_RENDERBUFFER, gdraw->cur->stencil_depth->handle.tex.gl_renderbuf);
@@ -1081,9 +1081,9 @@ static rrbool RADLINK gdraw_TextureDrawBufferBegin(gswf_recti *region, gdraw_tex
          --gdraw->cur;
 
          // remove color and stencil buffers
-         glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 , GL_TEXTURE_2D, 0, 0);
-         glFramebufferTexture2D(GL_FRAMEBUFFER, GL_STENCIL_ATTACHMENT, GL_TEXTURE_2D, 0, 0);
-         glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT  , GL_TEXTURE_2D, 0, 0);
+         glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 , C4JTEXTURE_2D, 0, 0);
+         glFramebufferTexture2D(GL_FRAMEBUFFER, GL_STENCIL_ATTACHMENT, C4JTEXTURE_2D, 0, 0);
+         glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT  , C4JTEXTURE_2D, 0, 0);
          
          // switch render target back
          if (gdraw->cur == gdraw->frame)
@@ -1135,9 +1135,9 @@ static rrbool RADLINK gdraw_TextureDrawBufferBegin(gswf_recti *region, gdraw_tex
       glColorMask(1,1,1,1);
       glDisable(GL_STENCIL_TEST);
       if (n == gdraw->frame+1)
-         glClear(GL_COLOR_BUFFER_BIT | GL_STENCIL_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+         glClear(C4J_COLOR_BUFFER_BIT | GL_STENCIL_BUFFER_BIT | C4J_DEPTH_BUFFER_BIT);
       else
-         glClear(GL_COLOR_BUFFER_BIT);
+         glClear(C4J_COLOR_BUFFER_BIT);
    }
 
    set_viewport();
@@ -1180,9 +1180,9 @@ static GDrawTexture *RADLINK gdraw_TextureDrawBufferEnd(GDrawStats *gstats)
          glFramebufferRenderbuffer(GL_READ_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, 0);
          glFramebufferRenderbuffer(GL_DRAW_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, 0);
          glFramebufferRenderbuffer(GL_READ_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, n->color_buffer->handle.tex.gl_renderbuf);
-         glFramebufferTexture2D(GL_DRAW_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, n->color_buffer->handle.tex.gl, 0);
+         glFramebufferTexture2D(GL_DRAW_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, C4JTEXTURE_2D, n->color_buffer->handle.tex.gl, 0);
          res = glCheckFramebufferStatus(GL_DRAW_FRAMEBUFFER);
-         glBlitFramebuffer(0,0,gdraw->tpw,gdraw->tph,0,0,gdraw->tpw,gdraw->tph, GL_COLOR_BUFFER_BIT, GL_NEAREST);
+         glBlitFramebuffer(0,0,gdraw->tpw,gdraw->tph,0,0,gdraw->tpw,gdraw->tph, C4J_COLOR_BUFFER_BIT, C4J_NEAREST);
          gstats->nonzero_flags |= GDRAW_STATS_blits;
          gstats->num_blits += 1;
          gstats->num_blit_pixels += (gdraw->tpw * gdraw->tph);
@@ -1237,7 +1237,7 @@ static void RADLINK gdraw_ClearID(void)
    glDisable(GL_SCISSOR_TEST);
    glClearDepth(1);
    glDepthMask(GL_TRUE);
-   glClear(GL_DEPTH_BUFFER_BIT);
+   glClear(C4J_DEPTH_BUFFER_BIT);
    opengl_check();
 }
 
@@ -1273,11 +1273,11 @@ static float depth_from_id(S32 id)
 
 static void set_texture(U32 texunit, GDrawTexture *tex)
 {
-   glActiveTexture(GL_TEXTURE0 + texunit);
+   glActiveTexture(C4J_TEXTURE0 + texunit);
    if (tex == NULL)
-      glBindTexture(GL_TEXTURE_2D, 0);
+      glBindTexture(C4JTEXTURE_2D, 0);
    else
-      glBindTexture(GL_TEXTURE_2D, ((GDrawHandle *) tex)->handle.tex.gl);
+      glBindTexture(C4JTEXTURE_2D, ((GDrawHandle *) tex)->handle.tex.gl);
 }
 
 static void set_world_projection(const int *vvars, const F32 world[2*4])
@@ -1308,13 +1308,13 @@ static int set_render_state(GDrawRenderState *r, S32 vformat, const int **ovvars
       GLenum src;
       GLenum dst;
    } blends[ASSERT_COUNT(GDRAW_BLEND__count, 6)] = {
-      { GL_FALSE, GL_ONE,        GL_ZERO                },  // GDRAW_BLEND_none
-      { GL_TRUE,  GL_ONE,        GL_ONE_MINUS_SRC_ALPHA },  // GDRAW_BLEND_alpha
-      { GL_TRUE,  GL_DST_COLOR,  GL_ONE_MINUS_SRC_ALPHA },  // GDRAW_BLEND_multiply
-      { GL_TRUE,  GL_ONE,        GL_ONE                 },  // GDRAW_BLEND_add
+      { GL_FALSE, C4J_ONE,        C4J_ZERO                },  // GDRAW_BLEND_none
+      { GL_TRUE,  C4J_ONE,        C4J_ONE_MINUS_SRC_ALPHA },  // GDRAW_BLEND_alpha
+      { GL_TRUE,  C4J_DST_COLOR,  C4J_ONE_MINUS_SRC_ALPHA },  // GDRAW_BLEND_multiply
+      { GL_TRUE,  C4J_ONE,        C4J_ONE                 },  // GDRAW_BLEND_add
 
-      { GL_FALSE, GL_ONE,        GL_ZERO                },  // GDRAW_BLEND_filter
-      { GL_FALSE, GL_ONE,        GL_ZERO                },  // GDRAW_BLEND_special
+      { GL_FALSE, C4J_ONE,        C4J_ZERO                },  // GDRAW_BLEND_filter
+      { GL_FALSE, C4J_ONE,        C4J_ZERO                },  // GDRAW_BLEND_special
    };
 
    F32 world[2*4];
@@ -1326,18 +1326,18 @@ static int set_render_state(GDrawRenderState *r, S32 vformat, const int **ovvars
    assert((vformat >= 0 && vformat < GDRAW_vformat__basic_count) || vformat == GDRAW_vformat_ihud1);
 
    if (vformat == GDRAW_vformat_ihud1) {
-      glEnable(GL_BLEND);
-      glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA); // premultiplied alpha blend mode
+      glEnable(C4JBLEND);
+      glBlendFunc(C4J_ONE, C4J_ONE_MINUS_SRC_ALPHA); // premultiplied alpha blend mode
       prg = &gdraw->ihud[0];
    } else {
       // apply the major blend mode
       blend_mode = r->blend_mode;
       assert(blend_mode >= 0 && blend_mode < sizeof(blends)/sizeof(*blends));
       if (blends[blend_mode].enable) {
-         glEnable(GL_BLEND);
+         glEnable(C4JBLEND);
          glBlendFunc(blends[blend_mode].src, blends[blend_mode].dst);
       } else
-         glDisable(GL_BLEND);
+         glDisable(C4JBLEND);
 
       // set the fragment program if it wasn't set above
       if (r->blend_mode != GDRAW_BLEND_special) {
@@ -1398,24 +1398,24 @@ static int set_render_state(GDrawRenderState *r, S32 vformat, const int **ovvars
    if (r->tex[0] && gdraw->has_conditional_non_power_of_two && ((GDrawHandle*) r->tex[0])->handle.tex.nonpow2) {
       // only wrap mode allowed in conditional nonpow2 is clamp; this should
       // have been set when the texture was created, but to be on the safe side...
-      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+      glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+      glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
    } else switch (r->wrap0) {
       case GDRAW_WRAP_repeat:
-         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+         glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_WRAP_S, C4J_REPEAT);
+         glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_WRAP_T, C4J_REPEAT);
          break;
       case GDRAW_WRAP_clamp:
-         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+         glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+         glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
          break;
       case GDRAW_WRAP_mirror:
-         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
-         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
+         glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
+         glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
          break;
    }
 
-   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, r->nearest0 ? GL_NEAREST : GL_LINEAR);
+   glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_MAG_FILTER, r->nearest0 ? C4J_NEAREST : C4J_LINEAR);
 
    // fragment shader constants
 
@@ -1429,7 +1429,7 @@ static int set_render_state(GDrawRenderState *r, S32 vformat, const int **ovvars
    if (fvars[VAR_focal] >= 0)
       glUniform4fv(fvars[VAR_focal], 1, r->focal_point);
 
-   glActiveTexture(GL_TEXTURE0);
+   glActiveTexture(C4J_TEXTURE0);
 
    // Set pixel operation states
 
@@ -1465,7 +1465,7 @@ static int set_render_state(GDrawRenderState *r, S32 vformat, const int **ovvars
 
    glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
    glStencilMask(r->stencil_set);
-   glStencilFunc(GL_EQUAL, 255, r->stencil_test);
+   glStencilFunc(C4J_EQUAL, 255, r->stencil_test);
    if (r->stencil_set | r->stencil_test)
       glEnable(GL_STENCIL_TEST);
    else
@@ -1477,10 +1477,10 @@ static int set_render_state(GDrawRenderState *r, S32 vformat, const int **ovvars
       glColorMask(1,1,1,1);
 
    if (r->test_id) {
-      glEnable(GL_DEPTH_TEST);
+      glEnable(C4JDEPTH_TEST);
       glDepthFunc(GL_LESS);
    } else {
-      glDisable(GL_DEPTH_TEST);
+      glDisable(C4JDEPTH_TEST);
       glDepthFunc(GL_LESS);
    }
 
@@ -1583,7 +1583,7 @@ static void RADLINK gdraw_DrawIndexedTriangles(GDrawRenderState *r, GDrawPrimiti
 
    if (vb || p->indices) { // regular path
       set_vertex_format(p->vertex_format, p->vertices);
-      glDrawElements(GL_TRIANGLES, p->num_indices, GL_UNSIGNED_SHORT, p->indices);
+      glDrawElements(C4J_TRIANGLES, p->num_indices, GL_UNSIGNED_SHORT, p->indices);
    } else { // dynamic quads
       S32 pos = 0;
       U32 stride = vformat_stride[p->vertex_format]; // in units of sizeof(F32)
@@ -1593,7 +1593,7 @@ static void RADLINK gdraw_DrawIndexedTriangles(GDrawRenderState *r, GDrawPrimiti
       while (pos < p->num_vertices) {
          S32 vert_count = RR_MIN(p->num_vertices - pos, QUAD_IB_COUNT * 4);
          set_vertex_format(p->vertex_format, p->vertices + pos*stride);
-         glDrawElements(GL_TRIANGLES, (vert_count >> 2) * 6, GL_UNSIGNED_SHORT, NULL);
+         glDrawElements(C4J_TRIANGLES, (vert_count >> 2) * 6, GL_UNSIGNED_SHORT, NULL);
          pos += vert_count;
       }
       
@@ -1640,7 +1640,7 @@ static void do_screen_quad(gswf_recti *s, F32 *tc, const int *vvars, GDrawStats 
    glBindBuffer(GL_ARRAY_BUFFER, 0);
    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
    opengl_check();
-   glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
+   glDrawArrays(C4J_TRIANGLE_FAN, 0, 4);
    reset_vertex_format(GDRAW_vformat_v2tc2);
    opengl_check();
 
@@ -1660,19 +1660,19 @@ static void clear_with_rect(gswf_recti *region, rrbool clear_depth, GDrawStats *
    use_lazy_shader(&gdraw->manual_clear);
    glUniform4f(gdraw->manual_clear.vars[0][0], 0.0, 0,0,0);
 
-   glDisable(GL_BLEND);
+   glDisable(C4JBLEND);
 
    if (clear_depth) {
-      glEnable(GL_DEPTH_TEST);
-      glDepthFunc(GL_ALWAYS);
+      glEnable(C4JDEPTH_TEST);
+      glDepthFunc(C4J_ALWAYS);
       glDepthMask(GL_TRUE);
 
       glEnable(GL_STENCIL_TEST);
       glStencilMask(255);
       glStencilOp(GL_REPLACE,GL_REPLACE,GL_REPLACE);
-      glStencilFunc(GL_ALWAYS,0,255);
+      glStencilFunc(C4J_ALWAYS,0,255);
    } else {
-      glDisable(GL_DEPTH_TEST);
+      glDisable(C4JDEPTH_TEST);
       glDisable(GL_STENCIL_TEST);
    }
 
@@ -1705,7 +1705,7 @@ static void gdraw_DriverBlurPass(GDrawRenderState *r, int taps, F32 *data, gswf_
    set_texture(0, r->tex[0]);
 
    glColorMask(1,1,1,1);
-   glDisable(GL_BLEND);
+   glDisable(C4JBLEND);
    glDisable(GL_SCISSOR_TEST);
 
    assert(prg->vars[0][VAR_blur_tap] >= 0);
@@ -1798,8 +1798,8 @@ static void RADLINK gdraw_FilterQuad(GDrawRenderState *r, S32 x0, S32 y0, S32 x1
    glStencilMask(255);
    glDisable(GL_STENCIL_TEST);
    glColorMask(1,1,1,1);
-   glDisable(GL_BLEND);
-   glDisable(GL_DEPTH_TEST);
+   glDisable(C4JBLEND);
+   glDisable(C4JDEPTH_TEST);
    opengl_check();
 
    if (r->blend_mode == GDRAW_BLEND_filter) {
@@ -1855,11 +1855,11 @@ static void RADLINK gdraw_FilterQuad(GDrawRenderState *r, S32 x0, S32 y0, S32 x1
 
       if (r->blend_mode == GDRAW_BLEND_special) {
          blend_tex = (GDrawTexture *) get_color_rendertarget(gstats);
-         glBindTexture(GL_TEXTURE_2D, ((GDrawHandle *) blend_tex)->handle.tex.gl);
+         glBindTexture(C4JTEXTURE_2D, ((GDrawHandle *) blend_tex)->handle.tex.gl);
          if (gdraw->cur != gdraw->frame)
-            glCopyTexSubImage2D(GL_TEXTURE_2D, 0, 0,0, 0,0,gdraw->tpw,gdraw->tph);
+            glCopyTexSubImage2D(C4JTEXTURE_2D, 0, 0,0, 0,0,gdraw->tpw,gdraw->tph);
          else
-            glCopyTexSubImage2D(GL_TEXTURE_2D, 0, gdraw->tx0 - gdraw->tx0p, gdraw->ty0 - gdraw->ty0p, gdraw->vx,gdraw->vy,gdraw->tw,gdraw->th);
+            glCopyTexSubImage2D(C4JTEXTURE_2D, 0, gdraw->tx0 - gdraw->tx0p, gdraw->ty0 - gdraw->ty0p, gdraw->vx,gdraw->vy,gdraw->tw,gdraw->th);
 
          set_texture(1, blend_tex);
       }
@@ -2239,7 +2239,7 @@ GDrawTexture * RADLINK gdraw_GLx_(MakeTextureFromResource)(U8 *resource_file, S3
       if (!is_pow2(texture->w) || !is_pow2(texture->h))
          mips = 1;
 
-   // disable mipmaps if chain is incomplete and GL_TEXTURE_MAX_LEVEL is unsupported
+   // disable mipmaps if chain is incomplete and C4J_TEXTURE_MAX_LEVEL is unsupported
    if (!gdraw->has_texture_max_level && mips > 1) {
       int lastmip = mips-1;
       if ((texture->w >> lastmip) > 1 || (texture->h >> lastmip) > 1)
@@ -2268,11 +2268,11 @@ GDrawTexture * RADLINK gdraw_GLx_(MakeTextureFromResource)(U8 *resource_file, S3
       }
 
       if (fmt->fmt != 0) {
-         glTexImage2D(GL_TEXTURE_2D, i, fmt->intfmt, w, h, 0, fmt->fmt, fmt->type, data);
+         glTexImage2D(C4JTEXTURE_2D, i, fmt->intfmt, w, h, 0, fmt->fmt, fmt->type, data);
          offset += w * h * fmt->blkbytes;
       } else {
          int size = ((w + fmt->blkx-1) / fmt->blkx) * ((h + fmt->blky-1) / fmt->blky) * fmt->blkbytes;
-         glCompressedTexImage2D(GL_TEXTURE_2D, i, fmt->intfmt, w, h, 0, size, data);
+         glCompressedTexImage2D(C4JTEXTURE_2D, i, fmt->intfmt, w, h, 0, size, data);
          offset += size;
       }
 
@@ -2280,7 +2280,7 @@ GDrawTexture * RADLINK gdraw_GLx_(MakeTextureFromResource)(U8 *resource_file, S3
    }
 
    if (gdraw->has_texture_max_level)
-      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, mips-1);
+      glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_MAX_LEVEL, mips-1);
 
    tex = gdraw_GLx_(WrappedTextureCreate)(gl_texture_handle, texture->w, texture->h, mips > 1);
    if (tex == NULL)

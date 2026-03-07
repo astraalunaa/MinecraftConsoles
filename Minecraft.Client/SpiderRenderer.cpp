@@ -27,15 +27,15 @@ int SpiderRenderer::prepareArmor(shared_ptr<LivingEntity> _spider, int layer, fl
 	MemSect(0);
 	// 4J - changes brought forward from 1.8.2
 	float br = 1.0f; // was (1-spider->getBrightness(1))*0.5f;
-	glEnable(GL_BLEND);
+	glEnable(C4JBLEND);
 	// 4J Stu - We probably don't need to do this on 360 either (as we force it back on the renderer)
 	// However we do want it off for other platforms that don't force it on in the render lib CBuff handling
 	// Several texture packs have fully transparent bits that break if this is off
 #ifdef _XBOX
-	glDisable(GL_ALPHA_TEST);
+	glDisable(C4JALPHA_TEST);
 #endif
 	// 4J - changes brought forward from 1.8.2
-	glBlendFunc(GL_ONE, GL_ONE);
+	glBlendFunc(C4J_ONE, C4J_ONE);
 	if (spider->isInvisible())	glDepthMask(false);
 	else						glDepthMask(true);
 
@@ -47,7 +47,7 @@ int SpiderRenderer::prepareArmor(shared_ptr<LivingEntity> _spider, int layer, fl
 		int u = col % 65536;
 		int v = col / 65536;
 
-		glMultiTexCoord2f(GL_TEXTURE1, u / 1.0f, v / 1.0f);
+		glMultiTexCoord2f(C4J_TEXTURE1, u / 1.0f, v / 1.0f);
 		glColor4f(1, 1, 1, 1);
 	}
 	// 4J - this doesn't seem right - surely there should be an else in here?

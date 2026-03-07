@@ -97,7 +97,7 @@ static void load_extensions(void)
 
 static void clear_renderstate_platform_specific(void)
 {
-   glDisable(GL_ALPHA_TEST);
+   glDisable(C4JALPHA_TEST);
 }
 
 static void error_msg_platform_specific(const char *msg)

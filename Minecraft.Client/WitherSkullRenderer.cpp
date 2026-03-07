@@ -14,7 +14,7 @@ WitherSkullRenderer::WitherSkullRenderer()
 void WitherSkullRenderer::render(shared_ptr<Entity> entity, double x, double y, double z, float rot, float a)
 {
 	glPushMatrix();
-	glDisable(GL_CULL_FACE);
+	glDisable(C4JCULL_FACE);
 
 	float headRot = rotlerp(entity->yRotO, entity->yRot, a);
 	float headRotx = entity->xRotO + (entity->xRot - entity->xRotO) * a;
@@ -25,7 +25,7 @@ void WitherSkullRenderer::render(shared_ptr<Entity> entity, double x, double y, 
 	glEnable(GL_RESCALE_NORMAL);
 	glScalef(-1, -1, 1);
 
-	glEnable(GL_ALPHA_TEST);
+	glEnable(C4JALPHA_TEST);
 
 	bindTexture(entity);
 

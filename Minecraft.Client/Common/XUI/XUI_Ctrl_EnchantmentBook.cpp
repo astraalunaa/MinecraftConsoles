@@ -106,9 +106,9 @@ HRESULT CXuiCtrlEnchantmentBook::OnRender(XUIMessageRender *pRenderData, BOOL &b
 	clearRect.x2 = (int)(matrix._41 + ( bwidth  * matrix._11 )) + 2;
 	clearRect.y2 = (int)(matrix._42 + ( bheight * matrix._22 )) + 2;
 
-	RenderManager.Clear(GL_DEPTH_BUFFER_BIT, &clearRect);
+	RenderManager.Clear(C4J_DEPTH_BUFFER_BIT, &clearRect);
 
-	glClear(GL_DEPTH_BUFFER_BIT);
+	glClear(C4J_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glOrtho(0, m_fRawWidth, m_fRawHeight, 0, 1000, 3000);
@@ -164,7 +164,7 @@ HRESULT CXuiCtrlEnchantmentBook::OnRender(XUIMessageRender *pRenderData, BOOL &b
     if (ff1 > 1) ff1 = 1;
     if (ff2 > 1) ff2 = 1;
 
-	glEnable(GL_CULL_FACE);
+	glEnable(C4JCULL_FACE);
 
 	if(model == NULL)
 	{
@@ -182,7 +182,7 @@ HRESULT CXuiCtrlEnchantmentBook::OnRender(XUIMessageRender *pRenderData, BOOL &b
 	}
 
     model->render(NULL, 0, ff1, ff2, o, 0, 1 / 16.0f,true);
-	glDisable(GL_CULL_FACE);
+	glDisable(C4JCULL_FACE);
 
     glPopMatrix();
 	Lighting::turnOff();

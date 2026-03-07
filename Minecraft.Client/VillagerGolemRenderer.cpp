@@ -60,7 +60,7 @@ void VillagerGolemRenderer::additionalRendering(shared_ptr<LivingEntity> _mob, f
 		int col = mob->getLightColor(a);
 		int u = col % 65536;
 		int v = col / 65536;
-		glMultiTexCoord2f(GL_TEXTURE1, u / 1.0f, v / 1.0f);
+		glMultiTexCoord2f(C4J_TEXTURE1, u / 1.0f, v / 1.0f);
 		glColor4f(1, 1, 1, 1);
 	}
 

@@ -47,19 +47,19 @@ void Texture::_init(const wstring &name, int mode, int width, int height, int de
 	// 4J Removed 1D and 3D
 	//if (height == 1 && depth == 1)
 	//{
-	//	type = GL_TEXTURE_1D;
+	//	type = C4J_TEXTURE_1D;
 	//}
 	//else if(depth == 1)
 	//{
-		type = GL_TEXTURE_2D;
+		type = C4JTEXTURE_2D;
 	//}
 	//else
 	//{
-	//	type = GL_TEXTURE_3D;
+	//	type = C4J_TEXTURE_3D;
 	//}
 
-	mipmapped = mipMap || (minFilter != GL_NEAREST && minFilter != GL_LINEAR) ||
-		(magFilter != GL_NEAREST && magFilter != GL_LINEAR);
+	mipmapped = mipMap || (minFilter != C4J_NEAREST && minFilter != C4J_LINEAR) ||
+		(magFilter != C4J_NEAREST && magFilter != C4J_LINEAR);
 	m_iMipLevels=1;
 	
 	if(mipmapped)
@@ -89,10 +89,10 @@ void Texture::_init(const wstring &name, int mode, int width, int height, int de
 		glId = glGenTextures();
 
 		glBindTexture(type, glId);
-		glTexParameteri(type, GL_TEXTURE_MIN_FILTER, minFilter);
-		glTexParameteri(type, GL_TEXTURE_MAG_FILTER, magFilter);
-		glTexParameteri(type, GL_TEXTURE_WRAP_S, wrapMode);
-		glTexParameteri(type, GL_TEXTURE_WRAP_T, wrapMode);
+		glTexParameteri(type, C4J_TEXTURE_MIN_FILTER, minFilter);
+		glTexParameteri(type, C4J_TEXTURE_MAG_FILTER, magFilter);
+		glTexParameteri(type, C4J_TEXTURE_WRAP_S, wrapMode);
+		glTexParameteri(type, C4J_TEXTURE_WRAP_T, wrapMode);
 	}
 	else
 	{
@@ -212,7 +212,7 @@ const Rect2i *Texture::getRect()
 void Texture::fill(const Rect2i *rect, int color)
 {
 	// 4J Remove 3D
-	//if (type == GL_TEXTURE_3D)
+	//if (type == C4J_TEXTURE_3D)
 	//{
 	//	return;
 	//}
@@ -247,7 +247,7 @@ void Texture::writeAsBMP(const wstring &name)
 {
 	// 4J Don't need
 #if 0
-	if (type == GL_TEXTURE_3D)
+	if (type == C4J_TEXTURE_3D)
 	{
 		return;
 	}
@@ -375,7 +375,7 @@ void Texture::blit(int x, int y, Texture *source)
 void Texture::blit(int x, int y, Texture *source, bool rotated)
 {
 	// 4J Remove 3D
-	//if (type == GL_TEXTURE_3D)
+	//if (type == C4J_TEXTURE_3D)
 	//{
 	//	return;
 	//}
@@ -546,7 +546,7 @@ void Texture::transferFromBuffer(intArray buffer)
 void Texture::transferFromImage(BufferedImage *image)
 {
 	// 4J Remove 3D
-	//if (type == GL_TEXTURE_3D)
+	//if (type == C4J_TEXTURE_3D)
 	//{
 	//	return;
 	//}
@@ -785,14 +785,14 @@ void Texture::bind(int mipMapIndex)
 	// 4J Removed 3D
 	//if (depth == 1)
 	//{
-		glEnable(GL_TEXTURE_2D);
+		glEnable(C4JTEXTURE_2D);
 	//}
 	//else
 	//{
-	//	glEnable(GL_TEXTURE_3D);
+	//	glEnable(C4J_TEXTURE_3D);
 	//}
 
-	glActiveTexture(GL_TEXTURE0 + mipMapIndex);
+	glActiveTexture(C4J_TEXTURE0 + mipMapIndex);
 	glBindTexture(type, glId);
 	if (!updated)
 	{

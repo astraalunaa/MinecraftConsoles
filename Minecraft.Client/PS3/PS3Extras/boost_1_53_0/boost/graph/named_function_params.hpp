@@ -60,56 +60,56 @@ namespace boost {
   struct max_priority_queue_t { };
 
 #define BOOST_BGL_DECLARE_NAMED_PARAMS \
-    BOOST_BGL_ONE_PARAM_CREF(weight_map, edge_weight) \
-    BOOST_BGL_ONE_PARAM_CREF(weight_map2, edge_weight2) \
-    BOOST_BGL_ONE_PARAM_CREF(distance_map, vertex_distance) \
-    BOOST_BGL_ONE_PARAM_CREF(predecessor_map, vertex_predecessor) \
-    BOOST_BGL_ONE_PARAM_CREF(rank_map, vertex_rank) \
-    BOOST_BGL_ONE_PARAM_CREF(root_map, vertex_root) \
-    BOOST_BGL_ONE_PARAM_CREF(root_vertex, root_vertex) \
-    BOOST_BGL_ONE_PARAM_CREF(edge_centrality_map, edge_centrality) \
-    BOOST_BGL_ONE_PARAM_CREF(centrality_map, vertex_centrality) \
-    BOOST_BGL_ONE_PARAM_CREF(parity_map, parity_map) \
-    BOOST_BGL_ONE_PARAM_CREF(color_map, vertex_color) \
-    BOOST_BGL_ONE_PARAM_CREF(edge_color_map, edge_color) \
-    BOOST_BGL_ONE_PARAM_CREF(capacity_map, edge_capacity) \
-    BOOST_BGL_ONE_PARAM_CREF(residual_capacity_map, edge_residual_capacity) \
-    BOOST_BGL_ONE_PARAM_CREF(reverse_edge_map, edge_reverse) \
-    BOOST_BGL_ONE_PARAM_CREF(discover_time_map, vertex_discover_time) \
-    BOOST_BGL_ONE_PARAM_CREF(lowpoint_map, vertex_lowpoint) \
-    BOOST_BGL_ONE_PARAM_CREF(vertex_index_map, vertex_index) \
-    BOOST_BGL_ONE_PARAM_CREF(vertex_index1_map, vertex_index1) \
-    BOOST_BGL_ONE_PARAM_CREF(vertex_index2_map, vertex_index2) \
-    BOOST_BGL_ONE_PARAM_CREF(vertex_assignment_map, vertex_assignment_map) \
-    BOOST_BGL_ONE_PARAM_CREF(visitor, graph_visitor) \
-    BOOST_BGL_ONE_PARAM_CREF(distance_compare, distance_compare) \
-    BOOST_BGL_ONE_PARAM_CREF(distance_combine, distance_combine) \
-    BOOST_BGL_ONE_PARAM_CREF(distance_inf, distance_inf) \
-    BOOST_BGL_ONE_PARAM_CREF(distance_zero, distance_zero) \
-    BOOST_BGL_ONE_PARAM_CREF(edge_copy, edge_copy) \
-    BOOST_BGL_ONE_PARAM_CREF(vertex_copy, vertex_copy) \
-    BOOST_BGL_ONE_PARAM_REF(buffer, buffer_param) \
-    BOOST_BGL_ONE_PARAM_CREF(orig_to_copy, orig_to_copy) \
-    BOOST_BGL_ONE_PARAM_CREF(isomorphism_map, vertex_isomorphism) \
-    BOOST_BGL_ONE_PARAM_CREF(vertex_invariant, vertex_invariant) \
-    BOOST_BGL_ONE_PARAM_CREF(vertex_invariant1, vertex_invariant1) \
-    BOOST_BGL_ONE_PARAM_CREF(vertex_invariant2, vertex_invariant2) \
-    BOOST_BGL_ONE_PARAM_CREF(vertex_max_invariant, vertex_max_invariant) \
-    BOOST_BGL_ONE_PARAM_CREF(polling, polling) \
-    BOOST_BGL_ONE_PARAM_CREF(lookahead, lookahead) \
-    BOOST_BGL_ONE_PARAM_CREF(in_parallel, in_parallel) \
-    BOOST_BGL_ONE_PARAM_CREF(displacement_map, vertex_displacement) \
-    BOOST_BGL_ONE_PARAM_CREF(attractive_force, attractive_force) \
-    BOOST_BGL_ONE_PARAM_CREF(repulsive_force, repulsive_force) \
-    BOOST_BGL_ONE_PARAM_CREF(force_pairs, force_pairs) \
-    BOOST_BGL_ONE_PARAM_CREF(cooling, cooling) \
-    BOOST_BGL_ONE_PARAM_CREF(iterations, iterations) \
-    BOOST_BGL_ONE_PARAM_CREF(diameter_range, diameter_range) \
-    BOOST_BGL_ONE_PARAM_CREF(learning_constant_range, learning_constant_range) \
-    BOOST_BGL_ONE_PARAM_CREF(vertices_equivalent, vertices_equivalent) \
-    BOOST_BGL_ONE_PARAM_CREF(edges_equivalent, edges_equivalent) \
-    BOOST_BGL_ONE_PARAM_CREF(index_in_heap_map, index_in_heap_map) \
-    BOOST_BGL_ONE_PARAM_REF(max_priority_queue, max_priority_queue)
+    BOOST_BC4J_ONE_PARAM_CREF(weight_map, edge_weight) \
+    BOOST_BC4J_ONE_PARAM_CREF(weight_map2, edge_weight2) \
+    BOOST_BC4J_ONE_PARAM_CREF(distance_map, vertex_distance) \
+    BOOST_BC4J_ONE_PARAM_CREF(predecessor_map, vertex_predecessor) \
+    BOOST_BC4J_ONE_PARAM_CREF(rank_map, vertex_rank) \
+    BOOST_BC4J_ONE_PARAM_CREF(root_map, vertex_root) \
+    BOOST_BC4J_ONE_PARAM_CREF(root_vertex, root_vertex) \
+    BOOST_BC4J_ONE_PARAM_CREF(edge_centrality_map, edge_centrality) \
+    BOOST_BC4J_ONE_PARAM_CREF(centrality_map, vertex_centrality) \
+    BOOST_BC4J_ONE_PARAM_CREF(parity_map, parity_map) \
+    BOOST_BC4J_ONE_PARAM_CREF(color_map, vertex_color) \
+    BOOST_BC4J_ONE_PARAM_CREF(edge_color_map, edge_color) \
+    BOOST_BC4J_ONE_PARAM_CREF(capacity_map, edge_capacity) \
+    BOOST_BC4J_ONE_PARAM_CREF(residual_capacity_map, edge_residual_capacity) \
+    BOOST_BC4J_ONE_PARAM_CREF(reverse_edge_map, edge_reverse) \
+    BOOST_BC4J_ONE_PARAM_CREF(discover_time_map, vertex_discover_time) \
+    BOOST_BC4J_ONE_PARAM_CREF(lowpoint_map, vertex_lowpoint) \
+    BOOST_BC4J_ONE_PARAM_CREF(vertex_index_map, vertex_index) \
+    BOOST_BC4J_ONE_PARAM_CREF(vertex_index1_map, vertex_index1) \
+    BOOST_BC4J_ONE_PARAM_CREF(vertex_index2_map, vertex_index2) \
+    BOOST_BC4J_ONE_PARAM_CREF(vertex_assignment_map, vertex_assignment_map) \
+    BOOST_BC4J_ONE_PARAM_CREF(visitor, graph_visitor) \
+    BOOST_BC4J_ONE_PARAM_CREF(distance_compare, distance_compare) \
+    BOOST_BC4J_ONE_PARAM_CREF(distance_combine, distance_combine) \
+    BOOST_BC4J_ONE_PARAM_CREF(distance_inf, distance_inf) \
+    BOOST_BC4J_ONE_PARAM_CREF(distance_zero, distance_zero) \
+    BOOST_BC4J_ONE_PARAM_CREF(edge_copy, edge_copy) \
+    BOOST_BC4J_ONE_PARAM_CREF(vertex_copy, vertex_copy) \
+    BOOST_BC4J_ONE_PARAM_REF(buffer, buffer_param) \
+    BOOST_BC4J_ONE_PARAM_CREF(orig_to_copy, orig_to_copy) \
+    BOOST_BC4J_ONE_PARAM_CREF(isomorphism_map, vertex_isomorphism) \
+    BOOST_BC4J_ONE_PARAM_CREF(vertex_invariant, vertex_invariant) \
+    BOOST_BC4J_ONE_PARAM_CREF(vertex_invariant1, vertex_invariant1) \
+    BOOST_BC4J_ONE_PARAM_CREF(vertex_invariant2, vertex_invariant2) \
+    BOOST_BC4J_ONE_PARAM_CREF(vertex_max_invariant, vertex_max_invariant) \
+    BOOST_BC4J_ONE_PARAM_CREF(polling, polling) \
+    BOOST_BC4J_ONE_PARAM_CREF(lookahead, lookahead) \
+    BOOST_BC4J_ONE_PARAM_CREF(in_parallel, in_parallel) \
+    BOOST_BC4J_ONE_PARAM_CREF(displacement_map, vertex_displacement) \
+    BOOST_BC4J_ONE_PARAM_CREF(attractive_force, attractive_force) \
+    BOOST_BC4J_ONE_PARAM_CREF(repulsive_force, repulsive_force) \
+    BOOST_BC4J_ONE_PARAM_CREF(force_pairs, force_pairs) \
+    BOOST_BC4J_ONE_PARAM_CREF(cooling, cooling) \
+    BOOST_BC4J_ONE_PARAM_CREF(iterations, iterations) \
+    BOOST_BC4J_ONE_PARAM_CREF(diameter_range, diameter_range) \
+    BOOST_BC4J_ONE_PARAM_CREF(learning_constant_range, learning_constant_range) \
+    BOOST_BC4J_ONE_PARAM_CREF(vertices_equivalent, vertices_equivalent) \
+    BOOST_BC4J_ONE_PARAM_CREF(edges_equivalent, edges_equivalent) \
+    BOOST_BC4J_ONE_PARAM_CREF(index_in_heap_map, index_in_heap_map) \
+    BOOST_BC4J_ONE_PARAM_REF(max_priority_queue, max_priority_queue)
 
   template <typename T, typename Tag, typename Base = no_property>
   struct bgl_named_params
@@ -123,7 +123,7 @@ namespace boost {
     T m_value;
     Base m_base;
 
-#define BOOST_BGL_ONE_PARAM_REF(name, key) \
+#define BOOST_BC4J_ONE_PARAM_REF(name, key) \
     template <typename PType> \
     bgl_named_params<boost::reference_wrapper<PType>, BOOST_PP_CAT(key, _t), self> \
     name(PType& p) const { \
@@ -131,7 +131,7 @@ namespace boost {
       return Params(boost::ref(p), *this); \
     } \
 
-#define BOOST_BGL_ONE_PARAM_CREF(name, key) \
+#define BOOST_BC4J_ONE_PARAM_CREF(name, key) \
     template <typename PType> \
     bgl_named_params<PType, BOOST_PP_CAT(key, _t), self> \
     name(const PType& p) const { \
@@ -141,8 +141,8 @@ namespace boost {
 
 BOOST_BGL_DECLARE_NAMED_PARAMS
 
-#undef BOOST_BGL_ONE_PARAM_REF
-#undef BOOST_BGL_ONE_PARAM_CREF
+#undef BOOST_BC4J_ONE_PARAM_REF
+#undef BOOST_BC4J_ONE_PARAM_CREF
 
     // Duplicate
     template <typename PType>
@@ -150,7 +150,7 @@ BOOST_BGL_DECLARE_NAMED_PARAMS
     vertex_color_map(const PType& p) const {return this->color_map(p);}
   };
 
-#define BOOST_BGL_ONE_PARAM_REF(name, key) \
+#define BOOST_BC4J_ONE_PARAM_REF(name, key) \
     template <typename PType> \
     bgl_named_params<boost::reference_wrapper<PType>, BOOST_PP_CAT(key, _t)> \
     name(PType& p) { \
@@ -158,7 +158,7 @@ BOOST_BGL_DECLARE_NAMED_PARAMS
       return Params(boost::ref(p)); \
     } \
 
-#define BOOST_BGL_ONE_PARAM_CREF(name, key) \
+#define BOOST_BC4J_ONE_PARAM_CREF(name, key) \
     template <typename PType> \
     bgl_named_params<PType, BOOST_PP_CAT(key, _t)> \
     name(const PType& p) { \
@@ -168,8 +168,8 @@ BOOST_BGL_DECLARE_NAMED_PARAMS
 
 BOOST_BGL_DECLARE_NAMED_PARAMS
 
-#undef BOOST_BGL_ONE_PARAM_REF
-#undef BOOST_BGL_ONE_PARAM_CREF
+#undef BOOST_BC4J_ONE_PARAM_REF
+#undef BOOST_BC4J_ONE_PARAM_CREF
 
   // Duplicate
   template <typename PType>
@@ -330,25 +330,25 @@ BOOST_BGL_DECLARE_NAMED_PARAMS
   // Declare all new tags
   namespace graph {
     namespace keywords {
-#define BOOST_BGL_ONE_PARAM_REF(name, key) BOOST_PARAMETER_NAME(name)
-#define BOOST_BGL_ONE_PARAM_CREF(name, key) BOOST_PARAMETER_NAME(name)
+#define BOOST_BC4J_ONE_PARAM_REF(name, key) BOOST_PARAMETER_NAME(name)
+#define BOOST_BC4J_ONE_PARAM_CREF(name, key) BOOST_PARAMETER_NAME(name)
       BOOST_BGL_DECLARE_NAMED_PARAMS
-#undef BOOST_BGL_ONE_PARAM_REF
-#undef BOOST_BGL_ONE_PARAM_CREF
+#undef BOOST_BC4J_ONE_PARAM_REF
+#undef BOOST_BC4J_ONE_PARAM_CREF
     }
   }
 
   namespace detail {
     template <typename Tag> struct convert_one_keyword {};
-#define BOOST_BGL_ONE_PARAM_REF(name, key) \
+#define BOOST_BC4J_ONE_PARAM_REF(name, key) \
     template <> \
     struct convert_one_keyword<BOOST_PP_CAT(key, _t)> { \
       typedef boost::graph::keywords::tag::name type; \
     };
-#define BOOST_BGL_ONE_PARAM_CREF(name, key) BOOST_BGL_ONE_PARAM_REF(name, key)
+#define BOOST_BC4J_ONE_PARAM_CREF(name, key) BOOST_BC4J_ONE_PARAM_REF(name, key)
     BOOST_BGL_DECLARE_NAMED_PARAMS
-#undef BOOST_BGL_ONE_PARAM_REF
-#undef BOOST_BGL_ONE_PARAM_CREF
+#undef BOOST_BC4J_ONE_PARAM_REF
+#undef BOOST_BC4J_ONE_PARAM_CREF
 
     template <typename T>
     struct convert_bgl_params_to_boost_parameter {

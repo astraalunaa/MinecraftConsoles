@@ -780,11 +780,11 @@ void GameRenderer::turnOffLightLayer(double alpha)
 #if 0
 	if (SharedConstants::TEXTURE_LIGHTING)
 	{
-		glClientActiveTexture(GL_TEXTURE1);
-		glActiveTexture(GL_TEXTURE1);
-		glDisable(GL_TEXTURE_2D);
-		glClientActiveTexture(GL_TEXTURE0);
-		glActiveTexture(GL_TEXTURE0);
+		glClientActiveTexture(C4J_TEXTURE1);
+		glActiveTexture(C4J_TEXTURE1);
+		glDisable(C4JTEXTURE_2D);
+		glClientActiveTexture(C4J_TEXTURE0);
+		glActiveTexture(C4J_TEXTURE0);
 	}
 #endif
 	RenderManager.TextureBindVertex(-1);
@@ -796,9 +796,9 @@ void GameRenderer::turnOnLightLayer(double alpha)
 #if 0
 	if (SharedConstants::TEXTURE_LIGHTING)
 	{
-		glClientActiveTexture(GL_TEXTURE1);
-		glActiveTexture(GL_TEXTURE1);
-		glMatrixMode(GL_TEXTURE);
+		glClientActiveTexture(C4J_TEXTURE1);
+		glActiveTexture(C4J_TEXTURE1);
+		glMatrixMode(C4J_TEXTURE);
 		glLoadIdentity();
 		// float s = 1 / 16f / 15.0f*16/14.0f;
 		float s = 1 / 16.0f / 15.0f * 15 / 16;
@@ -807,24 +807,24 @@ void GameRenderer::turnOnLightLayer(double alpha)
 		glMatrixMode(GL_MODELVIEW);
 
 		mc->textures->bind(lightTexture);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_MIN_FILTER, C4J_LINEAR);
+		glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_MAG_FILTER, C4J_LINEAR);
 
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+		glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_MIN_FILTER, C4J_LINEAR);
+		glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_MAG_FILTER, C4J_LINEAR);
+		glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_WRAP_S, GL_CLAMP);
+		glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_WRAP_T, GL_CLAMP);
 		glColor4f(1, 1, 1, 1);
-		glEnable(GL_TEXTURE_2D);
-		glClientActiveTexture(GL_TEXTURE0);
-		glActiveTexture(GL_TEXTURE0);
+		glEnable(C4JTEXTURE_2D);
+		glClientActiveTexture(C4J_TEXTURE0);
+		glActiveTexture(C4J_TEXTURE0);
 	}
 #endif
 	RenderManager.TextureBindVertex(getLightTexture(mc->player->GetXboxPad(), mc->level));
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+	glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_MIN_FILTER, C4J_LINEAR);
+	glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_MAG_FILTER, C4J_LINEAR);
+	glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_WRAP_S, GL_CLAMP);
+	glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_WRAP_T, GL_CLAMP);
 }
 
 // 4J - change brought forward from 1.8.2
@@ -1213,7 +1213,7 @@ void GameRenderer::render(float a, bool bFirst)
 
 			if (mc->screen != NULL)
 			{
-				glClear(GL_DEPTH_BUFFER_BIT);
+				glClear(C4J_DEPTH_BUFFER_BIT);
 				mc->screen->render(xMouse, yMouse, a);
 				if (mc->screen != NULL && mc->screen->particles != NULL) mc->screen->particles->render(a);
 			}
@@ -1376,8 +1376,8 @@ void GameRenderer::renderLevel(float a, int64_t until)
 {
 	//	if (updateLightTexture) updateLightTexture();	// 4J - TODO - Java 1.0.1 has this line enabled, should check why - don't want to put it in now in case it breaks split-screen
 
-	glEnable(GL_CULL_FACE);
-	glEnable(GL_DEPTH_TEST);
+	glEnable(C4JCULL_FACE);
+	glEnable(C4JDEPTH_TEST);
 
 	// Is this the primary player? Only do the updating of chunks if it is. This controls the creation of render data for each chunk - all of this we are only
 	// going to do for the primary player, and the other players can just view whatever they have loaded in - we're sharing render data between players.
@@ -1408,8 +1408,8 @@ void GameRenderer::renderLevel(float a, int64_t until)
 
 		glViewport(0, 0, mc->width, mc->height);
 		setupClearColor(a);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glEnable(GL_CULL_FACE);
+		glClear(C4J_COLOR_BUFFER_BIT | C4J_DEPTH_BUFFER_BIT);
+		glEnable(C4JCULL_FACE);
 
 		setupCamera(a, i);
 		Camera::prepare(mc->player, mc->player->ThirdPersonView() == 2);
@@ -1499,7 +1499,7 @@ void GameRenderer::renderLevel(float a, int64_t until)
 			levelRenderer->renderEntities(cameraPos, frustum, a);
 #ifdef __PSVITA__
 			// AP - make sure we're using the Alpha cut out effect for particles
-			glEnable(GL_ALPHA_TEST);
+			glEnable(C4JALPHA_TEST);
 #endif
 			PIXEndNamedEvent();
 			PIXBeginNamedEvent(0,"Particle render");
@@ -1514,19 +1514,19 @@ void GameRenderer::renderLevel(float a, int64_t until)
 			if ( (mc->hitResult != NULL) && cameraEntity->isUnderLiquid(Material::water) && cameraEntity->instanceof(eTYPE_PLAYER) ) //&& !mc->options.hideGui)
 			{
 				shared_ptr<Player> player = dynamic_pointer_cast<Player>(cameraEntity);
-				glDisable(GL_ALPHA_TEST);
+				glDisable(C4JALPHA_TEST);
 				levelRenderer->renderHit(player, mc->hitResult, 0, player->inventory->getSelected(), a);
-				glEnable(GL_ALPHA_TEST);
+				glEnable(C4JALPHA_TEST);
 			}
 		}
 
-		glDisable(GL_BLEND);
-		glEnable(GL_CULL_FACE);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glDisable(C4JBLEND);
+		glEnable(C4JCULL_FACE);
+		glBlendFunc(C4J_SRC_ALPHA, C4J_ONE_MINUS_SRC_ALPHA);
 		glDepthMask(true);
 		setupFog(0, a);
-		glEnable(GL_BLEND);
-		glDisable(GL_CULL_FACE);
+		glEnable(C4JBLEND);
+		glDisable(C4JCULL_FACE);
 		MemSect(31);
 		mc->textures->bindTexture(&TextureAtlas::LOCATION_BLOCKS);		// 4J was L"/terrain.png"
 		MemSect(0);
@@ -1540,11 +1540,11 @@ void GameRenderer::renderLevel(float a, int64_t until)
 				GL11::glShadeModel(GL11::GL_SMOOTH);
 			}
 
-			glBlendFunc(GL_ZERO, GL_ONE);
+			glBlendFunc(C4J_ZERO, C4J_ONE);
 			PIXBeginNamedEvent(0,"Fancy second pass - writing z");
 			int visibleWaterChunks = levelRenderer->render(cameraEntity, 1, a, updateChunks);
 			PIXEndNamedEvent();
-			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+			glBlendFunc(C4J_SRC_ALPHA, C4J_ONE_MINUS_SRC_ALPHA);
 
 			if (visibleWaterChunks > 0)
 			{
@@ -1575,17 +1575,17 @@ void GameRenderer::renderLevel(float a, int64_t until)
 		////////////////////////// End of 4J added section
 
 		glDepthMask(true);
-		glEnable(GL_CULL_FACE);
-		glDisable(GL_BLEND);
+		glEnable(C4JCULL_FACE);
+		glDisable(C4JBLEND);
 
 		if ( (zoom == 1) && cameraEntity->instanceof(eTYPE_PLAYER) ) //&& !mc->options.hideGui)
 		{
 			if (mc->hitResult != NULL && !cameraEntity->isUnderLiquid(Material::water))
 			{
 				shared_ptr<Player> player = dynamic_pointer_cast<Player>(cameraEntity);
-				glDisable(GL_ALPHA_TEST);
+				glDisable(C4JALPHA_TEST);
 				levelRenderer->renderHitOutline(player, mc->hitResult, 0, a);
-				glEnable(GL_ALPHA_TEST);
+				glEnable(C4JALPHA_TEST);
 			}
 		}
 
@@ -1596,10 +1596,10 @@ void GameRenderer::renderLevel(float a, int64_t until)
 		glDisable(GL_FOG);
 		*/
 
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+		glEnable(C4JBLEND);
+		glBlendFunc(C4J_SRC_ALPHA, C4J_ONE);
 		levelRenderer->renderDestroyAnimation(Tesselator::getInstance(), dynamic_pointer_cast<Player>(cameraEntity), a);
-		glDisable(GL_BLEND);
+		glDisable(C4JBLEND);
 
 		if (cameraEntity->y >= Level::genDepth)
 		{
@@ -1617,7 +1617,7 @@ void GameRenderer::renderLevel(float a, int64_t until)
 
 		if (zoom == 1)
 		{
-			glClear(GL_DEPTH_BUFFER_BIT);
+			glClear(C4J_DEPTH_BUFFER_BIT);
 			renderItemInHand(a, i);
 		}
 
@@ -1764,11 +1764,11 @@ void GameRenderer::renderSnowAndRain(float a)
 	int z0 = Mth::floor(player->z);
 
 	Tesselator *t = Tesselator::getInstance();
-	glDisable(GL_CULL_FACE);
+	glDisable(C4JCULL_FACE);
 	glNormal3f(0, 1, 0);
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glAlphaFunc(GL_GREATER, 0.01f);
+	glEnable(C4JBLEND);
+	glBlendFunc(C4J_SRC_ALPHA, C4J_ONE_MINUS_SRC_ALPHA);
+	glAlphaFunc(C4J_GREATER, 0.01f);
 
 	MemSect(31);
 	mc->textures->bindTexture(&SNOW_LOCATION);	// 4J was L"/environment/snow.png"
@@ -1915,9 +1915,9 @@ void GameRenderer::renderSnowAndRain(float a)
 		}
 
 		if( mode >= 0 ) t->end();
-		glEnable(GL_CULL_FACE);
-		glDisable(GL_BLEND);
-		glAlphaFunc(GL_GREATER, 0.1f);
+		glEnable(C4JCULL_FACE);
+		glDisable(C4JBLEND);
+		glAlphaFunc(C4J_GREATER, 0.1f);
 		turnOffLightLayer(a);
 
 		RenderManager.StateSetEnableViewportClipPlanes(false);
@@ -1928,7 +1928,7 @@ void GameRenderer::setupGuiScreen(int forceScale /*=-1*/)
 {
 	ScreenSizeCalculator ssc(mc->options, mc->width, mc->height, forceScale);
 
-	glClear(GL_DEPTH_BUFFER_BIT);
+	glClear(C4J_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glOrtho(0, (float)ssc.rawWidth, (float)ssc.rawHeight, 0, 1000, 3000);
@@ -2120,7 +2120,7 @@ void GameRenderer::setupFog(int i, float alpha)
 		// 4J TODO
 		/*
 		glFog(GL_FOG_COLOR, getBuffer(0, 0, 0, 1));
-		glFogi(GL_FOG_MODE, GL_LINEAR);
+		glFogi(GL_FOG_MODE, C4J_LINEAR);
 		glFogf(GL_FOG_START, 0);
 		glFogf(GL_FOG_END, 8);
 
@@ -2148,7 +2148,7 @@ void GameRenderer::setupFog(int i, float alpha)
 			distance = 5.0f + (renderDistance - 5.0f) * (1.0f - (float) duration / 20.0f);
 		}
 
-		glFogi(GL_FOG_MODE, GL_LINEAR);
+		glFogi(GL_FOG_MODE, C4J_LINEAR);
 		if (i < 0)
 		{
 			glFogf(GL_FOG_START, 0);
@@ -2207,7 +2207,7 @@ void GameRenderer::setupFog(int i, float alpha)
 			}
 		}
 
-		glFogi(GL_FOG_MODE, GL_LINEAR);
+		glFogi(GL_FOG_MODE, C4J_LINEAR);
 		glFogf(GL_FOG_START, distance * 0.25f);
 		glFogf(GL_FOG_END, distance);
 		if (i < 0)

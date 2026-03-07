@@ -10,10 +10,10 @@ void LightningBoltRenderer::render(shared_ptr<Entity> _bolt, double x, double y,
 
     Tesselator *t = Tesselator::getInstance();
 
-    glDisable(GL_TEXTURE_2D);
+    glDisable(C4JTEXTURE_2D);
     glDisable(GL_LIGHTING);
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+    glEnable(C4JBLEND);
+    glBlendFunc(C4J_SRC_ALPHA, C4J_ONE);
 
 
     double xOffs[8];
@@ -57,7 +57,7 @@ void LightningBoltRenderer::render(shared_ptr<Entity> _bolt, double x, double y,
                     zo0 += random->nextInt(31) - 15;
                 }
 
-                t->begin(GL_TRIANGLE_STRIP);
+                t->begin(C4J_TRIANGLE_STRIP);
                 float br = 0.5f;
                 t->color(0.9f * br, 0.9f * br, 1 * br, 0.3f);
 
@@ -90,8 +90,8 @@ void LightningBoltRenderer::render(shared_ptr<Entity> _bolt, double x, double y,
     }
 
 
-    glDisable(GL_BLEND);
+    glDisable(C4JBLEND);
     glEnable(GL_LIGHTING);
-    glEnable(GL_TEXTURE_2D);
+    glEnable(C4JTEXTURE_2D);
 
 }

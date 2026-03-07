@@ -9,7 +9,7 @@ const int GL_UNSIGNED_BYTE = 0;
 const int GL_COLOR_ARRAY = 0;
 const int GL_VERTEX_ARRAY = 0;
 const int GL_NORMAL_ARRAY = 0;
-const int GL_TEXTURE_COORD_ARRAY = 0;
+const int C4J_TEXTURE_COORD_ARRAY = 0;
 
 const int GL_COMPILE = 0;
 
@@ -42,8 +42,8 @@ const int GL_COLOR_MATERIAL = 0;
 
 const int GL_AMBIENT_AND_DIFFUSE = 0;
 
-const int GL_TEXTURE1 = 0;
-const int GL_TEXTURE0 = 1;
+const int C4J_TEXTURE1 = 0;
+const int C4J_TEXTURE0 = 1;
 
 void glFlush();
 void glTexGeni(int,int,int);

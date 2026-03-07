@@ -77,7 +77,7 @@ void SkullTileRenderer::renderSkull(float x, float y, float z, int face, float r
 	}
 
 	glPushMatrix();
-	glDisable(GL_CULL_FACE);
+	glDisable(C4JCULL_FACE);
 
 	if (face != Facing::UP)
 	{
@@ -110,7 +110,7 @@ void SkullTileRenderer::renderSkull(float x, float y, float z, int face, float r
 	glEnable(GL_RESCALE_NORMAL);
 	glScalef(-1, -1, 1);
 
-	glEnable(GL_ALPHA_TEST);
+	glEnable(C4JALPHA_TEST);
 
 	model->render(nullptr, 0, 0, 0, rot, 0, scale,true);
 

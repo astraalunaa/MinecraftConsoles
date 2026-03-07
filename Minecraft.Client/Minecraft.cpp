@@ -382,13 +382,13 @@ void Minecraft::init()
 	// width = Display.getDisplayMode().getWidth();
 	// height = Display.getDisplayMode().getHeight();
 
-	glEnable(GL_TEXTURE_2D);
+	glEnable(C4JTEXTURE_2D);
 	glShadeModel(GL_SMOOTH);
 	glClearDepth(1.0);
-	glEnable(GL_DEPTH_TEST);
-	glDepthFunc(GL_LEQUAL);
-	glEnable(GL_ALPHA_TEST);
-	glAlphaFunc(GL_GREATER, 0.1f);
+	glEnable(C4JDEPTH_TEST);
+	glDepthFunc(C4J_LEQUAL);
+	glEnable(C4JALPHA_TEST);
+	glAlphaFunc(C4J_GREATER, 0.1f);
 	glCullFace(GL_BACK);
 
 	glMatrixMode(GL_PROJECTION);
@@ -436,7 +436,7 @@ void Minecraft::renderLoadingScreen()
 
 	// xxx
 	RenderManager.StartFrame();
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClear(C4J_COLOR_BUFFER_BIT | C4J_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glOrtho(0, (float)ssc.rawWidth, (float)ssc.rawHeight, 0, 1000, 3000);
@@ -449,10 +449,10 @@ void Minecraft::renderLoadingScreen()
 	Tesselator *t = Tesselator::getInstance();
 
 	glDisable(GL_LIGHTING);
-	glEnable(GL_TEXTURE_2D);
+	glEnable(C4JTEXTURE_2D);
 	glDisable(GL_FOG);
 	// xxx
-	glBindTexture(GL_TEXTURE_2D, textures->loadTexture(TN_MOB_PIG));
+	glBindTexture(C4JTEXTURE_2D, textures->loadTexture(TN_MOB_PIG));
 	t->begin();
 	t->color(0xffffff);
 	t->vertexUV((float)(0), (float)( height), (float)( 0), (float)( 0), (float)( 0));
@@ -469,8 +469,8 @@ void Minecraft::renderLoadingScreen()
 	glDisable(GL_LIGHTING);
 	glDisable(GL_FOG);
 
-	glEnable(GL_ALPHA_TEST);
-	glAlphaFunc(GL_GREATER, 0.1f);
+	glEnable(C4JALPHA_TEST);
+	glAlphaFunc(C4J_GREATER, 0.1f);
 
 	Display::swapBuffers();
 	// xxx
@@ -681,7 +681,7 @@ void Minecraft::run()
 
 		soundEngine->update(player, timer->a);
 
-		glEnable(GL_TEXTURE_2D);
+		glEnable(C4JTEXTURE_2D);
 		if (level != NULL) level->updateLights();
 
 		//        if (!Keyboard::isKeyDown(Keyboard.KEY_F7)) Display.update();		// 4J - removed
@@ -1923,7 +1923,7 @@ void Minecraft::run_middle()
 
 			PIXBeginNamedEvent(0,"Light update");
 
-			glEnable(GL_TEXTURE_2D);
+			glEnable(C4JTEXTURE_2D);
 
 			PIXEndNamedEvent();
 
@@ -1972,7 +1972,7 @@ void Minecraft::run_middle()
 					// render a logo
 					RenderManager.StateSetViewport((C4JRender::eViewportType)(C4JRender::VIEWPORT_TYPE_QUADRANT_TOP_LEFT + unoccupiedQuadrant));
 					glClearColor(0, 0, 0, 0);
-					glClear(GL_COLOR_BUFFER_BIT);
+					glClear(C4J_COLOR_BUFFER_BIT);
 
 					ui.SetEmptyQuadrantLogo(C4JRender::VIEWPORT_TYPE_QUADRANT_TOP_LEFT + unoccupiedQuadrant);
 				}
@@ -2125,7 +2125,7 @@ void Minecraft::renderFpsMeter(int64_t tickTime)
 	Minecraft::frameTimes[(Minecraft::frameTimePos++) & (Minecraft::frameTimes_length - 1)] = now - lastTimer;
 	lastTimer = now;
 
-	glClear(GL_DEPTH_BUFFER_BIT);
+	glClear(C4J_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_PROJECTION);
 	glEnable(GL_COLOR_MATERIAL);
 	glLoadIdentity();
@@ -2135,7 +2135,7 @@ void Minecraft::renderFpsMeter(int64_t tickTime)
 	glTranslatef(0, 0, -2000);
 
 	glLineWidth(1);
-	glDisable(GL_TEXTURE_2D);
+	glDisable(C4JTEXTURE_2D);
 	Tesselator *t = Tesselator::getInstance();
 	t->begin(GL_QUADS);
 	int hh1 = (int) (nsPer60Fps / 200000);
@@ -2165,7 +2165,7 @@ void Minecraft::renderFpsMeter(int64_t tickTime)
 	t->vertex((float)(Minecraft::frameTimes_length), (float)( height), (float)( 0));
 	t->vertex((float)(Minecraft::frameTimes_length), (float)( height - hh), (float)( 0));
 	t->end();
-	t->begin(GL_LINES);
+	t->begin(C4J_LINES);
 	for (int i = 0; i < Minecraft::frameTimes_length; i++)
 	{
 		int col = ((i - Minecraft::frameTimePos) & (Minecraft::frameTimes_length - 1)) * 255 / Minecraft::frameTimes_length;
@@ -2198,7 +2198,7 @@ void Minecraft::renderFpsMeter(int64_t tickTime)
 	}
 	t->end();
 
-	glEnable(GL_TEXTURE_2D);
+	glEnable(C4JTEXTURE_2D);
 }
 
 void Minecraft::stop()
@@ -2307,7 +2307,7 @@ void Minecraft::tick(bool bFirst, bool bUpdateTextures)
 
 	if (!pause && level != NULL) gameMode->tick();
 	MemSect(31);
-	glBindTexture(GL_TEXTURE_2D, textures->loadTexture(TN_TERRAIN)); //L"/terrain.png"));
+	glBindTexture(C4JTEXTURE_2D, textures->loadTexture(TN_TERRAIN)); //L"/terrain.png"));
 	MemSect(0);
 	if( bFirst )
 	{
@@ -4820,7 +4820,7 @@ int Minecraft::maxSupportedTextureSize()
 
 	//for (int texSize = 16384; texSize > 0; texSize >>= 1) {
 	//	GL11.glTexImage2D(GL11.GL_PROXY_TEXTURE_2D, 0, GL11.GL_RGBA, texSize, texSize, 0, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, (ByteBuffer) null);
-	//	final int width = GL11.glGetTexLevelParameteri(GL11.GL_PROXY_TEXTURE_2D, 0, GL11.GL_TEXTURE_WIDTH);
+	//	final int width = GL11.glGetTexLevelParameteri(GL11.GL_PROXY_TEXTURE_2D, 0, GL11.C4J_TEXTURE_WIDTH);
 	//	if (width != 0) {
 	//		return texSize;
 	//	}

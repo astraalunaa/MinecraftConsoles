@@ -56,14 +56,14 @@ void EnderDragonRenderer::renderModel(shared_ptr<LivingEntity> _mob, float wp, f
 	if (mob->dragonDeathTime > 0)
 	{
 		float tt = (mob->dragonDeathTime / 200.0f);
-		glDepthFunc(GL_LEQUAL);
-		glEnable(GL_ALPHA_TEST);
-		glAlphaFunc(GL_GREATER, tt);
+		glDepthFunc(C4J_LEQUAL);
+		glEnable(C4JALPHA_TEST);
+		glAlphaFunc(C4J_GREATER, tt);
 		bindTexture(&DRAGON_EXPLODING_LOCATION); // 4J was "/mob/enderdragon/shuffle.png"
 		model->render(mob, wp, ws, bob, headRotMinusBodyRot, headRotx, scale, true);
-		glAlphaFunc(GL_GREATER, 0.1f);
+		glAlphaFunc(C4J_GREATER, 0.1f);
 
-		glDepthFunc(GL_EQUAL);
+		glDepthFunc(C4J_EQUAL);
 	}
 
 
@@ -72,15 +72,15 @@ void EnderDragonRenderer::renderModel(shared_ptr<LivingEntity> _mob, float wp, f
 
 	if (mob->hurtTime > 0)
 	{
-		glDepthFunc(GL_EQUAL);
-		glDisable(GL_TEXTURE_2D);
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glDepthFunc(C4J_EQUAL);
+		glDisable(C4JTEXTURE_2D);
+		glEnable(C4JBLEND);
+		glBlendFunc(C4J_SRC_ALPHA, C4J_ONE_MINUS_SRC_ALPHA);
 		glColor4f(1, 0, 0, 0.5f);
 		model->render(mob, wp, ws, bob, headRotMinusBodyRot, headRotx, scale, true);
-		glEnable(GL_TEXTURE_2D);
-		glDisable(GL_BLEND);
-		glDepthFunc(GL_LEQUAL);
+		glEnable(C4JTEXTURE_2D);
+		glDisable(C4JBLEND);
+		glDepthFunc(C4J_LEQUAL);
 	}
 }
 
@@ -122,10 +122,10 @@ void EnderDragonRenderer::render(shared_ptr<Entity> _mob, double x, double y, do
 
 		Tesselator *t = Tesselator::getInstance();
 		Lighting::turnOff();
-		glDisable(GL_CULL_FACE);
+		glDisable(C4JCULL_FACE);
 
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_DST_ALPHA);
+		glEnable(C4JBLEND);
+		glBlendFunc(C4J_SRC_ALPHA, C4J_DST_ALPHA);
 
 		bindTexture(&CRYSTAL_BEAM_LOCATION); // 4J was "/mob/enderdragon/beam.png"
 
@@ -134,7 +134,7 @@ void EnderDragonRenderer::render(shared_ptr<Entity> _mob, double x, double y, do
 		float v0 = 0 - (mob->tickCount + a) * 0.005f;		// 4J - rate of movement changed from 0.01 to 0.005 for photosensitivity reasons
 		float v1 = sqrt(xd * xd + yd * yd + zd * zd) / 32.0f - (mob->tickCount + a) * 0.005f;
 
-		t->begin(GL_TRIANGLE_STRIP);
+		t->begin(C4J_TRIANGLE_STRIP);
 
 		int steps = 8;
 		for (int i = 0; i <= steps; i++)
@@ -150,9 +150,9 @@ void EnderDragonRenderer::render(shared_ptr<Entity> _mob, double x, double y, do
 		}
 
 		t->end();
-		glEnable(GL_CULL_FACE);
+		glEnable(C4JCULL_FACE);
 		glShadeModel(GL_FLAT);
-		glDisable(GL_BLEND);
+		glDisable(C4JBLEND);
 
 		glPopMatrix();
 		Lighting::turnOn();
@@ -182,12 +182,12 @@ void EnderDragonRenderer::additionalRendering(shared_ptr<LivingEntity> _mob, flo
 		}
 
 		Random random(432);
-		glDisable(GL_TEXTURE_2D);
+		glDisable(C4JTEXTURE_2D);
 		glShadeModel(GL_SMOOTH);
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE);
-		glDisable(GL_ALPHA_TEST);
-		glEnable(GL_CULL_FACE);
+		glEnable(C4JBLEND);
+		glBlendFunc(C4J_SRC_ALPHA, C4J_ONE);
+		glDisable(C4JALPHA_TEST);
+		glEnable(C4JCULL_FACE);
 		glDepthMask(false);
 		glPushMatrix();
 		glTranslatef(0, -1, -2);
@@ -199,7 +199,7 @@ void EnderDragonRenderer::additionalRendering(shared_ptr<LivingEntity> _mob, flo
 			glRotatef(random.nextFloat() * 360, 1, 0, 0);
 			glRotatef(random.nextFloat() * 360, 0, 1, 0);
 			glRotatef(random.nextFloat() * 360 + tt * 90, 0, 0, 1);
-			t->begin(GL_TRIANGLE_FAN);
+			t->begin(C4J_TRIANGLE_FAN);
 			float dist = random.nextFloat() * 20 + 5 + overDrive * 10;
 			float w = random.nextFloat() * 2 + 1 + overDrive * 2;
 			t->color(0xffffff, (int) (255 * (1 - overDrive)));
@@ -213,12 +213,12 @@ void EnderDragonRenderer::additionalRendering(shared_ptr<LivingEntity> _mob, flo
 		}
 		glPopMatrix();
 		glDepthMask(true);
-		glDisable(GL_CULL_FACE);
-		glDisable(GL_BLEND);
+		glDisable(C4JCULL_FACE);
+		glDisable(C4JBLEND);
 		glShadeModel(GL_FLAT);
 		glColor4f(1, 1, 1, 1);
-		glEnable(GL_TEXTURE_2D);
-		glEnable(GL_ALPHA_TEST);
+		glEnable(C4JTEXTURE_2D);
+		glEnable(C4JALPHA_TEST);
 		Lighting::turnOn();
 	}
 
@@ -231,22 +231,22 @@ int EnderDragonRenderer::prepareArmor(shared_ptr<LivingEntity> _mob, int layer, 
 
 	if (layer == 1)
 	{
-		glDepthFunc(GL_LEQUAL);
+		glDepthFunc(C4J_LEQUAL);
 	}
 	if (layer != 0) return -1;
 
 	bindTexture(&DRAGON_EYES_LOCATION); // 4J was "/mob/enderdragon/ender_eyes.png"
 	float br = 1;
-	glEnable(GL_BLEND);
+	glEnable(C4JBLEND);
 	// 4J Stu - We probably don't need to do this on 360 either (as we force it back on the renderer)
 	// However we do want it off for other platforms that don't force it on in the render lib CBuff handling
 	// Several texture packs have fully transparent bits that break if this is off
 #ifdef _XBOX
-    glDisable(GL_ALPHA_TEST);
+    glDisable(C4JALPHA_TEST);
 #endif
-	glBlendFunc(GL_ONE, GL_ONE);
+	glBlendFunc(C4J_ONE, C4J_ONE);
 	glDisable(GL_LIGHTING);
-	glDepthFunc(GL_EQUAL);
+	glDepthFunc(C4J_EQUAL);
 
 	if (SharedConstants::TEXTURE_LIGHTING)
 	{
@@ -254,7 +254,7 @@ int EnderDragonRenderer::prepareArmor(shared_ptr<LivingEntity> _mob, int layer, 
 		int u = col % 65536;
 		int v = col / 65536;
 
-		glMultiTexCoord2f(GL_TEXTURE1, u / 1.0f, v / 1.0f);
+		glMultiTexCoord2f(C4J_TEXTURE1, u / 1.0f, v / 1.0f);
 		glColor4f(1, 1, 1, 1);
 	}
 

@@ -11,19 +11,19 @@ class ByteBuffer_IO;
 class Texture
 {
 public:
-	static const int WM_WRAP = GL_REPEAT;
+	static const int WM_WRAP = C4J_REPEAT;
 	static const int WM_CLAMP = GL_CLAMP;
 	static const int WM_MIRROR = 0; //GL_MIRRORED_REPEAT;
 
 	static const int TFMT_RGBA = GL_RGBA;
 	static const int TFMT_BGRA = GL_BGRA;
 
-	static const int TFLT_NEAREST = GL_NEAREST;
-	static const int TFLT_LINEAR = GL_LINEAR;
-	static const int TFLT_LINEAR_MIP_NEAREST = 0; //GL_LINEAR_MIPMAP_NEAREST;
-	static const int TFLT_LINEAR_MIP_LINEAR = 0; //GL_LINEAR_MIPMAP_LINEAR;
-	static const int TFLT_NEAREST_MIP_NEAREST = 0; //GL_NEAREST_MIPMAP_NEAREST;
-	static const int TFLT_NEAREST_MIP_LINEAR = GL_NEAREST_MIPMAP_LINEAR;
+	static const int TFLT_NEAREST = C4J_NEAREST;
+	static const int TFLT_LINEAR = C4J_LINEAR;
+	static const int TFLT_LINEAR_MIP_NEAREST = 0; //C4J_LINEAR_MIPMAP_NEAREST;
+	static const int TFLT_LINEAR_MIP_LINEAR = 0; //C4J_LINEAR_MIPMAP_LINEAR;
+	static const int TFLT_NEAREST_MIP_NEAREST = 0; //C4J_NEAREST_MIPMAP_NEAREST;
+	static const int TFLT_NEAREST_MIP_LINEAR = C4J_NEAREST_MIPMAP_LINEAR;
 
 	static const int TM_STATIC = 0;
 	static const int TM_DYNAMIC = 1;

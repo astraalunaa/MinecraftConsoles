@@ -186,7 +186,7 @@ void DragonModel::render(shared_ptr<Entity> entity, float time, float r, float b
 	body->zRot = 0;
 	body->render(scale,usecompiled);
 	
-	glEnable(GL_CULL_FACE);
+	glEnable(C4JCULL_FACE);
 	for (int i = 0; i < 2; i++) 
 	{
 		float flapTime = ttt * PI * 2;
@@ -213,7 +213,7 @@ void DragonModel::render(shared_ptr<Entity> entity, float time, float r, float b
 	}
 	glPopMatrix();
 	glCullFace(GL_BACK);
-	glDisable(GL_CULL_FACE);
+	glDisable(C4JCULL_FACE);
 
 	rr = -(float) Mth::sin(ttt * PI * 2) * 0.0f;
 	roff = ttt * PI * 2;

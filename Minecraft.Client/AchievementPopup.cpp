@@ -56,7 +56,7 @@ void AchievementPopup::prepareWindow()
     width = ssc.getWidth();
     height = ssc.getHeight();
 
-    glClear(GL_DEPTH_BUFFER_BIT);
+    glClear(C4J_DEPTH_BUFFER_BIT);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     glOrtho(0, (float)width, (float)height, 0, 1000, 3000);
@@ -72,7 +72,7 @@ void AchievementPopup::render()
 #if 0
     if (Minecraft::warezTime > 0)
 	{
-        glDisable(GL_DEPTH_TEST);
+        glDisable(C4JDEPTH_TEST);
         glDepthMask(false);
         Lighting::turnOff();
         prepareWindow();
@@ -86,7 +86,7 @@ void AchievementPopup::render()
         mc->font->drawShadow(msg2, 2, 2 + 9 * 2, 0xffffff);
 
         glDepthMask(true);
-        glEnable(GL_DEPTH_TEST);
+        glEnable(C4JDEPTH_TEST);
     }
     if (ach == NULL || startTime == 0) return;
 
@@ -102,7 +102,7 @@ void AchievementPopup::render()
 
 
     prepareWindow();
-    glDisable(GL_DEPTH_TEST);
+    glDisable(C4JDEPTH_TEST);
     glDepthMask(false);
 
     double yo = time * 2;
@@ -117,8 +117,8 @@ void AchievementPopup::render()
     int yy = 0 - (int) (yo * 36);
     int tex = mc->textures->loadTexture(L"/achievement/bg.png");
     glColor4f(1, 1, 1, 1);
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, tex);
+    glEnable(C4JTEXTURE_2D);
+    glBindTexture(C4JTEXTURE_2D, tex);
     glDisable(GL_LIGHTING);
 
     blit(xx, yy, 96, 202, 160, 32);
@@ -146,6 +146,6 @@ void AchievementPopup::render()
     glDisable(GL_LIGHTING);
 
     glDepthMask(true);
-    glEnable(GL_DEPTH_TEST);
+    glEnable(C4JDEPTH_TEST);
 #endif
 }

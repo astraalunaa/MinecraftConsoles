@@ -613,12 +613,12 @@ void UIScene_SkinSelectMenu::customDraw(IggyCustomDrawCallbackRegion *region)
 		//app.DebugPrintf("Scissor x0= %d, y0= %d, x1= %d, y1= %d\n", region->scissor_x0, region->scissor_y0, region->scissor_x1, region->scissor_y1);
 		//app.DebugPrintf("Stencil mask= %d, stencil ref= %d, stencil write= %d\n", region->stencil_func_mask, region->stencil_func_ref, region->stencil_write_mask);
 #ifdef __PS3__
-		if(region->stencil_func_ref != 0) RenderManager.StateSetStencil(GL_EQUAL,region->stencil_func_ref,region->stencil_func_mask);
+		if(region->stencil_func_ref != 0) RenderManager.StateSetStencil(C4J_EQUAL,region->stencil_func_ref,region->stencil_func_mask);
 #elif __PSVITA__
 		// AP - make sure the skins are only drawn inside the smokey panel
 		if(region->stencil_func_ref != 0) RenderManager.StateSetStencil(SCE_GXM_STENCIL_FUNC_EQUAL,region->stencil_func_mask,region->stencil_write_mask);
 #else
-		if(region->stencil_func_ref != 0) RenderManager.StateSetStencil(GL_EQUAL,region->stencil_func_ref, region->stencil_func_mask,region->stencil_write_mask);
+		if(region->stencil_func_ref != 0) RenderManager.StateSetStencil(C4J_EQUAL,region->stencil_func_ref, region->stencil_func_mask,region->stencil_write_mask);
 #endif
 		m_characters[characterId].render(region);
 

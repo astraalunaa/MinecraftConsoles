@@ -163,7 +163,7 @@ ItemInHandRenderer::ItemInHandRenderer(Minecraft *minecraft, bool optimisedMinim
 		float dd = 1 / 16.0f;
 
 		glNewList(listGlint, GL_COMPILE);
-		glDepthFunc(GL_EQUAL);
+		glDepthFunc(C4J_EQUAL);
 		Tesselator *t = Tesselator::getInstance();
 		t->begin();
 		for( int yp = 0; yp < 16; yp++ )
@@ -216,7 +216,7 @@ ItemInHandRenderer::ItemInHandRenderer(Minecraft *minecraft, bool optimisedMinim
 				t->vertexUV(x1, y1, z0, u1, v1);
 			}					
 		t->end();
-		glDepthFunc(GL_LEQUAL);
+		glDepthFunc(C4J_LEQUAL);
 		glEndList();
 	}
 
@@ -301,14 +301,14 @@ void ItemInHandRenderer::renderItem(shared_ptr<LivingEntity> mob, shared_ptr<Ite
 
         if (item != NULL && item->isFoil() && layer == 0)
 		{
-            glDepthFunc(GL_EQUAL);
+            glDepthFunc(C4J_EQUAL);
             glDisable(GL_LIGHTING);
             minecraft->textures->bindTexture(&ENCHANT_GLINT_LOCATION);
-            glEnable(GL_BLEND);
-            glBlendFunc(GL_SRC_COLOR, GL_ONE);
+            glEnable(C4JBLEND);
+            glBlendFunc(C4J_SRC_COLOR, C4J_ONE);
             float br = 0.76f;
 			glColor4f(0.5f * br, 0.25f * br, 0.8f * br, 1);		// MGH - for some reason this colour isn't making it through to the render, so I've added to the tesselator for the glint geom above
-             glMatrixMode(GL_TEXTURE);
+             glMatrixMode(C4J_TEXTURE);
              glPushMatrix();
              float ss = 1 / 8.0f;
              glScalef(ss, ss, ss);
@@ -326,9 +326,9 @@ void ItemInHandRenderer::renderItem(shared_ptr<LivingEntity> mob, shared_ptr<Ite
             renderItem3D(t, 0, 0, 1, 1, 256, 256, 1 / 16.0f, true, bIsTerrain);
             glPopMatrix();
             glMatrixMode(GL_MODELVIEW);
-            glDisable(GL_BLEND);
+            glDisable(C4JBLEND);
             glEnable(GL_LIGHTING);
-            glDepthFunc(GL_LEQUAL);
+            glDepthFunc(C4J_LEQUAL);
         }
 
 		RenderManager.StateSetForceLOD(-1);
@@ -357,7 +357,7 @@ void ItemInHandRenderer::renderItem3D(Tesselator *t, float u0, float v0, float u
 		// has a lot more quads in it than the original, so is now precompiled with a UV matrix offset to put it in the final place for the
 		// current icon
 
-		glMatrixMode(GL_TEXTURE);
+		glMatrixMode(C4J_TEXTURE);
 		glLoadIdentity();
 		glTranslatef(u0, v0, 0);
 		glCallList(isTerrain? listTerrain : listItem);
@@ -422,7 +422,7 @@ void ItemInHandRenderer::render(float a)
         int col = minecraft->level->getLightColor(Mth::floor(player->x), Mth::floor(player->y), Mth::floor(player->z), 0);
         int u = col % 65536;
         int v = col / 65536;
-        glMultiTexCoord2f(GL_TEXTURE1, u / 1.0f, v / 1.0f);
+        glMultiTexCoord2f(C4J_TEXTURE1, u / 1.0f, v / 1.0f);
         glColor4f(1, 1, 1, 1);
     }
     if (item != NULL)
@@ -472,8 +472,8 @@ void ItemInHandRenderer::render(float a)
 
         {
 			// 4J-PB - if we've got a player texture, use that
-			//glBindTexture(GL_TEXTURE_2D, minecraft->textures->loadHttpTexture(minecraft->player->customTextureUrl, minecraft->player->getTexture()));
-			glBindTexture(GL_TEXTURE_2D, minecraft->textures->loadMemTexture(minecraft->player->customTextureUrl, minecraft->player->getTexture()));
+			//glBindTexture(C4JTEXTURE_2D, minecraft->textures->loadHttpTexture(minecraft->player->customTextureUrl, minecraft->player->getTexture()));
+			glBindTexture(C4JTEXTURE_2D, minecraft->textures->loadMemTexture(minecraft->player->customTextureUrl, minecraft->player->getTexture()));
 			minecraft->textures->clearLastBoundId();
             for (int i = 0; i < 2; i++)
 			{
@@ -692,10 +692,10 @@ void ItemInHandRenderer::render(float a)
 
 		// 4J-PB - if we've got a player texture, use that
 
-		//glBindTexture(GL_TEXTURE_2D, minecraft->textures->loadHttpTexture(minecraft->player->customTextureUrl, minecraft->player->getTexture()));
+		//glBindTexture(C4JTEXTURE_2D, minecraft->textures->loadHttpTexture(minecraft->player->customTextureUrl, minecraft->player->getTexture()));
 
 		MemSect(31);
-		glBindTexture(GL_TEXTURE_2D, minecraft->textures->loadMemTexture(minecraft->player->customTextureUrl, minecraft->player->getTexture()));
+		glBindTexture(C4JTEXTURE_2D, minecraft->textures->loadMemTexture(minecraft->player->customTextureUrl, minecraft->player->getTexture()));
 		MemSect(0);
 		minecraft->textures->clearLastBoundId();
         glTranslatef(-1.0f, +3.6f, +3.5f);
@@ -728,7 +728,7 @@ void ItemInHandRenderer::render(float a)
 
 void ItemInHandRenderer::renderScreenEffect(float a)
 {
-    glDisable(GL_ALPHA_TEST);
+    glDisable(C4JALPHA_TEST);
     if (minecraft->player->isOnFire())
 	{
         renderFire(a);
@@ -772,7 +772,7 @@ void ItemInHandRenderer::renderScreenEffect(float a)
 		MemSect(0);
         renderWater(a);
     }
-    glEnable(GL_ALPHA_TEST);
+    glEnable(C4JALPHA_TEST);
 
 }
 
@@ -820,8 +820,8 @@ void ItemInHandRenderer::renderWater(float a)
 
     float br = minecraft->player->getBrightness(a);
     glColor4f(br, br, br, 0.5f);
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glEnable(C4JBLEND);
+    glBlendFunc(C4J_SRC_ALPHA, C4J_ONE_MINUS_SRC_ALPHA);
 
     glPushMatrix();
 
@@ -845,7 +845,7 @@ void ItemInHandRenderer::renderWater(float a)
     glPopMatrix();
 
     glColor4f(1, 1, 1, 1);
-    glDisable(GL_BLEND);
+    glDisable(C4JBLEND);
 
 }
 
@@ -860,8 +860,8 @@ void ItemInHandRenderer::renderFire(float a)
 	float bCol = ( col&0xFF )/255.0;
 
     glColor4f(rCol, gCol, bCol, aCol);
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glEnable(C4JBLEND);
+    glBlendFunc(C4J_SRC_ALPHA, C4J_ONE_MINUS_SRC_ALPHA);
 
     float size = 1;
     for (int i = 0; i < 2; i++)
@@ -892,7 +892,7 @@ void ItemInHandRenderer::renderFire(float a)
         glPopMatrix();
     }
     glColor4f(1, 1, 1, 1);
-    glDisable(GL_BLEND);
+    glDisable(C4JBLEND);
 
 }
 

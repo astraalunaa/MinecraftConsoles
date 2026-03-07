@@ -62,13 +62,13 @@ void AbstractContainerScreen::render(int xm, int ym, float a)
             hoveredSlot = slot;
 
             glDisable(GL_LIGHTING);
-            glDisable(GL_DEPTH_TEST);
+            glDisable(C4JDEPTH_TEST);
 
             int x = slot->x;
             int y = slot->y;
             fillGradient(x, y, x + 16, y + 16, 0x80ffffff, 0x80ffffff);
             glEnable(GL_LIGHTING);
-            glEnable(GL_DEPTH_TEST);
+            glEnable(C4JDEPTH_TEST);
         }
     }
 
@@ -86,7 +86,7 @@ void AbstractContainerScreen::render(int xm, int ym, float a)
     Lighting::turnOff();
 
     glDisable(GL_LIGHTING);
-    glDisable(GL_DEPTH_TEST);
+    glDisable(C4JDEPTH_TEST);
 
     renderLabels();
 
@@ -111,7 +111,7 @@ void AbstractContainerScreen::render(int xm, int ym, float a)
 
     Screen::render(xm, ym, a);
     glEnable(GL_LIGHTING);
-    glEnable(GL_DEPTH_TEST);
+    glEnable(C4JDEPTH_TEST);
 #endif
 }
 

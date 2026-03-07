@@ -206,7 +206,7 @@ HRESULT CXuiCtrlMinecraftSkinPreview::OnRender(XUIMessageRender *pRenderData, BO
 	//GetOpacity( &alpha );
 
 	glColor4f(1, 1, 1, alpha);
-	glClear(GL_DEPTH_BUFFER_BIT);
+	glClear(C4J_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glOrtho(0, m_fRawWidth, m_fRawHeight, 0, 1000, 3000);
@@ -292,7 +292,7 @@ HRESULT CXuiCtrlMinecraftSkinPreview::OnRender(XUIMessageRender *pRenderData, BO
 void CXuiCtrlMinecraftSkinPreview::render(EntityRenderer *renderer, double x, double y, double z, float rot, float a)
 {
     glPushMatrix();
-    glDisable(GL_CULL_FACE);
+    glDisable(C4JCULL_FACE);
 
 	HumanoidModel *model = (HumanoidModel *)renderer->getModel();
 
@@ -386,7 +386,7 @@ void CXuiCtrlMinecraftSkinPreview::render(EntityRenderer *renderer, double x, do
 	MemSect(31);
     bindTexture(m_customTextureUrl, m_backupTexture);
 	MemSect(0);
-    glEnable(GL_ALPHA_TEST);
+    glEnable(C4JALPHA_TEST);
 
     //model->prepareMobModel(mob, wp, ws, a);
     model->render(nullptr, wp, ws, bob, headRot - bodyRot, headRotx, _scale, true);
@@ -395,8 +395,8 @@ void CXuiCtrlMinecraftSkinPreview::render(EntityRenderer *renderer, double x, do
         if (prepareArmor(mob, i, a))
 		{
             armor->render(wp, ws, bob, headRot - bodyRot, headRotx, _scale, true);
-            glDisable(GL_BLEND);
-            glEnable(GL_ALPHA_TEST);
+            glDisable(C4JBLEND);
+            glEnable(C4JALPHA_TEST);
         }
     }*/
 
@@ -443,11 +443,11 @@ void CXuiCtrlMinecraftSkinPreview::render(EntityRenderer *renderer, double x, do
 
     if (((overlayColor >> 24) & 0xff) > 0 || mob->hurtTime > 0 || mob->deathTime > 0)
 	{
-        glDisable(GL_TEXTURE_2D);
-        glDisable(GL_ALPHA_TEST);
-        glEnable(GL_BLEND);
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-        glDepthFunc(GL_EQUAL);
+        glDisable(C4JTEXTURE_2D);
+        glDisable(C4JALPHA_TEST);
+        glEnable(C4JBLEND);
+        glBlendFunc(C4J_SRC_ALPHA, C4J_ONE_MINUS_SRC_ALPHA);
+        glDepthFunc(C4J_EQUAL);
 
 		// 4J - changed these renders to not use the compiled version of their models, because otherwise the render states set
 		// about (in particular the depth & alpha test) don't work with our command buffer versions
@@ -483,15 +483,15 @@ void CXuiCtrlMinecraftSkinPreview::render(EntityRenderer *renderer, double x, do
             }
         }
 
-        glDepthFunc(GL_LEQUAL);
-        glDisable(GL_BLEND);
-        glEnable(GL_ALPHA_TEST);
-        glEnable(GL_TEXTURE_2D);
+        glDepthFunc(C4J_LEQUAL);
+        glDisable(C4JBLEND);
+        glEnable(C4JALPHA_TEST);
+        glEnable(C4JTEXTURE_2D);
     }
 	*/
     glDisable(GL_RESCALE_NORMAL);
 
-    glEnable(GL_CULL_FACE);
+    glEnable(C4JCULL_FACE);
 
     glPopMatrix();
 

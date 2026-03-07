@@ -65,7 +65,7 @@ void EndermanRenderer::additionalRendering(shared_ptr<LivingEntity> _mob, float 
 			int u = col % 65536;
 			int v = col / 65536;
 
-			glMultiTexCoord2f(GL_TEXTURE1, u / 1.0f, v / 1.0f);
+			glMultiTexCoord2f(C4J_TEXTURE1, u / 1.0f, v / 1.0f);
 			glColor4f(1, 1, 1, 1);
 		}
 
@@ -87,14 +87,14 @@ int EndermanRenderer::prepareArmor(shared_ptr<LivingEntity> _mob, int layer, flo
 
 	bindTexture(&ENDERMAN_EYES_LOCATION);	// 4J was L"/mob/enderman_eyes.png"
 	float br = 1;
-	glEnable(GL_BLEND);
+	glEnable(C4JBLEND);
 	// 4J Stu - We probably don't need to do this on 360 either (as we force it back on the renderer)
 	// However we do want it off for other platforms that don't force it on in the render lib CBuff handling
 	// Several texture packs have fully transparent bits that break if this is off
 #ifdef _XBOX
-    glDisable(GL_ALPHA_TEST);
+    glDisable(C4JALPHA_TEST);
 #endif
-	glBlendFunc(GL_ONE, GL_ONE);
+	glBlendFunc(C4J_ONE, C4J_ONE);
 	glDisable(GL_LIGHTING);
 
 	if (mob->isInvisible())
@@ -112,7 +112,7 @@ int EndermanRenderer::prepareArmor(shared_ptr<LivingEntity> _mob, int layer, flo
 		int u = col % 65536;
 		int v = col / 65536;
 
-		glMultiTexCoord2f(GL_TEXTURE1, u / 1.0f, v / 1.0f);
+		glMultiTexCoord2f(C4J_TEXTURE1, u / 1.0f, v / 1.0f);
 		glColor4f(1, 1, 1, 1);
 	}
 

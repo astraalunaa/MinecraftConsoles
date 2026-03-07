@@ -29,9 +29,9 @@ void PistonPieceRenderer::render(shared_ptr<TileEntity> _entity, double x, doubl
         Lighting::turnOff();
 		glColor4f(1, 1, 1, 1);	// 4J added - this wouldn't be needed in real opengl as the block render has vertex colours and so this isn't use, but our pretend gl always modulates with this
 
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-        glEnable(GL_BLEND);
-        glDisable(GL_CULL_FACE);
+        glBlendFunc(C4J_SRC_ALPHA, C4J_ONE_MINUS_SRC_ALPHA);
+        glEnable(C4JBLEND);
+        glDisable(C4JCULL_FACE);
 
         t->begin();
 

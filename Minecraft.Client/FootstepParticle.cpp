@@ -38,8 +38,8 @@ void FootstepParticle::render(Tesselator *t, float a, float xa, float ya, float 
     float br = level->getBrightness(Mth::floor(x), Mth::floor(y), Mth::floor(z));
 
     textures->bindTexture(&FOOTPRINT_LOCATION);
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glEnable(C4JBLEND);
+    glBlendFunc(C4J_SRC_ALPHA, C4J_ONE_MINUS_SRC_ALPHA);
 
     t->begin();
     t->color(br, br, br, alpha);
@@ -49,7 +49,7 @@ void FootstepParticle::render(Tesselator *t, float a, float xa, float ya, float 
     t->vertexUV((float)(xx - r), (float)( yy), (float)( zz - r), (float)( 0), (float)( 0));
     t->end();
 
-    glDisable(GL_BLEND);
+    glDisable(C4JBLEND);
     glEnable(GL_LIGHTING);
 
 }

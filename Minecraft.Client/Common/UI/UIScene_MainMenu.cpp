@@ -480,8 +480,8 @@ void UIScene_MainMenu::customDrawSplash(IggyCustomDrawCallbackRegion *region)
 	Font *font = pMinecraft->font;
 
 	// build and render with the game call
-	glDisable(GL_CULL_FACE);
-	glDisable(GL_DEPTH_TEST);
+	glDisable(C4JCULL_FACE);
+	glDisable(C4JDEPTH_TEST);
 
 	glPushMatrix();
 
@@ -504,7 +504,7 @@ void UIScene_MainMenu::customDrawSplash(IggyCustomDrawCallbackRegion *region)
 
 	glDisable(GL_RESCALE_NORMAL);
 
-	glEnable(GL_DEPTH_TEST);
+	glEnable(C4JDEPTH_TEST);
 
 
 	// Finish GDraw and anything else that needs to be finalised

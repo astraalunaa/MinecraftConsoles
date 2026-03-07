@@ -211,8 +211,8 @@ HRESULT XUI_FontRenderer::DrawCharsToDevice( HFONTOBJ hFont, CharData * pCharDat
 	g_pD3DDevice->GetPixelShaderConstantF( 0, (float *)pconsts, 20 );
 	g_pD3DDevice->SetRenderState(D3DRS_HALFPIXELOFFSET, TRUE);
 	GetRenderAndSamplerStates(g_pD3DDevice, RenderStateA, SamplerStateA );
-	glDisable(GL_CULL_FACE);
-	glDisable(GL_DEPTH_TEST);
+	glDisable(C4JCULL_FACE);
+	glDisable(C4JDEPTH_TEST);
 
 	RenderManager.Set_matrixDirty();
 	glMatrixMode(GL_PROJECTION);
@@ -298,8 +298,8 @@ HRESULT XUI_FontRenderer::DrawCharsToDevice( HFONTOBJ hFont, CharData * pCharDat
 	g_pD3DDevice->SetPixelShaderConstantF( 0, (float *)pconsts, 20 );
 	SetRenderAndSamplerStates(g_pD3DDevice, RenderStateA, SamplerStateA );
 	g_pD3DDevice->SetRenderState(D3DRS_HALFPIXELOFFSET, FALSE);
-	glEnable(GL_CULL_FACE);
-	glEnable(GL_DEPTH_TEST);
+	glEnable(C4JCULL_FACE);
+	glEnable(C4JDEPTH_TEST);
 
 	XuiRenderRestoreState(hDC);
 

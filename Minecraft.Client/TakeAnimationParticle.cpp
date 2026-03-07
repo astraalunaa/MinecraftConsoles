@@ -50,7 +50,7 @@ void TakeAnimationParticle::render(Tesselator *t, float a, float xa, float ya, f
         int col = getLightColor(a);
         int u = col%65536;
         int v = col/65536;
-        glMultiTexCoord2f(GL_TEXTURE1, u/1.0f, v/1.0f);
+        glMultiTexCoord2f(C4J_TEXTURE1, u/1.0f, v/1.0f);
         glColor4f(1, 1, 1, 1);
     }
 	else

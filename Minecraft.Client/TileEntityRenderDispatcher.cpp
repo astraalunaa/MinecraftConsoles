@@ -120,7 +120,7 @@ void TileEntityRenderDispatcher::render(shared_ptr<TileEntity> e, float a, bool 
 			int col = level->getLightColor(e->x, e->y, e->z, 0);
 			int u = col % 65536;
 			int v = col / 65536;
-			glMultiTexCoord2f(GL_TEXTURE1, u / 1.0f, v / 1.0f);
+			glMultiTexCoord2f(C4J_TEXTURE1, u / 1.0f, v / 1.0f);
 			glColor4f(1, 1, 1, 1);
 		}
 		else

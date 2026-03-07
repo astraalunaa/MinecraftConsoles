@@ -534,7 +534,7 @@ void Textures::bind(int id)
 	//if (id != lastBoundId)
 	{
 		if(id < 0) return;
-		glBindTexture(GL_TEXTURE_2D, id);
+		glBindTexture(C4JTEXTURE_2D, id);
 	//	lastBoundId = id;
 	}
 }
@@ -670,39 +670,39 @@ void Textures::loadTexture(BufferedImage *img, int id, bool blur, bool clamp)
 //	printf("Textures::loadTexture BufferedImage with blur and clamp %d\n",id);
 	int iMipLevels=1;
 	MemSect(33);
-    glBindTexture(GL_TEXTURE_2D, id);
+    glBindTexture(C4JTEXTURE_2D, id);
 
     if (MIPMAP)
 	{
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+        glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_MIN_FILTER, C4J_NEAREST_MIPMAP_LINEAR);
+        glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_MAG_FILTER, C4J_NEAREST);
         /*
-            * glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_LOD, 0);
-            * glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LOD, 4);
-            * glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_BASE_LEVEL, 0);
-            * glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 4);
+            * glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_MIN_LOD, 0);
+            * glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_MAX_LOD, 4);
+            * glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_BASE_LEVEL, 0);
+            * glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_MAX_LEVEL, 4);
             */
     }
 	else
 	{
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+        glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_MIN_FILTER, C4J_NEAREST);
+        glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_MAG_FILTER, C4J_NEAREST);
     }
     if (blur)
 	{
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_MIN_FILTER, C4J_LINEAR);
+        glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_MAG_FILTER, C4J_LINEAR);
     }
 
     if (clamp)
 	{
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+        glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_WRAP_S, GL_CLAMP);
+        glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_WRAP_T, GL_CLAMP);
     }
 	else
 	{
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+        glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_WRAP_S, C4J_REPEAT);
+        glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_WRAP_T, C4J_REPEAT);
     }
 
     int w = img->getWidth();
@@ -759,7 +759,7 @@ void Textures::loadTexture(BufferedImage *img, int id, bool blur, bool clamp)
 		RenderManager.TextureSetTextureLevels(iMipLevels);	// 4J added
 	}
 	RenderManager.TextureData(w,h,pixels->getBuffer(),0,TEXTURE_FORMAT);
-	//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL12.GL_BGRA, GL12.GL_UNSIGNED_INT_8_8_8_8_REV, pixels);
+	//glTexImage2D(C4JTEXTURE_2D, 0, GL_RGBA, w, h, 0, GL12.GL_BGRA, GL12.GL_UNSIGNED_INT_8_8_8_8_REV, pixels);
 
 	if (MIPMAP)
 	{
@@ -820,7 +820,7 @@ void Textures::loadTexture(BufferedImage *img, int id, bool blur, bool clamp)
     }
 
     /*
-        * if (MIPMAP) { GLU.gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGBA, w, h,
+        * if (MIPMAP) { GLU.gluBuild2DMipmaps(C4JTEXTURE_2D, GL_RGBA, w, h,
         * GL_RGBA, GL_UNSIGNED_BYTE, pixels); } else { }
         */
 	delete pixels;	// 4J - now creating this dynamically
@@ -858,24 +858,24 @@ void Textures::replaceTexture(intArray rawPixels, int w, int h, int id)
 #if 0
 	if (MIPMAP)
 	{
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_MIN_FILTER, C4J_NEAREST_MIPMAP_LINEAR);
+		glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_MAG_FILTER, C4J_NEAREST);
 		/*
-		* glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_LOD, 0);
-		* glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LOD, 4);
-		* glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_BASE_LEVEL, 0);
-		* glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 4);
+		* glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_MIN_LOD, 0);
+		* glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_MAX_LOD, 4);
+		* glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_BASE_LEVEL, 0);
+		* glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_MAX_LEVEL, 4);
 		*/
 	}
 	else
 #endif
 	{
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_MIN_FILTER, C4J_NEAREST);
+		glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_MAG_FILTER, C4J_NEAREST);
 	}
 
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_WRAP_S, C4J_REPEAT);
+	glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_WRAP_T, C4J_REPEAT);
 
 	if (options != NULL && options->anaglyph3d)
 	{
@@ -912,14 +912,14 @@ void Textures::replaceTexture(intArray rawPixels, int w, int h, int id)
 	delete [] newPixels.data;
 
 	// New
-	// glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, w, h, GL12.GL_BGRA, GL12.GL_UNSIGNED_INT_8_8_8_8_REV, pixels);
+	// glTexSubImage2D(C4JTEXTURE_2D, 0, 0, 0, w, h, GL12.GL_BGRA, GL12.GL_UNSIGNED_INT_8_8_8_8_REV, pixels);
 #ifdef _XBOX
 	RenderManager.TextureDataUpdate(pixels->getBuffer(),0);
 #else
 	RenderManager.TextureDataUpdate(0, 0,w,h,pixels->getBuffer(),0);
 #endif
 	// Old
-    //glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, w, h, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
+    //glTexSubImage2D(C4JTEXTURE_2D, 0, 0, 0, w, h, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
 	delete pixels;
 }
 
@@ -927,30 +927,30 @@ void Textures::replaceTexture(intArray rawPixels, int w, int h, int id)
 // that the original java version does
 void Textures::replaceTextureDirect(intArray rawPixels, int w, int h, int id)
 {
-    glBindTexture(GL_TEXTURE_2D, id);
+    glBindTexture(C4JTEXTURE_2D, id);
 
 	// Remove in Java
 #if 0
 	if (MIPMAP)
 	{
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_MIN_FILTER, C4J_NEAREST_MIPMAP_LINEAR);
+		glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_MAG_FILTER, C4J_NEAREST);
 		/*
-		* glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_LOD, 0);
-		* glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LOD, 4);
-		* glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_BASE_LEVEL, 0);
-		* glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 4);
+		* glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_MIN_LOD, 0);
+		* glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_MAX_LOD, 4);
+		* glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_BASE_LEVEL, 0);
+		* glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_MAX_LEVEL, 4);
 		*/
 	}
 	else
 #endif
 	{
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_MIN_FILTER, C4J_NEAREST);
+		glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_MAG_FILTER, C4J_NEAREST);
 	}
 
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_WRAP_S, C4J_REPEAT);
+	glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_WRAP_T, C4J_REPEAT);
 
 #ifdef _XBOX
 	RenderManager.TextureDataUpdate(rawPixels.data, 0);
@@ -963,30 +963,30 @@ void Textures::replaceTextureDirect(intArray rawPixels, int w, int h, int id)
 // that the original java version does
 void Textures::replaceTextureDirect(shortArray rawPixels, int w, int h, int id)
 {
-    glBindTexture(GL_TEXTURE_2D, id);
+    glBindTexture(C4JTEXTURE_2D, id);
 
 	// Remove in Java
 #if 0
 	if (MIPMAP)
 	{
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_MIN_FILTER, C4J_NEAREST_MIPMAP_LINEAR);
+		glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_MAG_FILTER, C4J_NEAREST);
 		/*
-		* glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_LOD, 0);
-		* glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LOD, 4);
-		* glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_BASE_LEVEL, 0);
-		* glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 4);
+		* glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_MIN_LOD, 0);
+		* glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_MAX_LOD, 4);
+		* glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_BASE_LEVEL, 0);
+		* glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_MAX_LEVEL, 4);
 		*/
 	}
 	else
 #endif
 	{
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_MIN_FILTER, C4J_NEAREST);
+		glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_MAG_FILTER, C4J_NEAREST);
 	}
 
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_WRAP_S, C4J_REPEAT);
+	glTexParameteri(C4JTEXTURE_2D, C4J_TEXTURE_WRAP_T, C4J_REPEAT);
 
 #ifdef _XBOX
 	RenderManager.TextureDataUpdate(rawPixels.data, 0);

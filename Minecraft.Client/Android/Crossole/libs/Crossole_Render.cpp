@@ -44,7 +44,7 @@ void C4JRender::Present()
 
 void C4JRender::Clear(int flags, D3D11_RECT *pRect)
 {
-    // TODO: glClear(flags mapped to GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+    // TODO: glClear(flags mapped to C4J_COLOR_BUFFER_BIT | C4J_DEPTH_BUFFER_BIT)
 }
 
 void C4JRender::SetClearColour(const float colourRGBA[4])
@@ -158,16 +158,16 @@ SceGxmTexture* C4JRender::TextureGetTexture(int idx)
 
 void C4JRender::StateSetColour(float r, float g, float b, float a) {}
 void C4JRender::StateSetDepthMask(bool enable)          { /* TODO: glDepthMask */ }
-void C4JRender::StateSetBlendEnable(bool enable)        { /* TODO: glEnable/glDisable GL_BLEND */ }
+void C4JRender::StateSetBlendEnable(bool enable)        { /* TODO: glEnable/glDisable C4JBLEND */ }
 void C4JRender::StateSetBlendFunc(int src, int dst)     { /* TODO: glBlendFunc */ }
 void C4JRender::StateSetBlendFactor(unsigned int colour){}
 void C4JRender::StateSetAlphaFunc(int func, float param){}  // not in GLES3 — emulate in shader
 void C4JRender::StateSetDepthFunc(int func)             { /* TODO: glDepthFunc */ }
-void C4JRender::StateSetFaceCull(bool enable)           { /* TODO: glEnable GL_CULL_FACE */ }
+void C4JRender::StateSetFaceCull(bool enable)           { /* TODO: glEnable C4JCULL_FACE */ }
 void C4JRender::StateSetFaceCullCW(bool enable)         { /* TODO: glFrontFace */ }
 void C4JRender::StateSetLineWidth(float width)          { /* TODO: glLineWidth */ }
 void C4JRender::StateSetWriteEnable(bool r, bool g, bool b, bool a) { /* TODO: glColorMask */ }
-void C4JRender::StateSetDepthTestEnable(bool enable)    { /* TODO: glEnable GL_DEPTH_TEST */ }
+void C4JRender::StateSetDepthTestEnable(bool enable)    { /* TODO: glEnable C4JDEPTH_TEST */ }
 void C4JRender::StateSetAlphaTestEnable(bool enable)    {}  // emulate in shader
 void C4JRender::StateSetDepthSlopeAndBias(float slope, float bias) { /* TODO: glPolygonOffset */ }
 void C4JRender::StateSetFogEnable(bool enable)          {}  // emulate in shader

@@ -135,7 +135,7 @@ void AbstractTexturePack::load(Textures *textures)
 		{
 			textureId = textures->getTexture(iconImage);
 		}
-		glBindTexture(GL_TEXTURE_2D, textureId);
+		glBindTexture(C4JTEXTURE_2D, textureId);
 		textures->clearLastBoundId();
 	}
 	else

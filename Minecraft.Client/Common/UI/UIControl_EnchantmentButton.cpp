@@ -98,8 +98,8 @@ void UIControl_EnchantmentButton::render(IggyCustomDrawCallbackRegion *region)
 	glColor4f(1, 1, 1, 1);
 	if (cost != 0)
 	{
-		glEnable(GL_ALPHA_TEST);
-		glAlphaFunc(GL_GREATER, 0.1f);
+		glEnable(C4JALPHA_TEST);
+		glAlphaFunc(C4J_GREATER, 0.1f);
 		Minecraft *pMinecraft = Minecraft::GetInstance();
 		wstring line = std::to_wstring(cost);
 		Font *font = pMinecraft->altFont;
@@ -125,7 +125,7 @@ void UIControl_EnchantmentButton::render(IggyCustomDrawCallbackRegion *region)
 			//col = 0x80ff20;
 			//font->drawShadow(line, (bwidth - font->width(line))/ss, 7, col);
 		}
-		glDisable(GL_ALPHA_TEST);
+		glDisable(C4JALPHA_TEST);
 	}
 	else
 	{

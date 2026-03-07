@@ -187,19 +187,19 @@ void glDisable(int state)
 {
 	switch(state)
 	{
-		case GL_TEXTURE_2D:
+		case C4JTEXTURE_2D:
 			RenderManager.TextureBind(-1);
 			break;
-		case GL_BLEND:
+		case C4JBLEND:
 			RenderManager.StateSetBlendEnable(false);
 			break;
-		case GL_CULL_FACE:
+		case C4JCULL_FACE:
 			RenderManager.StateSetFaceCull(false);
 			break;
-		case GL_DEPTH_TEST:
+		case C4JDEPTH_TEST:
 			RenderManager.StateSetDepthTestEnable(false);
 			break;
-		case GL_ALPHA_TEST:
+		case C4JALPHA_TEST:
 			RenderManager.StateSetAlphaTestEnable(false);
 			break;
 		case GL_FOG:
@@ -221,16 +221,16 @@ void glEnable(int state)
 {
 	switch(state)
 	{
-		case GL_BLEND:
+		case C4JBLEND:
 			RenderManager.StateSetBlendEnable(true);
 			break;
-		case GL_CULL_FACE:
+		case C4JCULL_FACE:
 			RenderManager.StateSetFaceCull(true);
 			break;
-		case GL_DEPTH_TEST:
+		case C4JDEPTH_TEST:
 			RenderManager.StateSetDepthTestEnable(true);
 			break;
-		case GL_ALPHA_TEST:
+		case C4JALPHA_TEST:
 			RenderManager.StateSetAlphaTestEnable(true);
 			break;
 		case GL_FOG:
@@ -288,6 +288,8 @@ void glPolygonOffset(float factor, float units)
 	RenderManager.StateSetDepthSlopeAndBias(factor / magicFactor, units / magicFactor);
 #endif
 }
+
+
 
 void glFogi(int param, int value)
 {

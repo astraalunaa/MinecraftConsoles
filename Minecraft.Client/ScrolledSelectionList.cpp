@@ -201,7 +201,7 @@ void ScrolledSelectionList::render(int xm, int ym, float a)
     glDisable(GL_FOG);
     Tesselator *t = Tesselator::getInstance();
 
-    glBindTexture(GL_TEXTURE_2D, minecraft->textures->loadTexture(L"/gui/background.png"));
+    glBindTexture(C4JTEXTURE_2D, minecraft->textures->loadTexture(L"/gui/background.png"));
     glColor4f(1.0f, 1, 1, 1);
     float s = 32;
     t->begin();
@@ -236,7 +236,7 @@ void ScrolledSelectionList::render(int xm, int ym, float a)
             int x0 = width / 2 - (92 + 16 + 2);
             int x1 = width / 2 + (92 + 16 + 2);
             glColor4f(1, 1, 1, 1);
-            glDisable(GL_TEXTURE_2D);
+            glDisable(C4JTEXTURE_2D);
             t->begin();
             t->color(0x808080);
             t->vertexUV((float)(x0), (float)( y + h + 2), (float)( 0), (float)( 0), (float)( 1));
@@ -251,14 +251,14 @@ void ScrolledSelectionList::render(int xm, int ym, float a)
             t->vertexUV((float)(x0 + 1), (float)( y - 1), (float)( 0), (float)( 0), (float)( 0));
 
             t->end();
-            glEnable(GL_TEXTURE_2D);
+            glEnable(C4JTEXTURE_2D);
         }
 
         renderItem(i, rowX, y, h, t);
 
     }
 
-    glDisable(GL_DEPTH_TEST);
+    glDisable(C4JDEPTH_TEST);
 
 
     int d = 4;
@@ -266,12 +266,12 @@ void ScrolledSelectionList::render(int xm, int ym, float a)
     renderHoleBackground(0, y0, 255, 255);
     renderHoleBackground(y1, height, 255, 255);
 
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    glDisable(GL_ALPHA_TEST);
+    glEnable(C4JBLEND);
+    glBlendFunc(C4J_SRC_ALPHA, C4J_ONE_MINUS_SRC_ALPHA);
+    glDisable(C4JALPHA_TEST);
     glShadeModel(GL_SMOOTH);
 
-    glDisable(GL_TEXTURE_2D);
+    glDisable(C4JTEXTURE_2D);
 
     t->begin();
     t->color(0x000000, 0);
@@ -330,11 +330,11 @@ void ScrolledSelectionList::render(int xm, int ym, float a)
 
     renderDecorations(xm, ym);
 
-    glEnable(GL_TEXTURE_2D);
+    glEnable(C4JTEXTURE_2D);
 
     glShadeModel(GL_FLAT);
-    glEnable(GL_ALPHA_TEST);
-    glDisable(GL_BLEND);
+    glEnable(C4JALPHA_TEST);
+    glDisable(C4JBLEND);
 #endif
 }
 
@@ -343,7 +343,7 @@ void ScrolledSelectionList::renderHoleBackground(int y0, int y1, int a0, int a1)
 	// 4J Unused
 #if 0
     Tesselator *t = Tesselator::getInstance();
-    glBindTexture(GL_TEXTURE_2D, minecraft->textures->loadTexture(L"/gui/background.png"));
+    glBindTexture(C4JTEXTURE_2D, minecraft->textures->loadTexture(L"/gui/background.png"));
     glColor4f(1.0f, 1, 1, 1);
     float s = 32;
     t->begin();

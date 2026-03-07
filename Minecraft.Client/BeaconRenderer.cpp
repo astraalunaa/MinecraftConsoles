@@ -20,14 +20,14 @@ void BeaconRenderer::render(shared_ptr<TileEntity> _beacon, double x, double y, 
 
 		// TODO: 4J: Put this back in
 		//assert(0);
-		//glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-		//glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		//glTexParameterf(C4JTEXTURE_2D, C4J_TEXTURE_WRAP_S, C4J_REPEAT);
+		//glTexParameterf(C4JTEXTURE_2D, C4J_TEXTURE_WRAP_T, C4J_REPEAT);
 
 		glDisable(GL_LIGHTING);
-		glDisable(GL_CULL_FACE);
-		glDisable(GL_BLEND);
+		glDisable(C4JCULL_FACE);
+		glDisable(C4JBLEND);
 		glDepthMask(true);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+		glBlendFunc(C4J_SRC_ALPHA, C4J_ONE);
 
 		float tt = beacon->getLevel()->getGameTime() + a;
 		float texVOff = -tt * .20f - floor(-tt * .10f);
@@ -82,8 +82,8 @@ void BeaconRenderer::render(shared_ptr<TileEntity> _beacon, double x, double y, 
 			t->end();
 		}
 
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glEnable(C4JBLEND);
+		glBlendFunc(C4J_SRC_ALPHA, C4J_ONE_MINUS_SRC_ALPHA);
 		glDepthMask(false);
 
 		{
@@ -131,7 +131,7 @@ void BeaconRenderer::render(shared_ptr<TileEntity> _beacon, double x, double y, 
 		}
 
 		glEnable(GL_LIGHTING);
-		glEnable(GL_TEXTURE_2D);
+		glEnable(C4JTEXTURE_2D);
 
 		glDepthMask(true);
 	}

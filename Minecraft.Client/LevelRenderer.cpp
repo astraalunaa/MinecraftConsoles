@@ -232,7 +232,7 @@ LevelRenderer::LevelRenderer(Minecraft *mc, Textures *textures)
 
 		haloRingList = starList + 3;
 		glNewList(haloRingList, GL_COMPILE);
-		t->begin(GL_TRIANGLE_STRIP);
+		t->begin(C4J_TRIANGLE_STRIP);
 		t->color(0xffffff);
 
 		for(unsigned int i = 0; i <= ARC_SEGMENTS; ++i)
@@ -795,7 +795,7 @@ int LevelRenderer::renderChunks(int from, int to, int layer, double alpha)
 
 #ifdef __PSVITA__
 	// AP - alpha cut out is expensive on vita. First render all the non-alpha cut outs
-	glDisable(GL_ALPHA_TEST);
+	glDisable(C4JALPHA_TEST);
 #endif
 
 	bool first = true;
@@ -821,7 +821,7 @@ int LevelRenderer::renderChunks(int from, int to, int layer, double alpha)
 
 #ifdef __PSVITA__
 	// AP - alpha cut out is expensive on vita. Now we render all the alpha cut outs
-	glEnable(GL_ALPHA_TEST);
+	glEnable(C4JALPHA_TEST);
 	RenderManager.StateSetForceLOD(0);	// AP - force mipmapping off for cut outs
 	first = true;
 	pClipChunk = chunks[playerIndex].data;
@@ -953,9 +953,9 @@ void LevelRenderer::renderSky(float alpha)
 	if (mc->level->dimension->id == 1)
 	{
 		glDisable(GL_FOG);
-		glDisable(GL_ALPHA_TEST);
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glDisable(C4JALPHA_TEST);
+		glEnable(C4JBLEND);
+		glBlendFunc(C4J_SRC_ALPHA, C4J_ONE_MINUS_SRC_ALPHA);
 		Lighting::turnOff();
 
 
@@ -982,15 +982,15 @@ void LevelRenderer::renderSky(float alpha)
 		}
 		t->setMipmapEnable(true);
 		glDepthMask(true);
-		glEnable(GL_TEXTURE_2D);
-		glEnable(GL_ALPHA_TEST);
+		glEnable(C4JTEXTURE_2D);
+		glEnable(C4JALPHA_TEST);
 
 		return;
 	}
 
 	if (!mc->level->dimension->isNaturalDimension()) return;
 
-	glDisable(GL_TEXTURE_2D);
+	glDisable(C4JTEXTURE_2D);
 
 	int playerIndex = mc->player->GetXboxPad();
 	Vec3 *sc = level[playerIndex]->getSkyColor(mc->cameraTargetPlayer, alpha);
@@ -1017,7 +1017,7 @@ void LevelRenderer::renderSky(float alpha)
 
 #ifdef __PSVITA__
 	// AP - alpha cut out is expensive on vita.
-	glDisable(GL_ALPHA_TEST);
+	glDisable(C4JALPHA_TEST);
 #endif
 
 	glEnable(GL_FOG);
@@ -1025,15 +1025,15 @@ void LevelRenderer::renderSky(float alpha)
 	glCallList(skyList);
 
 	glDisable(GL_FOG);
-	glDisable(GL_ALPHA_TEST);
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glDisable(C4JALPHA_TEST);
+	glEnable(C4JBLEND);
+	glBlendFunc(C4J_SRC_ALPHA, C4J_ONE_MINUS_SRC_ALPHA);
 	Lighting::turnOff();
 
 	float *c = level[playerIndex]->dimension->getSunriseColor(level[playerIndex]->getTimeOfDay(alpha), alpha);
 	if (c != NULL)
 	{
-		glDisable(GL_TEXTURE_2D);
+		glDisable(C4JTEXTURE_2D);
 		glShadeModel(GL_SMOOTH);
 
 		glPushMatrix();
@@ -1056,7 +1056,7 @@ void LevelRenderer::renderSky(float alpha)
 				b = sbb;
 			}
 
-			t->begin(GL_TRIANGLE_FAN);
+			t->begin(C4J_TRIANGLE_FAN);
 			t->color(r, g, b, c[3]);
 
 			t->vertex((float)(0), (float)( 100), (float)( 0));
@@ -1075,8 +1075,8 @@ void LevelRenderer::renderSky(float alpha)
 		glShadeModel(GL_FLAT);
 	}
 
-	glEnable(GL_TEXTURE_2D);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+	glEnable(C4JTEXTURE_2D);
+	glBlendFunc(C4J_SRC_ALPHA, C4J_ONE);
 	glPushMatrix();
 	{
 		float rainBrightness = 1 - level[playerIndex]->getRainLevel(alpha);
@@ -1115,7 +1115,7 @@ void LevelRenderer::renderSky(float alpha)
 		t->vertexUV(-ss, -100, -ss, u1, v0);
 		t->end();
 
-		glDisable(GL_TEXTURE_2D);
+		glDisable(C4JTEXTURE_2D);
 		float br = level[playerIndex]->getStarBrightness(alpha) * rainBrightness;
 		if (br > 0)
 		{
@@ -1124,17 +1124,17 @@ void LevelRenderer::renderSky(float alpha)
 		}
 		glColor4f(1, 1, 1, 1);
 	}
-	glDisable(GL_BLEND);
-	glEnable(GL_ALPHA_TEST);
+	glDisable(C4JBLEND);
+	glEnable(C4JALPHA_TEST);
 	glEnable(GL_FOG);
 
 #ifdef __PSVITA__
 	// AP - alpha cut out is expensive on vita.
-	glDisable(GL_ALPHA_TEST);
+	glDisable(C4JALPHA_TEST);
 #endif
 
 	glPopMatrix();
-	glDisable(GL_TEXTURE_2D);
+	glDisable(C4JTEXTURE_2D);
 	glColor3f(0, 0, 0);
 
 	double yy = mc->player->getPos(alpha)->y - level[playerIndex]->getHorizonHeight();	// 4J - getHorizonHeight moved forward from 1.2.3
@@ -1195,7 +1195,7 @@ void LevelRenderer::renderSky(float alpha)
 	glTranslatef(0, -(float) (yy - 16), 0);
 	glCallList(darkList);
 	glPopMatrix();
-	glEnable(GL_TEXTURE_2D);
+	glEnable(C4JTEXTURE_2D);
 
 	glDepthMask(true);
 }
@@ -1205,8 +1205,8 @@ void LevelRenderer::renderHaloRing(float alpha)
 #if !defined(__PS3__) && !defined(__ORBIS__) && !defined(__PSVITA__)
 	if (!mc->level->dimension->isNaturalDimension()) return;
 
-	glDisable(GL_ALPHA_TEST);
-	glDisable(GL_TEXTURE_2D);
+	glDisable(C4JALPHA_TEST);
+	glDisable(C4JTEXTURE_2D);
 	glDepthMask(false);
 	glEnable(GL_FOG);
 
@@ -1224,7 +1224,7 @@ void LevelRenderer::renderHaloRing(float alpha)
 	glColor3f(br,br,br);
 
 	// Fog at the base near the world
-	glFogi(GL_FOG_MODE, GL_LINEAR);
+	glFogi(GL_FOG_MODE, C4J_LINEAR);
 	glFogf(GL_FOG_START, HALO_RING_RADIUS);
 	glFogf(GL_FOG_END, HALO_RING_RADIUS * 0.20f);
 
@@ -1243,8 +1243,8 @@ void LevelRenderer::renderHaloRing(float alpha)
 	t->setMipmapEnable(prev);
 
 	glDepthMask(true);
-	glEnable(GL_TEXTURE_2D);
-	glEnable(GL_ALPHA_TEST);
+	glEnable(C4JTEXTURE_2D);
+	glEnable(C4JALPHA_TEST);
 
 	glDisable(GL_FOG);
 #endif
@@ -1277,15 +1277,15 @@ void LevelRenderer::renderClouds(float alpha)
 			iTicks=m_freezeticks;
 		}
 	}
-	glDisable(GL_CULL_FACE);
+	glDisable(C4JCULL_FACE);
 	float yOffs = (float) (mc->cameraTargetPlayer->yOld + (mc->cameraTargetPlayer->y - mc->cameraTargetPlayer->yOld) * alpha);
 	int s = 32;
 	int d = 256 / s;
 	Tesselator *t = Tesselator::getInstance();
 
 	textures->bindTexture(&CLOUDS_LOCATION);
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glEnable(C4JBLEND);
+	glBlendFunc(C4J_SRC_ALPHA, C4J_ONE_MINUS_SRC_ALPHA);
 
 	Vec3 *cc = level[playerIndex]->getCloudColor(alpha);
 	float cr = (float) cc->x;
@@ -1334,8 +1334,8 @@ void LevelRenderer::renderClouds(float alpha)
 	t->end();
 
 	glColor4f(1, 1, 1, 1.0f);
-	glDisable(GL_BLEND);
-	glEnable(GL_CULL_FACE);
+	glDisable(C4JBLEND);
+	glEnable(C4JCULL_FACE);
 
 	if(app.DebugSettingsOn())
 	{
@@ -1525,7 +1525,7 @@ void LevelRenderer::createCloudMesh()
 void LevelRenderer::renderAdvancedClouds(float alpha)
 {
 	// MGH - added, we were getting dark clouds sometimes on PS3, with this being setup incorrectly
-	glMultiTexCoord2f(GL_TEXTURE1, 0, 0);
+	glMultiTexCoord2f(C4J_TEXTURE1, 0, 0);
 
 
 	// 4J - most of our viewports are now rendered with no clip planes but using stencilling to limit the area drawn to. Clouds have a relatively large fill area compared to
@@ -1567,18 +1567,18 @@ void LevelRenderer::renderAdvancedClouds(float alpha)
 	bool noBFCMode = ( (yy > -h - 1) && (yy <= h + 1) );
 	if( noBFCMode )
 	{
-		glDisable(GL_CULL_FACE);
+		glDisable(C4JCULL_FACE);
 	}
 	else
 	{
-		glEnable(GL_CULL_FACE);
+		glEnable(C4JCULL_FACE);
 	}
 
 	MemSect(31);
 	textures->bindTexture(&CLOUDS_LOCATION);	// 4J was L"/environment/clouds.png"
 	MemSect(0);
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glEnable(C4JBLEND);
+	glBlendFunc(C4J_SRC_ALPHA, C4J_ONE_MINUS_SRC_ALPHA);
 
 	Vec3 *cc = level[playerIndex]->getCloudColor(alpha);
 	float cr = (float) cc->x;
@@ -1622,13 +1622,13 @@ void LevelRenderer::renderAdvancedClouds(float alpha)
 		if (pass == 0)
 		{
 			// 4J - changed to use blend rather than color mask to avoid writing to frame buffer, to work with our command buffers
-			glBlendFunc(GL_ZERO, GL_ONE);
+			glBlendFunc(C4J_ZERO, C4J_ONE);
 			//				glColorMask(false, false, false, false);
 		}
 		else
 		{
 			// 4J - changed to use blend rather than color mask to avoid writing to frame buffer, to work with our command buffers
-			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+			glBlendFunc(C4J_SRC_ALPHA, C4J_ONE_MINUS_SRC_ALPHA);
 			//				glColorMask(true, true, true, true);
 		}
 		for (int xPos = -radius + 1; xPos <= radius; xPos++)
@@ -1648,7 +1648,7 @@ void LevelRenderer::renderAdvancedClouds(float alpha)
 
 
 
-				glMatrixMode(GL_TEXTURE);
+				glMatrixMode(C4J_TEXTURE);
 				glLoadIdentity();
 				glTranslatef(xx / 256.0f + uo, zz / 256.0f + vo, 0);
 				glMatrixMode(GL_MODELVIEW);
@@ -1708,7 +1708,7 @@ void LevelRenderer::renderAdvancedClouds(float alpha)
 					glCallList(cloudList + 6);
 				}
 				glPopMatrix();
-				glMatrixMode(GL_TEXTURE);
+				glMatrixMode(C4J_TEXTURE);
 				glLoadIdentity();
 				glMatrixMode(GL_MODELVIEW);
 #else
@@ -1796,8 +1796,8 @@ void LevelRenderer::renderAdvancedClouds(float alpha)
 	}
 
 	glColor4f(1, 1, 1, 1.0f);
-	glDisable(GL_BLEND);
-	glEnable(GL_CULL_FACE);
+	glDisable(C4JBLEND);
+	glEnable(C4JCULL_FACE);
 
 
 	if(app.DebugSettingsOn())
@@ -2182,20 +2182,20 @@ bool LevelRenderer::updateDirtyChunks()
 void LevelRenderer::renderHit(shared_ptr<Player> player, HitResult *h, int mode, shared_ptr<ItemInstance> inventoryItem, float a)
 {
 	Tesselator *t = Tesselator::getInstance();
-	glEnable(GL_BLEND);
-	glEnable(GL_ALPHA_TEST);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+	glEnable(C4JBLEND);
+	glEnable(C4JALPHA_TEST);
+	glBlendFunc(C4J_SRC_ALPHA, C4J_ONE);
 	glColor4f(1, 1, 1, ((float) (Mth::sin(Minecraft::currentTimeMillis() / 100.0f)) * 0.2f + 0.4f) * 0.5f);
 	if (mode != 0 && inventoryItem != NULL)
 	{
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glBlendFunc(C4J_SRC_ALPHA, C4J_ONE_MINUS_SRC_ALPHA);
 		float br = (Mth::sin(Minecraft::currentTimeMillis() / 100.0f) * 0.2f + 0.8f);
 		glColor4f(br, br, br, (Mth::sin(Minecraft::currentTimeMillis() / 200.0f) * 0.2f + 0.5f));
 
 		textures->bindTexture(&TextureAtlas::LOCATION_BLOCKS);
 	}
-	glDisable(GL_BLEND);
-	glDisable(GL_ALPHA_TEST);
+	glDisable(C4JBLEND);
+	glDisable(C4JALPHA_TEST);
 }
 
 void LevelRenderer::renderDestroyAnimation(Tesselator *t, shared_ptr<Player> player, float a)
@@ -2207,18 +2207,18 @@ void LevelRenderer::renderDestroyAnimation(Tesselator *t, shared_ptr<Player> pla
 	int playerIndex = mc->player->GetXboxPad();
 	if (!destroyingBlocks.empty())
 	{
-		glBlendFunc(GL_DST_COLOR, GL_SRC_COLOR);
+		glBlendFunc(C4J_DST_COLOR, C4J_SRC_COLOR);
 
 		textures->bindTexture(&TextureAtlas::LOCATION_BLOCKS);
 		glColor4f(1, 1, 1, 0.5f);
 		glPushMatrix();
 
-		glDisable(GL_ALPHA_TEST);
+		glDisable(C4JALPHA_TEST);
 
 		glPolygonOffset(-3.0f, -3.0f);
 		glEnable(GL_POLYGON_OFFSET_FILL);
 
-		glEnable(GL_ALPHA_TEST);
+		glEnable(C4JALPHA_TEST);
 		t->begin();
 #ifdef __PSVITA__
 		// AP : fix for bug 4952. No amount of polygon offset will push this close enough to be seen above the second tile layer when looking straight down
@@ -2250,14 +2250,14 @@ void LevelRenderer::renderDestroyAnimation(Tesselator *t, shared_ptr<Player> pla
 
 		t->end();
 		t->offset(0, 0, 0);
-		glDisable(GL_ALPHA_TEST);
+		glDisable(C4JALPHA_TEST);
 		/*
 		* for (int i = 0; i < 6; i++) { tile.renderFace(t, h.x, h.y,
 		* h.z, i, 15 * 16 + (int) (destroyProgress * 10)); }
 		*/
 		glPolygonOffset(0.0f, 0.0f);
 		glDisable(GL_POLYGON_OFFSET_FILL);
-		glEnable(GL_ALPHA_TEST);
+		glEnable(C4JALPHA_TEST);
 
 		glDepthMask(true);
 		glPopMatrix();
@@ -2274,11 +2274,11 @@ void LevelRenderer::renderHitOutline(shared_ptr<Player> player, HitResult *h, in
 		// 4J-PB - If Display HUD is false, don't render the hit outline
 		if ( app.GetGameSettings(iPad,eGameSetting_DisplayHUD)==0 ) return;
 
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glEnable(C4JBLEND);
+		glBlendFunc(C4J_SRC_ALPHA, C4J_ONE_MINUS_SRC_ALPHA);
 		glColor4f(0, 0, 0, 0.4f);
 		glLineWidth(2.0f);
-		glDisable(GL_TEXTURE_2D);
+		glDisable(C4JTEXTURE_2D);
 		glDepthMask(false);
 		float ss = 0.002f;
 		int tileId = level[iPad]->getTile(h->x, h->y, h->z);
@@ -2292,8 +2292,8 @@ void LevelRenderer::renderHitOutline(shared_ptr<Player> player, HitResult *h, in
 			render(Tile::tiles[tileId]->getTileAABB(level[iPad], h->x, h->y, h->z)->grow(ss, ss, ss)->cloneMove(-xo, -yo, -zo));
 		}
 		glDepthMask(true);
-		glEnable(GL_TEXTURE_2D);
-		glDisable(GL_BLEND);
+		glEnable(C4JTEXTURE_2D);
+		glDisable(C4JBLEND);
 	}
 }
 
@@ -2301,7 +2301,7 @@ void LevelRenderer::render(AABB *b)
 {
 	Tesselator *t = Tesselator::getInstance();
 
-	t->begin(GL_LINE_STRIP);
+	t->begin(C4J_LINE_STRIP);
 	t->vertex((float)(b->x0), (float)( b->y0), (float)( b->z0));
 	t->vertex((float)(b->x1), (float)( b->y0), (float)( b->z0));
 	t->vertex((float)(b->x1), (float)( b->y0), (float)( b->z1));
@@ -2309,7 +2309,7 @@ void LevelRenderer::render(AABB *b)
 	t->vertex((float)(b->x0), (float)( b->y0), (float)( b->z0));
 	t->end();
 
-	t->begin(GL_LINE_STRIP);
+	t->begin(C4J_LINE_STRIP);
 	t->vertex((float)(b->x0), (float)( b->y1), (float)( b->z0));
 	t->vertex((float)(b->x1), (float)( b->y1), (float)( b->z0));
 	t->vertex((float)(b->x1), (float)( b->y1), (float)( b->z1));
@@ -2317,7 +2317,7 @@ void LevelRenderer::render(AABB *b)
 	t->vertex((float)(b->x0), (float)( b->y1), (float)( b->z0));
 	t->end();
 
-	t->begin(GL_LINES);
+	t->begin(C4J_LINES);
 	t->vertex((float)(b->x0), (float)( b->y0), (float)( b->z0));
 	t->vertex((float)(b->x0), (float)( b->y1), (float)( b->z0));
 	t->vertex((float)(b->x1), (float)( b->y0), (float)( b->z0));

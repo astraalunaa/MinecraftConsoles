@@ -290,8 +290,8 @@ void ModelPart::compile(float scale)
 
 	glNewList(list, GL_COMPILE);
 	// Set a few render states that aren't configured by default
-	glEnable(GL_DEPTH_TEST);
-	glDepthFunc(GL_LEQUAL);
+	glEnable(C4JDEPTH_TEST);
+	glDepthFunc(C4J_LEQUAL);
 	glDepthMask(true);
 	Tesselator *t = Tesselator::getInstance();
 

@@ -50,7 +50,7 @@ bool EntityRenderer::bindTexture(const wstring& urlTexture, int backupTexture)
 
 	if (id >= 0)
 	{
-		glBindTexture(GL_TEXTURE_2D, id);
+		glBindTexture(C4JTEXTURE_2D, id);
 		t->clearLastBoundId();
         return true;
     }
@@ -71,7 +71,7 @@ bool EntityRenderer::bindTexture(const wstring& urlTexture, const wstring &backu
 
 	if (id >= 0)
 	{
-		glBindTexture(GL_TEXTURE_2D, id);
+		glBindTexture(C4JTEXTURE_2D, id);
 		t->clearLastBoundId();
 		return true;
 	}
@@ -152,8 +152,8 @@ void EntityRenderer::renderFlame(shared_ptr<Entity> e, double x, double y, doubl
 void EntityRenderer::renderShadow(shared_ptr<Entity> e, double x, double y, double z, float pow, float a)
 {
 	glDisable(GL_LIGHTING);
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glEnable(C4JBLEND);
+	glBlendFunc(C4J_SRC_ALPHA, C4J_ONE_MINUS_SRC_ALPHA);
 
 	MemSect(31);
 	entityRenderDispatcher->textures->bindTexture(&SHADOW_LOCATION);
@@ -218,7 +218,7 @@ void EntityRenderer::renderShadow(shared_ptr<Entity> e, double x, double y, doub
 	tt->end();
 
 	glColor4f(1, 1, 1, 1);
-	glDisable(GL_BLEND);
+	glDisable(C4JBLEND);
 	glDepthMask(true);
 	glEnable(GL_LIGHTING);
 
@@ -265,7 +265,7 @@ void EntityRenderer::renderTileShadow(Tile *tt, double x, double y, double z, in
 
 void EntityRenderer::render(AABB *bb, double xo, double yo, double zo)
 {
-	glDisable(GL_TEXTURE_2D);
+	glDisable(C4JTEXTURE_2D);
 	Tesselator *t = Tesselator::getInstance();
 	glColor4f(1, 1, 1, 1);
 	t->begin();
@@ -307,7 +307,7 @@ void EntityRenderer::render(AABB *bb, double xo, double yo, double zo)
 	t->vertex((float)(bb->x1), (float)( bb->y0), (float)( bb->z1));
 	t->offset(0, 0, 0);
 	t->end();
-	glEnable(GL_TEXTURE_2D);
+	glEnable(C4JTEXTURE_2D);
 	// model.render(0, 1)
 }
 

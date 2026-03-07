@@ -30,7 +30,7 @@ void MushroomCowRenderer::additionalRendering(shared_ptr<LivingEntity> _mob, flo
 	MobRenderer::additionalRendering(mob, a);
 	if (mob->isBaby()) return;
 	bindTexture(&TextureAtlas::LOCATION_BLOCKS); // 4J was "/terrain.png"
-	glEnable(GL_CULL_FACE);
+	glEnable(C4JCULL_FACE);
 	glPushMatrix();
 	glScalef(1, -1, 1);
 	glTranslatef(0.2f, 0.4f, 0.5f);
@@ -49,7 +49,7 @@ void MushroomCowRenderer::additionalRendering(shared_ptr<LivingEntity> _mob, flo
 	tileRenderer->renderTile(Tile::mushroom_red, 0, 1);
 	glPopMatrix();
 
-	glDisable(GL_CULL_FACE);
+	glDisable(C4JCULL_FACE);
 }
 
 ResourceLocation *MushroomCowRenderer::getTextureLocation(shared_ptr<Entity> mob)

@@ -45,8 +45,8 @@ HRESULT CXuiCtrlSplashPulser::OnRender(XUIMessageRender *pRenderData, BOOL &bHan
 
 	// build and render with the game call
 
-	glDisable(GL_CULL_FACE);
-	glDisable(GL_DEPTH_TEST);
+	glDisable(C4JCULL_FACE);
+	glDisable(C4JDEPTH_TEST);
 
 	RenderManager.Set_matrixDirty();
 	glMatrixMode(GL_PROJECTION);
@@ -81,7 +81,7 @@ HRESULT CXuiCtrlSplashPulser::OnRender(XUIMessageRender *pRenderData, BOOL &bHan
 
 	glDisable(GL_RESCALE_NORMAL);
 	
-	glEnable(GL_DEPTH_TEST);
+	glEnable(C4JDEPTH_TEST);
 
 	XuiRenderRestoreState(hDC);
 

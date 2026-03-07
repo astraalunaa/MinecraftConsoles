@@ -40,7 +40,7 @@ void LivingEntityRenderer::render(shared_ptr<Entity> _mob, double x, double y, d
 	shared_ptr<LivingEntity> mob = dynamic_pointer_cast<LivingEntity>(_mob);
 
 	glPushMatrix();
-	glDisable(GL_CULL_FACE);
+	glDisable(C4JCULL_FACE);
 
 	model->attackTime = getAttackAnim(mob, a);
 	if (armor != NULL) armor->attackTime = model->attackTime;
@@ -92,7 +92,7 @@ void LivingEntityRenderer::render(shared_ptr<Entity> _mob, double x, double y, d
 
 		if (ws > 1) ws = 1;
 
-		glEnable(GL_ALPHA_TEST);
+		glEnable(C4JALPHA_TEST);
 		model->prepareMobModel(mob, wp, ws, a);
 		renderModel(mob, wp, ws, bob, headRot - bodyRot, headRotx, fScale);
 
@@ -109,7 +109,7 @@ void LivingEntityRenderer::render(shared_ptr<Entity> _mob, double x, double y, d
 					armor->render(mob, wp, ws, bob, headRot - bodyRot, headRotx, fScale, true);
 				}
 				// 4J - added condition here for rendering player as part of the gui. Avoiding rendering the glint here as it involves using its own blending, and for gui rendering
-				// we are globally blending to be able to offer user configurable gui opacity. Note that I really don't know why GL_BLEND is turned off at the end of the first
+				// we are globally blending to be able to offer user configurable gui opacity. Note that I really don't know why C4JBLEND is turned off at the end of the first
 				// armour layer anyway, or why alpha testing is turned on... but we definitely don't want to be turning blending off during the gui render.
 				if( !entityRenderDispatcher->isGuiRender )
 				{
@@ -117,10 +117,10 @@ void LivingEntityRenderer::render(shared_ptr<Entity> _mob, double x, double y, d
 					{
 						float time = mob->tickCount + a;
 						bindTexture(&ENCHANT_GLINT_LOCATION);
-						glEnable(GL_BLEND);
+						glEnable(C4JBLEND);
 						float br = 0.5f;
 						glColor4f(br, br, br, 1);
-						glDepthFunc(GL_EQUAL);
+						glDepthFunc(C4J_EQUAL);
 						glDepthMask(false);
 
 						for (int j = 0; j < 2; j++)
@@ -128,8 +128,8 @@ void LivingEntityRenderer::render(shared_ptr<Entity> _mob, double x, double y, d
 							glDisable(GL_LIGHTING);
 							float brr = 0.76f;
 							glColor4f(0.5f * brr, 0.25f * brr, 0.8f * brr, 1);
-							glBlendFunc(GL_SRC_COLOR, GL_ONE);
-							glMatrixMode(GL_TEXTURE);
+							glBlendFunc(C4J_SRC_COLOR, C4J_ONE);
+							glMatrixMode(C4J_TEXTURE);
 							glLoadIdentity();
 							float uo = time * (0.001f + j * 0.003f) * 20;
 							float ss = 1 / 3.0f;
@@ -141,18 +141,18 @@ void LivingEntityRenderer::render(shared_ptr<Entity> _mob, double x, double y, d
 						}
 
 						glColor4f(1, 1, 1, 1);
-						glMatrixMode(GL_TEXTURE);
+						glMatrixMode(C4J_TEXTURE);
 						glDepthMask(true);
 						glLoadIdentity();
 						glMatrixMode(GL_MODELVIEW);
 						glEnable(GL_LIGHTING);
-						glDisable(GL_BLEND);
-						glDepthFunc(GL_LEQUAL);
+						glDisable(C4JBLEND);
+						glDepthFunc(C4J_LEQUAL);
 
 					}
-					glDisable(GL_BLEND);
+					glDisable(C4JBLEND);
 				}
-				glEnable(GL_ALPHA_TEST);
+				glEnable(C4JALPHA_TEST);
 			}
 		}
 		glDepthMask(true);
@@ -160,17 +160,17 @@ void LivingEntityRenderer::render(shared_ptr<Entity> _mob, double x, double y, d
 		additionalRendering(mob, a);
 		float br = mob->getBrightness(a);
 		int overlayColor = getOverlayColor(mob, br, a);
-		glActiveTexture(GL_TEXTURE1);
-		glDisable(GL_TEXTURE_2D);
-		glActiveTexture(GL_TEXTURE0);
+		glActiveTexture(C4J_TEXTURE1);
+		glDisable(C4JTEXTURE_2D);
+		glActiveTexture(C4J_TEXTURE0);
 
 		if (((overlayColor >> 24) & 0xff) > 0 || mob->hurtTime > 0 || mob->deathTime > 0)
 		{
-			glDisable(GL_TEXTURE_2D);
-			glDisable(GL_ALPHA_TEST);
-			glEnable(GL_BLEND);
-			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-			glDepthFunc(GL_EQUAL);
+			glDisable(C4JTEXTURE_2D);
+			glDisable(C4JALPHA_TEST);
+			glEnable(C4JBLEND);
+			glBlendFunc(C4J_SRC_ALPHA, C4J_ONE_MINUS_SRC_ALPHA);
+			glDepthFunc(C4J_EQUAL);
 
 			// 4J - changed these renders to not use the compiled version of their models, because otherwise the render states set
 			// about (in particular the depth & alpha test) don't work with our command buffer versions
@@ -206,10 +206,10 @@ void LivingEntityRenderer::render(shared_ptr<Entity> _mob, double x, double y, d
 				}
 			}
 
-			glDepthFunc(GL_LEQUAL);
-			glDisable(GL_BLEND);
-			glEnable(GL_ALPHA_TEST);
-			glEnable(GL_TEXTURE_2D);
+			glDepthFunc(C4J_LEQUAL);
+			glDisable(C4JBLEND);
+			glEnable(C4JALPHA_TEST);
+			glEnable(C4JTEXTURE_2D);
 		}
 		glDisable(GL_RESCALE_NORMAL);
 	}
@@ -218,10 +218,10 @@ void LivingEntityRenderer::render(shared_ptr<Entity> _mob, double x, double y, d
 	e.printStackTrace();
 	}*/
 
-	glActiveTexture(GL_TEXTURE1);
-	glEnable(GL_TEXTURE_2D);
-	glActiveTexture(GL_TEXTURE0);
-	glEnable(GL_CULL_FACE);
+	glActiveTexture(C4J_TEXTURE1);
+	glEnable(C4JTEXTURE_2D);
+	glActiveTexture(C4J_TEXTURE0);
+	glEnable(C4JCULL_FACE);
 
 	glPopMatrix();
 
@@ -242,12 +242,12 @@ void LivingEntityRenderer::renderModel(shared_ptr<LivingEntity> mob, float wp, f
 		glPushMatrix();
 		glColor4f(1, 1, 1, 0.15f);
 		glDepthMask(false);
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		glAlphaFunc(GL_GREATER, 1.0f / 255.0f);
+		glEnable(C4JBLEND);
+		glBlendFunc(C4J_SRC_ALPHA, C4J_ONE_MINUS_SRC_ALPHA);
+		glAlphaFunc(C4J_GREATER, 1.0f / 255.0f);
 		model->render(mob, wp, ws, bob, headRotMinusBodyRot, headRotx, scale, true);
-		glDisable(GL_BLEND);
-		glAlphaFunc(GL_GREATER, .1f);
+		glDisable(C4JBLEND);
+		glAlphaFunc(C4J_GREATER, .1f);
 		glPopMatrix();
 		glDepthMask(true);
 	}
@@ -416,11 +416,11 @@ void LivingEntityRenderer::renderName(shared_ptr<LivingEntity> mob, double x, do
 
 					glTranslatef(0, 0.25f / s, 0);
 					glDepthMask(false);
-					glEnable(GL_BLEND);
-					glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+					glEnable(C4JBLEND);
+					glBlendFunc(C4J_SRC_ALPHA, C4J_ONE_MINUS_SRC_ALPHA);
 					Tesselator *t = Tesselator::getInstance();
 
-					glDisable(GL_TEXTURE_2D);
+					glDisable(C4JTEXTURE_2D);
 					t->begin();
 					int w = font->width(msg) / 2;
 					t->color(0.f, 0.f, 0.f, 0.25f);
@@ -429,11 +429,11 @@ void LivingEntityRenderer::renderName(shared_ptr<LivingEntity> mob, double x, do
 					t->vertex(+w + 1, +8, 0);
 					t->vertex(+w + 1, -1, 0);
 					t->end();
-					glEnable(GL_TEXTURE_2D);
+					glEnable(C4JTEXTURE_2D);
 					glDepthMask(true);
 					font->draw(msg, -font->width(msg) / 2, 0, 0x20ffffff);
 					glEnable(GL_LIGHTING);
-					glDisable(GL_BLEND);
+					glDisable(C4JBLEND);
 					glColor4f(1, 1, 1, 1);
 					glPopMatrix();
 				}
@@ -524,8 +524,8 @@ void LivingEntityRenderer::renderNameTag(shared_ptr<LivingEntity> mob, const wst
 	if( textOpacity < 0.0f ) textOpacity = 0.0f;
 	if( textOpacity > 1.0f ) textOpacity = 1.0f;
 
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glEnable(C4JBLEND);
+	glBlendFunc(C4J_SRC_ALPHA, C4J_ONE_MINUS_SRC_ALPHA);
 	Tesselator *t = Tesselator::getInstance();
 
 	int offs = 0;
@@ -580,9 +580,9 @@ void LivingEntityRenderer::renderNameTag(shared_ptr<LivingEntity> mob, const wst
 		glColor4f(1.0f,1.0f,1.0f,textOpacity);
 
 		glDepthMask(false);
-		glDisable(GL_DEPTH_TEST);
+		glDisable(C4JDEPTH_TEST);
 
-		glDisable(GL_TEXTURE_2D);
+		glDisable(C4JTEXTURE_2D);
 
 		t->begin();
 		int w = font->width(playerName) / 2;
@@ -601,11 +601,11 @@ void LivingEntityRenderer::renderNameTag(shared_ptr<LivingEntity> mob, const wst
 		t->vertex((float)(+w + 1), (float)( -1 + offs), (float)( 0));
 		t->end();
 
-		glEnable(GL_DEPTH_TEST);
+		glEnable(C4JDEPTH_TEST);
 		glDepthMask(true);
-		glDepthFunc(GL_ALWAYS);
+		glDepthFunc(C4J_ALWAYS);
 		glLineWidth(2.0f);
-		t->begin(GL_LINE_STRIP);
+		t->begin(C4J_LINE_STRIP);
 		t->color(color, 255 * textOpacity);
 		t->vertex((float)(-w - 1), (float)( -1 + offs), (float)( 0));
 		t->vertex((float)(-w - 1), (float)( +8 + offs + 1), (float)( 0));
@@ -613,13 +613,13 @@ void LivingEntityRenderer::renderNameTag(shared_ptr<LivingEntity> mob, const wst
 		t->vertex((float)(+w + 1), (float)( -1 + offs), (float)( 0));
 		t->vertex((float)(-w - 1), (float)( -1 + offs), (float)( 0));
 		t->end();
-		glDepthFunc(GL_LEQUAL);
+		glDepthFunc(C4J_LEQUAL);
 		glDepthMask(false);
-		glDisable(GL_DEPTH_TEST);
+		glDisable(C4JDEPTH_TEST);
 
-		glEnable(GL_TEXTURE_2D);
+		glEnable(C4JTEXTURE_2D);
 		font->draw(playerName, -font->width(playerName) / 2, offs, 0x20ffffff);
-		glEnable(GL_DEPTH_TEST);
+		glEnable(C4JDEPTH_TEST);
 
 		glDepthMask(true);
 	}
@@ -627,8 +627,8 @@ void LivingEntityRenderer::renderNameTag(shared_ptr<LivingEntity> mob, const wst
 	if( textOpacity < 1.0f )
 	{
 		glColor4f(1.0f,1.0f,1.0f,1.0f);
-		glDisable(GL_TEXTURE_2D);
-		glDepthFunc(GL_ALWAYS);
+		glDisable(C4JTEXTURE_2D);
+		glDepthFunc(C4J_ALWAYS);
 		t->begin();
 		int w = font->width(playerName) / 2;
 		t->color(color, 255);
@@ -637,8 +637,8 @@ void LivingEntityRenderer::renderNameTag(shared_ptr<LivingEntity> mob, const wst
 		t->vertex((float)(+w + 1), (float)( +8 + offs), (float)( 0));
 		t->vertex((float)(+w + 1), (float)( -1 + offs), (float)( 0));
 		t->end();		
-		glDepthFunc(GL_LEQUAL);
-		glEnable(GL_TEXTURE_2D);
+		glDepthFunc(C4J_LEQUAL);
+		glEnable(C4JTEXTURE_2D);
 
 		glTranslatef(0.0f, 0.0f, -0.04f);
 	}
@@ -650,7 +650,7 @@ void LivingEntityRenderer::renderNameTag(shared_ptr<LivingEntity> mob, const wst
 	}
 
 	glEnable(GL_LIGHTING);
-	glDisable(GL_BLEND);
+	glDisable(C4JBLEND);
 	glColor4f(1, 1, 1, 1);
 	glPopMatrix();
 }

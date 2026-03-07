@@ -23,14 +23,14 @@ int SlimeRenderer::prepareArmor(shared_ptr<LivingEntity> _slime, int layer, floa
         setArmor(armor);
 
         glEnable(GL_NORMALIZE);
-        glEnable(GL_BLEND);
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        glEnable(C4JBLEND);
+        glBlendFunc(C4J_SRC_ALPHA, C4J_ONE_MINUS_SRC_ALPHA);
 
         return 1;
     }
     if (layer == 1)
 	{
-        glDisable(GL_BLEND);
+        glDisable(C4JBLEND);
         glColor4f(1, 1, 1, 1);
     }
     return -1;

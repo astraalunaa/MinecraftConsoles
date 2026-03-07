@@ -63,24 +63,24 @@ typedef struct tagRECT {
 // D3D11 blend constants — mapped to OpenGL ES equivalents
 // Values match GLES glBlendFunc tokens so they can be passed through directly.
 #include <GLES3/gl3.h>
-#define D3D11_BLEND_SRC_ALPHA           GL_SRC_ALPHA
-#define D3D11_BLEND_INV_SRC_ALPHA       GL_ONE_MINUS_SRC_ALPHA
-#define D3D11_BLEND_ONE                 GL_ONE
-#define D3D11_BLEND_ZERO                GL_ZERO
-#define D3D11_BLEND_DEST_ALPHA          GL_DST_ALPHA
-#define D3D11_BLEND_SRC_COLOR           GL_SRC_COLOR
-#define D3D11_BLEND_DEST_COLOR          GL_DST_COLOR
-#define D3D11_BLEND_INV_DEST_COLOR      GL_ONE_MINUS_DST_COLOR
-#define D3D11_BLEND_INV_SRC_COLOR       GL_ONE_MINUS_SRC_COLOR
-#define D3D11_BLEND_BLEND_FACTOR        GL_CONSTANT_ALPHA
-#define D3D11_BLEND_INV_BLEND_FACTOR    GL_ONE_MINUS_CONSTANT_ALPHA
+#define D3D11_BLEND_SRC_ALPHA           C4J_SRC_ALPHA
+#define D3D11_BLEND_INV_SRC_ALPHA       C4J_ONE_MINUS_SRC_ALPHA
+#define D3D11_BLEND_ONE                 C4J_ONE
+#define D3D11_BLEND_ZERO                C4J_ZERO
+#define D3D11_BLEND_DEST_ALPHA          C4J_DST_ALPHA
+#define D3D11_BLEND_SRC_COLOR           C4J_SRC_COLOR
+#define D3D11_BLEND_DEST_COLOR          C4J_DST_COLOR
+#define D3D11_BLEND_INV_DEST_COLOR      C4J_ONE_MINUS_DST_COLOR
+#define D3D11_BLEND_INV_SRC_COLOR       C4J_ONE_MINUS_SRC_COLOR
+#define D3D11_BLEND_BLEND_FACTOR        C4J_CONSTANT_ALPHA
+#define D3D11_BLEND_INV_BLEND_FACTOR    C4J_ONE_MINUS_CONSTANT_ALPHA
 
 // D3D11 comparison constants — mapped to GLES depth/stencil func tokens
-#define D3D11_COMPARISON_GREATER        GL_GREATER
-#define D3D11_COMPARISON_EQUAL          GL_EQUAL
-#define D3D11_COMPARISON_LESS_EQUAL     GL_LEQUAL
-#define D3D11_COMPARISON_GREATER_EQUAL  GL_GEQUAL
-#define D3D11_COMPARISON_ALWAYS         GL_ALWAYS
+#define D3D11_COMPARISON_GREATER        C4J_GREATER
+#define D3D11_COMPARISON_EQUAL          C4J_EQUAL
+#define D3D11_COMPARISON_LESS_EQUAL     C4J_LEQUAL
+#define D3D11_COMPARISON_GREATER_EQUAL  C4J_GEQUAL
+#define D3D11_COMPARISON_ALWAYS         C4J_ALWAYS
 
 // ─── Fake Sony/Vita GXM types (used in PS Vita 4J_Render.h) ──────────────────
 // Only needed if compiling the shared header that still has Vita remnants.

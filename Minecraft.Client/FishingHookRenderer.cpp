@@ -86,9 +86,9 @@ void FishingHookRenderer::render(shared_ptr<Entity> _hook, double x, double y, d
         double ya = (float) (yp - yh);
         double za = (float) (zp - zh);
 
-        glDisable(GL_TEXTURE_2D);
+        glDisable(C4JTEXTURE_2D);
         glDisable(GL_LIGHTING);
-        t->begin(GL_LINE_STRIP);
+        t->begin(C4J_LINE_STRIP);
         t->color(0x000000);
         int steps = 16;
         for (int i = 0; i <= steps; i++)
@@ -98,7 +98,7 @@ void FishingHookRenderer::render(shared_ptr<Entity> _hook, double x, double y, d
         }
         t->end();
         glEnable(GL_LIGHTING);
-        glEnable(GL_TEXTURE_2D);
+        glEnable(C4JTEXTURE_2D);
     }
 }
 

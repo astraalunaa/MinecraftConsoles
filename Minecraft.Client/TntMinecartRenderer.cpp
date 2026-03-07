@@ -27,10 +27,10 @@ void TntMinecartRenderer::renderMinecartContents(shared_ptr<Minecart> _cart, flo
 
 	if (fuse > -1 && fuse / 5 % 2 == 0)
 	{
-		glDisable(GL_TEXTURE_2D);
+		glDisable(C4JTEXTURE_2D);
 		glDisable(GL_LIGHTING);
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_DST_ALPHA);
+		glEnable(C4JBLEND);
+		glBlendFunc(C4J_SRC_ALPHA, C4J_DST_ALPHA);
 		glColor4f(1, 1, 1, (1 - ((fuse - a + 1) / 100.0f)) * 0.8f);
 
 		glPushMatrix();
@@ -38,8 +38,8 @@ void TntMinecartRenderer::renderMinecartContents(shared_ptr<Minecart> _cart, flo
 		glPopMatrix();
 
 		glColor4f(1, 1, 1, 1);
-		glDisable(GL_BLEND);
+		glDisable(C4JBLEND);
 		glEnable(GL_LIGHTING);
-		glEnable(GL_TEXTURE_2D);
+		glEnable(C4JTEXTURE_2D);
 	}
 }

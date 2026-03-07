@@ -153,7 +153,7 @@ VOID XUI_Font::Begin()
 		}
 		else
 		{
-			glBindTexture(GL_TEXTURE_2D, m_fontData->m_iFontTexture);
+			glBindTexture(C4JTEXTURE_2D, m_fontData->m_iFontTexture);
 		}
  
         //// Read the TextureDesc here to ensure no load/hit/store from GetLevelDesc()

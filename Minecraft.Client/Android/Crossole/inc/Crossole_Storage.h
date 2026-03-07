@@ -43,9 +43,8 @@ public:
 	int DeviceID;
 	DWORD dwContentType;
 	WCHAR wszDisplayName[256];
-	CHAR szFileName[SCE_FIOS_PATH_MAX];
+	CHAR szFileName[1024];
 };
-typedef CONTENT_DATA XCONTENT_DATA, *PXCONTENT_DATA;			// TODO - put back in when actually interfacing with game
 
 #define MARKETPLACE_CONTENTOFFER_INFO int
 

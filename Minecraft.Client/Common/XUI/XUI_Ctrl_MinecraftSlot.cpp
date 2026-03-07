@@ -233,8 +233,8 @@ HRESULT CXuiCtrlMinecraftSlot::OnRender(XUIMessageRender *pRenderData, BOOL &bHa
 			}
 		}
 
-		RenderManager.Clear(GL_DEPTH_BUFFER_BIT, &clearRect);
-		//					glClear(GL_DEPTH_BUFFER_BIT);
+		RenderManager.Clear(C4J_DEPTH_BUFFER_BIT, &clearRect);
+		//					glClear(C4J_DEPTH_BUFFER_BIT);
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
 		glOrtho(0, m_fScreenWidth, m_fScreenHeight, 0, 1000, 3000);

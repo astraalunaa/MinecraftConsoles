@@ -128,7 +128,7 @@ void Tesselator::end()
 		}
         if (mode == GL_QUADS && TRIANGLE_MODE)
 		{
-            // glDrawArrays(GL_TRIANGLES, 0, vertices); // 4J - changed for xbox
+            // glDrawArrays(C4J_TRIANGLES, 0, vertices); // 4J - changed for xbox
 #ifdef _XBOX
 			RenderManager.DrawVertices(D3DPT_TRIANGLELIST,vertices,_array->data,
 									   useCompactFormat360?C4JRender::VERTEX_TYPE_PS3_TS2_CS1:C4JRender::VERTEX_TYPE_PF3_TF2_CB4_NB4_XW1,
@@ -196,7 +196,7 @@ void Tesselator::end()
 #endif
         }
         glDisableClientState(GL_VERTEX_ARRAY);
-        if (hasTexture) glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+        if (hasTexture) glDisableClientState(C4J_TEXTURE_COORD_ARRAY);
         if (hasColor) glDisableClientState(GL_COLOR_ARRAY);
         if (hasNormal) glDisableClientState(GL_NORMAL_ARRAY);
     }

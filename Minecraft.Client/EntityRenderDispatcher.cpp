@@ -271,7 +271,7 @@ void EntityRenderDispatcher::render(shared_ptr<Entity> entity, float a)
 	}
 	int u = col % 65536;
 	int v = col / 65536;
-	glMultiTexCoord2f(GL_TEXTURE1, u / 1.0f, v / 1.0f);
+	glMultiTexCoord2f(C4J_TEXTURE1, u / 1.0f, v / 1.0f);
 	glColor4f(1, 1, 1, 1);
 
 	render(entity, x - xOff, y - yOff, z - zOff, r, a);
@@ -314,10 +314,10 @@ void EntityRenderDispatcher::registerTerrainTextures(IconRegister *iconRegister)
 void EntityRenderDispatcher::renderHitbox(shared_ptr<Entity> entity, double x, double y, double z, float rot, float a)
 {
 	glDepthMask(false);
-	glDisable(GL_TEXTURE_2D);
+	glDisable(C4JTEXTURE_2D);
 	glDisable(GL_LIGHTING);
-	glDisable(GL_CULL_FACE);
-	glDisable(GL_BLEND);
+	glDisable(C4JCULL_FACE);
+	glDisable(C4JBLEND);
 
 	glPushMatrix();
 	Tesselator *t = Tesselator::getInstance();
@@ -360,9 +360,9 @@ void EntityRenderDispatcher::renderHitbox(shared_ptr<Entity> entity, double x, d
 	t->end();
 	glPopMatrix();
 
-	glEnable(GL_TEXTURE_2D);
+	glEnable(C4JTEXTURE_2D);
 	glEnable(GL_LIGHTING);
-	glEnable(GL_CULL_FACE);
-	glDisable(GL_BLEND);
+	glEnable(C4JCULL_FACE);
+	glDisable(C4JBLEND);
 	glDepthMask(true);
 }

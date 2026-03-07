@@ -301,7 +301,7 @@ void Screen::renderDirtBackground(int vo)
     glDisable(GL_LIGHTING);
     glDisable(GL_FOG);
     Tesselator *t = Tesselator::getInstance();
-    glBindTexture(GL_TEXTURE_2D, minecraft->textures->loadTexture(L"/gui/background.png"));
+    glBindTexture(C4JTEXTURE_2D, minecraft->textures->loadTexture(L"/gui/background.png"));
     glColor4f(1, 1, 1, 1);
     float s = 32;
     t->begin();

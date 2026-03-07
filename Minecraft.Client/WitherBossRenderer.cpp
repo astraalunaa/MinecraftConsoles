@@ -76,29 +76,29 @@ int WitherBossRenderer::prepareArmor(shared_ptr<LivingEntity> entity, int layer,
 		{
 			float time = mob->tickCount + a;
 			bindTexture(&WITHER_ARMOR_LOCATION);
-			glMatrixMode(GL_TEXTURE);
+			glMatrixMode(C4J_TEXTURE);
 			glLoadIdentity();
 			float uo = cos(time * 0.02f) * 3;
 			float vo = time * 0.01f;
 			glTranslatef(uo, vo, 0);
 			setArmor(model);
 			glMatrixMode(GL_MODELVIEW);
-			glEnable(GL_BLEND);
+			glEnable(C4JBLEND);
 			float br = 0.5f;
 			glColor4f(br, br, br, 1);
 			glDisable(GL_LIGHTING);
-			glBlendFunc(GL_ONE, GL_ONE);
+			glBlendFunc(C4J_ONE, C4J_ONE);
 			glTranslatef(0, -.01f, 0);
 			glScalef(1.1f, 1.1f, 1.1f);
 			return 1;
 		}
 		if (layer == 2)
 		{
-			glMatrixMode(GL_TEXTURE);
+			glMatrixMode(C4J_TEXTURE);
 			glLoadIdentity();
 			glMatrixMode(GL_MODELVIEW);
 			glEnable(GL_LIGHTING);
-			glDisable(GL_BLEND);
+			glDisable(C4JBLEND);
 		}
 	}
 	return -1;

@@ -210,6 +210,18 @@ void Font::renderCharacter(wchar_t c)
 	t->tex(xOff / fontWidth, yOff / fontHeight);
 	t->vertex(x0, y0, 0.0f);
 	t->end();
+#else
+	t->begin(C4J_TRIANGLE_STRIP);
+	t->tex(xOff / 128.0F, yOff / 128.0F);
+	t->vertex(xPos, yPos, 0.0f);
+	t->tex(xOff / 128.0F, (yOff + 7.99f) / 128.0F);
+	t->vertex(xPos, yPos + 7.99f, 0.0f);
+	t->tex((xOff + width) / 128.0F, yOff / 128.0F);
+	t->vertex(xPos + width, yPos, 0.0f);
+	t->tex((xOff + width) / 128.0F, (yOff + 7.99f) / 128.0F);
+	t->vertex(xPos + width, yPos + 7.99f, 0.0f);
+	t->end();
+#endif
 
 	if (m_bold)
 	{
@@ -705,7 +717,7 @@ void Font::renderUnicodeCharacter(wchar_t c)
 
 	if (lastBoundTexture != unicodeTexID[page])
 	{
-		glBindTexture(GL_TEXTURE_2D, unicodeTexID[page]);
+		glBindTexture(C4JTEXTURE_2D, unicodeTexID[page]);
 		lastBoundTexture = unicodeTexID[page];
 	}
 
@@ -722,7 +734,7 @@ void Font::renderUnicodeCharacter(wchar_t c)
 	float width = right - left - .02f;
 
     Tesselator *t = Tesselator::getInstance();
-	t->begin(GL_TRIANGLE_STRIP);
+	t->begin(C4J_TRIANGLE_STRIP);
 	t->tex(xOff / 256.0F, yOff / 256.0F);
 	t->vertex(xPos, yPos, 0.0f);
 	t->tex(xOff / 256.0F, (yOff + 15.98f) / 256.0F);

@@ -65,9 +65,9 @@ void MobRenderer::renderLeash(shared_ptr<Mob> entity, double x, double y, double
         double dy = (float) (endY - startY);
         double dz = (float) (endZ - startZ);
 
-        glDisable(GL_TEXTURE_2D);
+        glDisable(C4JTEXTURE_2D);
         glDisable(GL_LIGHTING);
-		glDisable(GL_CULL_FACE);
+		glDisable(C4JCULL_FACE);
 
 		unsigned int lightCol = Minecraft::GetInstance()->getColourTable()->getColor( eMinecraftColour_Leash_Light_Colour );
 		float rLightCol = ( (lightCol>>16)&0xFF )/255.0f;
@@ -81,7 +81,7 @@ void MobRenderer::renderLeash(shared_ptr<Mob> entity, double x, double y, double
 
         int steps = 24;
         double width = .025;
-        tessellator->begin(GL_TRIANGLE_STRIP);
+        tessellator->begin(C4J_TRIANGLE_STRIP);
         for (int k = 0; k <= steps; k++)
 		{
             if (k % 2 == 0)
@@ -98,7 +98,7 @@ void MobRenderer::renderLeash(shared_ptr<Mob> entity, double x, double y, double
         }
         tessellator->end();
 
-        tessellator->begin(GL_TRIANGLE_STRIP);
+        tessellator->begin(C4J_TRIANGLE_STRIP);
         for (int k = 0; k <= steps; k++)
 		{
             if (k % 2 == 0)
@@ -116,8 +116,8 @@ void MobRenderer::renderLeash(shared_ptr<Mob> entity, double x, double y, double
         tessellator->end();
 
         glEnable(GL_LIGHTING);
-        glEnable(GL_TEXTURE_2D);
-        glEnable(GL_CULL_FACE);
+        glEnable(C4JTEXTURE_2D);
+        glEnable(C4JCULL_FACE);
     }
 }
 

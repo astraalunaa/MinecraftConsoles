@@ -116,12 +116,12 @@ void AchievementScreen::render(int mouseX, int mouseY, float a)
     renderBg(mouseX, mouseY, a);
 
     glDisable(GL_LIGHTING);
-    glDisable(GL_DEPTH_TEST);
+    glDisable(C4JDEPTH_TEST);
 
     renderLabels();
 
     glEnable(GL_LIGHTING);
-    glEnable(GL_DEPTH_TEST);
+    glEnable(C4JDEPTH_TEST);
 
 }
 
@@ -178,13 +178,13 @@ void AchievementScreen::renderBg(int xm, int ym, float a)
     int yBigMap = yo + BIGMAP_Y;
 
     blitOffset = 0;
-//        glDisable(GL_DEPTH_TEST);
-    glDepthFunc(GL_GEQUAL);
+//        glDisable(C4JDEPTH_TEST);
+    glDepthFunc(C4J_GEQUAL);
     glPushMatrix();
     glTranslatef(0, 0, -200);
 
     {
-        glEnable(GL_TEXTURE_2D);
+        glEnable(C4JTEXTURE_2D);
         glDisable(GL_LIGHTING);
         glEnable(GL_RESCALE_NORMAL);
         glEnable(GL_COLOR_MATERIAL);
@@ -255,12 +255,12 @@ void AchievementScreen::renderBg(int xm, int ym, float a)
         }
 
     }
-    glEnable(GL_DEPTH_TEST);
+    glEnable(C4JDEPTH_TEST);
 
 
-    glDepthFunc(GL_LEQUAL);
+    glDepthFunc(C4J_LEQUAL);
 
-    glDisable(GL_TEXTURE_2D);
+    glDisable(C4JTEXTURE_2D);
 
 	for ( Achievement *ach : *Achievements::achievements )
 	{
@@ -340,7 +340,7 @@ void AchievementScreen::renderBg(int xm, int ym, float a)
                 ir->setColor = false;
             }
             glEnable(GL_LIGHTING);
-            glEnable(GL_CULL_FACE);
+            glEnable(C4JCULL_FACE);
             ir->renderGuiItem(minecraft->font, minecraft->textures, ach->icon, xx + 3, yy + 3);
             glDisable(GL_LIGHTING);
             if (!statsCounter->canTake(ach))
@@ -356,8 +356,8 @@ void AchievementScreen::renderBg(int xm, int ym, float a)
         }
     }
 
-    glDisable(GL_DEPTH_TEST);
-    glEnable(GL_BLEND);
+    glDisable(C4JDEPTH_TEST);
+    glEnable(C4JBLEND);
     glColor4f(1, 1, 1, 1);
     minecraft->textures->bind(tex);
     blit(xo, yo, 0, 0, imageWidth, imageHeight);
@@ -366,10 +366,10 @@ void AchievementScreen::renderBg(int xm, int ym, float a)
     glPopMatrix();
 
     blitOffset = 0;
-    glDepthFunc(GL_LEQUAL);
+    glDepthFunc(C4J_LEQUAL);
 
-    glDisable(GL_DEPTH_TEST);
-    glEnable(GL_TEXTURE_2D);
+    glDisable(C4JDEPTH_TEST);
+    glEnable(C4JTEXTURE_2D);
     Screen::render(xm, ym, a);
 
     if (hoveredAchievement != NULL)
@@ -409,7 +409,7 @@ void AchievementScreen::renderBg(int xm, int ym, float a)
 
 
     }
-    glEnable(GL_DEPTH_TEST);
+    glEnable(C4JDEPTH_TEST);
     glEnable(GL_LIGHTING);
     Lighting::turnOff();
 #endif

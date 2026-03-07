@@ -66,7 +66,7 @@ HRESULT CXuiCtrlMinecraftPlayer::OnRender(XUIMessageRender *pRenderData, BOOL &b
 	Minecraft *pMinecraft=Minecraft::GetInstance();
 
 	glColor4f(1, 1, 1, 1);
-	glClear(GL_DEPTH_BUFFER_BIT);
+	glClear(C4J_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glOrtho(0, m_fRawWidth, m_fRawHeight, 0, 1000, 3000);

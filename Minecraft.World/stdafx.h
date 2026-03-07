@@ -185,6 +185,11 @@ void MemSect(int sect);
 #include "..\Minecraft.Client\PSVita\4JLibs\inc\4J_Render.h"
 #include "..\Minecraft.Client\PSVita\4JLibs\inc\4J_Storage.h"
 #include "..\Minecraft.Client\PSVita\4JLibs\inc\4J_Input.h"
+#elif defined _ANDROID
+#include "../Minecraft.Client/Android/Crossole/inc/Crossole_Profile.h"
+#include "../Minecraft.Client/Android/Crossole/inc/Crossole_Render.h"
+#include "../Minecraft.Client/Android/Crossole/inc/Crossole_Storage.h"
+#include "../Minecraft.Client/Android/Crossole/inc/Crossole_Input.h"
 #else
 #include "..\Minecraft.Client\Orbis\4JLibs\inc\4J_Profile.h"
 #include "..\Minecraft.Client\Orbis\4JLibs\inc\4J_Render.h"
@@ -192,25 +197,25 @@ void MemSect(int sect);
 #include "..\Minecraft.Client\Orbis\4JLibs\inc\4J_Input.h"
 #endif
 
-#include "..\Minecraft.Client\Common\Network\GameNetworkManager.h"
+#include "../Minecraft.Client/Common/Network/GameNetworkManager.h"
 
 // #ifdef _XBOX
-#include "..\Minecraft.Client\Common\App_defines.h"
-#include "..\Minecraft.Client\Common\UI\UIEnums.h"
-#include "..\Minecraft.Client\Common\App_enums.h"
-#include "..\Minecraft.Client\Common\Tutorial\TutorialEnum.h"
-#include "..\Minecraft.Client\Common\App_structs.h"
+#include "../Minecraft.Client/Common/App_Defines.h"
+#include "../Minecraft.Client/Common/UI/UIEnums.h"
+#include "../Minecraft.Client/Common/App_enums.h"
+#include "../Minecraft.Client/Common/Tutorial/TutorialEnum.h"
+#include "../Minecraft.Client/Common/App_structs.h"
 //#endif
 
 #ifdef _XBOX
 #include "..\Minecraft.Client\Common\XUI\XUI_Helper.h"
 #include "..\Minecraft.Client\Common\XUI\XUI_Scene_Base.h"
 #endif
-#include "..\Minecraft.Client\Common\Consoles_App.h"
-#include "..\Minecraft.Client\Common\Minecraft_Macros.h"
-#include "..\Minecraft.Client\Common\Colours\ColourTable.h"
+#include "../Minecraft.Client/Common/Consoles_App.h"
+#include "../Minecraft.Client/Common/Minecraft_Macros.h"
+#include "../Minecraft.Client/Common/Colours\ColourTable.h"
 
-#include "..\Minecraft.Client\Common\BuildVer.h"
+#include "../Minecraft.Client/Common/BuildVer.h"
 
 #ifdef _XBOX
 #include "..\Minecraft.Client\Xbox\Xbox_App.h"
@@ -243,6 +248,9 @@ void MemSect(int sect);
 #include "..\Minecraft.Client\PSVitaMedia\strings.h"		// TODO - create PSVita-specific version of this
 #include "..\Minecraft.Client\PSVita\Sentient\SentientManager.h"
 #include "..\Minecraft.Client\PSVita\Sentient\MinecraftTelemetry.h"
+#elif defined _ANDROID
+#include "../Minecraft.Client/Android/Android_App.h"
+#include "../Minecraft.Client/AndroidMedia/strings.h"
 #else
 #include "..\Minecraft.Client\Orbis\Orbis_App.h"
 #include "..\Minecraft.Client\OrbisMedia\strings.h"
@@ -250,10 +258,10 @@ void MemSect(int sect);
 #include "..\Minecraft.Client\Orbis\Sentient\MinecraftTelemetry.h"
 #endif
 
-#include "..\Minecraft.Client\Common\DLC\DLCSkinFile.h"
-#include "..\Minecraft.Client\Common\Console_Awards_enum.h"
-#include "..\Minecraft.Client\Common\Potion_Macros.h"
-#include "..\Minecraft.Client\Common\Console_Debug_enum.h"
-#include "..\Minecraft.Client\Common\GameRules\ConsoleGameRulesConstants.h"
-#include "..\Minecraft.Client\Common\GameRules\ConsoleGameRules.h"
-#include "..\Minecraft.Client\Common\Telemetry\TelemetryManager.h"
+#include "../Minecraft.Client/Common/DLC/DLCSkinFile.h"
+#include "../Minecraft.Client/Common/Console_Awards_enum.h"
+#include "../Minecraft.Client/Common/Potion_Macros.h"
+#include "../Minecraft.Client/Common/Console_Debug_enum.h"
+#include "../Minecraft.Client/Common/GameRules/ConsoleGameRulesConstants.h"
+#include "../Minecraft.Client/Common/GameRules/ConsoleGameRules.h"
+#include "../Minecraft.Client/Common/Telemetry/TelemetryManager.h"

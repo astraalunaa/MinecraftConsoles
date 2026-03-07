@@ -222,7 +222,7 @@ const int GL_MODELVIEW_MATRIX = 0;
 const int GL_PROJECTION_MATRIX = 1;
 const int GL_MODELVIEW = 0;
 const int GL_PROJECTION = 1;
-const int GL_TEXTURE = 2;
+const int C4J_TEXTURE = 2;
 
 // These things required for tex gen
 
@@ -231,12 +231,12 @@ const int GL_T = 1;
 const int GL_R = 2;
 const int GL_Q = 3;
 
-const int GL_TEXTURE_GEN_S = 0;
-const int GL_TEXTURE_GEN_T = 1;
-const int GL_TEXTURE_GEN_Q = 2;
-const int GL_TEXTURE_GEN_R = 3;
+const int C4J_TEXTURE_GEN_S = 0;
+const int C4J_TEXTURE_GEN_T = 1;
+const int C4J_TEXTURE_GEN_Q = 2;
+const int C4J_TEXTURE_GEN_R = 3;
 
-const int GL_TEXTURE_GEN_MODE = 0;
+const int C4J_TEXTURE_GEN_MODE = 0;
 const int GL_OBJECT_LINEAR = 0;
 const int GL_EYE_LINEAR = 1;
 const int GL_OBJECT_PLANE = 0;
@@ -244,11 +244,11 @@ const int GL_EYE_PLANE = 1;
 
  
 // These things are used by glEnable/glDisable so must be different and non-zero (zero is used by things we haven't assigned yet)
-const int GL_TEXTURE_2D = 1;
-const int GL_BLEND = 2;
-const int GL_CULL_FACE = 3;
-const int GL_ALPHA_TEST = 4;
-const int GL_DEPTH_TEST = 5;
+const int C4JTEXTURE_2D = 1;
+const int C4JBLEND = 2;
+const int C4JCULL_FACE = 3;
+const int C4JALPHA_TEST = 4;
+const int C4JDEPTH_TEST = 5;
 const int GL_FOG = 6;
 const int GL_LIGHTING = 7;
 const int GL_LIGHT0 = 8;
@@ -259,39 +259,39 @@ const int CLEAR_COLOUR_FLAG = 2;
 const int CLEAR_STENCIL_FLAG = 4;
 
 
-const int GL_DEPTH_BUFFER_BIT = CLEAR_DEPTH_FLAG;
-const int GL_COLOR_BUFFER_BIT = CLEAR_COLOUR_FLAG;
+const int C4J_DEPTH_BUFFER_BIT = CLEAR_DEPTH_FLAG;
+const int C4J_COLOR_BUFFER_BIT = CLEAR_COLOUR_FLAG;
 
-const int GL_SRC_ALPHA = CELL_GCM_SRC_ALPHA;
-const int GL_ONE_MINUS_SRC_ALPHA = CELL_GCM_ONE_MINUS_SRC_ALPHA;
-const int GL_ONE = CELL_GCM_ONE;
-const int GL_ZERO = CELL_GCM_ZERO;
-const int GL_DST_ALPHA = CELL_GCM_DST_ALPHA;
-const int GL_SRC_COLOR = CELL_GCM_SRC_COLOR;
-const int GL_DST_COLOR = CELL_GCM_DST_COLOR;
-const int GL_ONE_MINUS_DST_COLOR = CELL_GCM_ONE_MINUS_DST_COLOR;
-const int GL_ONE_MINUS_SRC_COLOR = CELL_GCM_ONE_MINUS_SRC_COLOR;
-const int GL_CONSTANT_ALPHA = CELL_GCM_CONSTANT_ALPHA;
-const int GL_ONE_MINUS_CONSTANT_ALPHA = CELL_GCM_ONE_MINUS_CONSTANT_ALPHA;
+const int C4J_SRC_ALPHA = CELL_GCM_SRC_ALPHA;
+const int C4J_ONE_MINUS_SRC_ALPHA = CELL_GCM_ONE_MINUS_SRC_ALPHA;
+const int C4J_ONE = CELL_GCM_ONE;
+const int C4J_ZERO = CELL_GCM_ZERO;
+const int C4J_DST_ALPHA = CELL_GCM_DST_ALPHA;
+const int C4J_SRC_COLOR = CELL_GCM_SRC_COLOR;
+const int C4J_DST_COLOR = CELL_GCM_DST_COLOR;
+const int C4J_ONE_MINUS_DST_COLOR = CELL_GCM_ONE_MINUS_DST_COLOR;
+const int C4J_ONE_MINUS_SRC_COLOR = CELL_GCM_ONE_MINUS_SRC_COLOR;
+const int C4J_CONSTANT_ALPHA = CELL_GCM_CONSTANT_ALPHA;
+const int C4J_ONE_MINUS_CONSTANT_ALPHA = CELL_GCM_ONE_MINUS_CONSTANT_ALPHA;
 
-const int GL_GREATER = CELL_GCM_GREATER;
-const int GL_EQUAL = CELL_GCM_EQUAL;
-const int GL_LEQUAL = CELL_GCM_LEQUAL;
-const int GL_GEQUAL = CELL_GCM_GEQUAL;
-const int GL_ALWAYS = CELL_GCM_ALWAYS;
+const int C4J_GREATER = CELL_GCM_GREATER;
+const int C4J_EQUAL = CELL_GCM_EQUAL;
+const int C4J_LEQUAL = CELL_GCM_LEQUAL;
+const int C4J_GEQUAL = CELL_GCM_GEQUAL;
+const int C4J_ALWAYS = CELL_GCM_ALWAYS;
 
-const int GL_TEXTURE_MIN_FILTER = 1;
-const int GL_TEXTURE_MAG_FILTER = 2;
-const int GL_TEXTURE_WRAP_S = 3;
-const int GL_TEXTURE_WRAP_T = 4;
+const int C4J_TEXTURE_MIN_FILTER = 1;
+const int C4J_TEXTURE_MAG_FILTER = 2;
+const int C4J_TEXTURE_WRAP_S = 3;
+const int C4J_TEXTURE_WRAP_T = 4;
 
-const int GL_NEAREST = 0;
-const int GL_LINEAR = 1;
+const int C4J_NEAREST = 0;
+const int C4J_LINEAR = 1;
 const int GL_EXP = 2;
-const int GL_NEAREST_MIPMAP_LINEAR = 0;	// TODO - mipmapping bit of this
+const int C4J_NEAREST_MIPMAP_LINEAR = 0;	// TODO - mipmapping bit of this
 
 const int GL_CLAMP = 0;
-const int GL_REPEAT = 1;
+const int C4J_REPEAT = 1;
 
 const int GL_FOG_START = 1;
 const int GL_FOG_END = 2;
@@ -306,11 +306,11 @@ const int GL_SPECULAR = 4;
 
 const int GL_LIGHT_MODEL_AMBIENT = 1;
 
-const int GL_LINES = C4JRender::PRIMITIVE_TYPE_LINE_LIST;
-const int GL_LINE_STRIP = C4JRender::PRIMITIVE_TYPE_LINE_STRIP;
+const int C4J_LINES = C4JRender::PRIMITIVE_TYPE_LINE_LIST;
+const int C4J_LINE_STRIP = C4JRender::PRIMITIVE_TYPE_LINE_STRIP;
 const int GL_QUADS = C4JRender::PRIMITIVE_TYPE_QUAD_LIST;
-const int GL_TRIANGLE_FAN = C4JRender::PRIMITIVE_TYPE_TRIANGLE_FAN;
-const int GL_TRIANGLE_STRIP = C4JRender::PRIMITIVE_TYPE_TRIANGLE_STRIP;
+const int C4J_TRIANGLE_FAN = C4JRender::PRIMITIVE_TYPE_TRIANGLE_FAN;
+const int C4J_TRIANGLE_STRIP = C4JRender::PRIMITIVE_TYPE_TRIANGLE_STRIP;
 
 // Singleton
 extern C4JRender RenderManager;

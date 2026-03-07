@@ -45,7 +45,7 @@ void ProgressRenderer::_progressStart(int title)
 #if 0
     ScreenSizeCalculator ssc(minecraft->options, minecraft->width, minecraft->height);
 
-    glClear(GL_DEPTH_BUFFER_BIT);
+    glClear(C4J_DEPTH_BUFFER_BIT);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     glOrtho(0, (float)ssc.rawWidth, (float)ssc.rawHeight, 0, 100, 300);
@@ -96,7 +96,7 @@ void ProgressRenderer::progressStagePercentage(int i)
     int screenWidth = ssc.getWidth();
     int screenHeight = ssc.getHeight();
 
-    glClear(GL_DEPTH_BUFFER_BIT);
+    glClear(C4J_DEPTH_BUFFER_BIT);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     glOrtho(0, (float)ssc.rawWidth, (float)ssc.rawHeight, 0, 100, 300);
@@ -104,11 +104,11 @@ void ProgressRenderer::progressStagePercentage(int i)
     glLoadIdentity();
     glTranslatef(0, 0, -200);
 
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glClear(C4J_COLOR_BUFFER_BIT | C4J_DEPTH_BUFFER_BIT);
 
     Tesselator *t = Tesselator::getInstance();
     int id = minecraft->textures->loadTexture(L"/gui/background.png");
-    glBindTexture(GL_TEXTURE_2D, id);
+    glBindTexture(C4JTEXTURE_2D, id);
     float s = 32;
     t->begin();
     t->color(0x404040);
@@ -125,7 +125,7 @@ void ProgressRenderer::progressStagePercentage(int i)
         int x = screenWidth / 2 - w / 2;
         int y = screenHeight / 2 + 16;
 
-        glDisable(GL_TEXTURE_2D);
+        glDisable(C4JTEXTURE_2D);
         t->begin();
         t->color(0x808080);
         t->vertex((float)(x), (float)( y), (float)( 0));
@@ -139,7 +139,7 @@ void ProgressRenderer::progressStagePercentage(int i)
         t->vertex((float)(x + i), (float)( y + h), (float)( 0));
         t->vertex((float)(x + i), (float)( y), (float)( 0));
         t->end();
-        glEnable(GL_TEXTURE_2D);
+        glEnable(C4JTEXTURE_2D);
     }
 
     minecraft->font->drawShadow(title, (screenWidth - minecraft->font->width(title)) / 2, screenHeight / 2 - 4 - 16, 0xffffff);

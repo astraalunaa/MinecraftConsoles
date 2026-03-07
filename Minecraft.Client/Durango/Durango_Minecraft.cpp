@@ -715,7 +715,7 @@ void oldWinMainInit()
 
 		// 4J : WESTY : Added to ensure we always have clear background for intro.
 		RenderManager.SetClearColour(D3DCOLOR_RGBA(0,0,0,255));
-		RenderManager.Clear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		RenderManager.Clear(C4J_COLOR_BUFFER_BIT | C4J_DEPTH_BUFFER_BIT);
 
 		// Render XUI
 		hr = app.Render();

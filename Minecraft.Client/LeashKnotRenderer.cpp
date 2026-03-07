@@ -17,7 +17,7 @@ LeashKnotRenderer::~LeashKnotRenderer()
 void LeashKnotRenderer::render(shared_ptr<Entity> entity, double x, double y, double z, float rot, float a)
 {
     glPushMatrix();
-    glDisable(GL_CULL_FACE);
+    glDisable(C4JCULL_FACE);
 
     glTranslatef((float) x, (float) y, (float) z);
 
@@ -25,7 +25,7 @@ void LeashKnotRenderer::render(shared_ptr<Entity> entity, double x, double y, do
     glEnable(GL_RESCALE_NORMAL);
     glScalef(-1, -1, 1);
 
-    glEnable(GL_ALPHA_TEST);
+    glEnable(C4JALPHA_TEST);
 
     bindTexture(entity);
     model->render(entity, 0, 0, 0, 0, 0, scale, true);

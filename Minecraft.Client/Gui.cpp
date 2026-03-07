@@ -225,8 +225,8 @@ void Gui::render(float a, bool mouseFree, int xMouse, int yMouse)
 
 
 
-    glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);	// 4J - added - this did actually get set in renderVignette but that code is currently commented out
+    glEnable(C4JBLEND);
+	glBlendFunc(C4J_SRC_ALPHA, C4J_ONE_MINUS_SRC_ALPHA);	// 4J - added - this did actually get set in renderVignette but that code is currently commented out
 
     if (Minecraft::useFancyGraphics())
 	{
@@ -301,7 +301,7 @@ void Gui::render(float a, bool mouseFree, int xMouse, int yMouse)
 		RenderManager.StateSetBlendFactor(0xffffff |(((unsigned int)fVal)<<24));
 		currentGuiBlendFactor = fVal / 255.0f;
 	//	RenderManager.StateSetBlendFactor(0x40ffffff);
-		glBlendFunc(GL_CONSTANT_ALPHA, GL_ONE_MINUS_CONSTANT_ALPHA);
+		glBlendFunc(C4J_CONSTANT_ALPHA, C4J_ONE_MINUS_CONSTANT_ALPHA);
 
 		blitOffset = -90;
 
@@ -337,10 +337,10 @@ void Gui::render(float a, bool mouseFree, int xMouse, int yMouse)
 			MemSect(31);
 			minecraft->textures->bindTexture(TN_GUI_ICONS);//L"/gui/icons.png"));
 			MemSect(0);
-			glEnable(GL_BLEND);
+			glEnable(C4JBLEND);
 			RenderManager.StateSetBlendFactor(0xffffff |(((unsigned int)fVal)<<24));
-			glBlendFunc(GL_CONSTANT_ALPHA, GL_ONE_MINUS_CONSTANT_ALPHA);
-			//glBlendFunc(GL_ONE_MINUS_DST_COLOR, GL_ONE_MINUS_SRC_COLOR);
+			glBlendFunc(C4J_CONSTANT_ALPHA, C4J_ONE_MINUS_CONSTANT_ALPHA);
+			//glBlendFunc(C4J_ONE_MINUS_DST_COLOR, C4J_ONE_MINUS_SRC_COLOR);
 			// 4J Stu - We don't want to adjust the cursor by the safezone, we want it centred
 			if(bTwoPlayerSplitscreen)
 			{
@@ -350,7 +350,7 @@ void Gui::render(float a, bool mouseFree, int xMouse, int yMouse)
 			{
 				blit(screenWidth / 2 - 7, screenHeight / 2 - 7, 0, 0, 16, 16);
 			}
-			glDisable(GL_BLEND);
+			glDisable(C4JBLEND);
 
 	// 		if(bTwoPlayerSplitscreen)
 	// 		{
@@ -381,8 +381,8 @@ void Gui::render(float a, bool mouseFree, int xMouse, int yMouse)
 		if(bDisplayGui)
 		{
 			// 4J - added blend for fading gui
-			glEnable(GL_BLEND);
-			glBlendFunc(GL_CONSTANT_ALPHA, GL_ONE_MINUS_CONSTANT_ALPHA);
+			glEnable(C4JBLEND);
+			glBlendFunc(C4J_CONSTANT_ALPHA, C4J_ONE_MINUS_CONSTANT_ALPHA);
 
 			if (minecraft->gameMode->canHurtPlayer())
 			{
@@ -620,7 +620,7 @@ void Gui::render(float a, bool mouseFree, int xMouse, int yMouse)
 		////////////////////////////
 		if(bDisplayGui)
 		{
-	//		glDisable(GL_BLEND);		4J - removed - we want to be able to fade our gui
+	//		glDisable(C4JBLEND);		4J - removed - we want to be able to fade our gui
 
 			glEnable(GL_RESCALE_NORMAL);
 
@@ -797,14 +797,14 @@ void Gui::render(float a, bool mouseFree, int xMouse, int yMouse)
 #endif // RENDER_HUD
 
 	// 4J - added to disable blends, which we have enabled previously to allow gui fading
-	glDisable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glDisable(C4JBLEND);
+	glBlendFunc(C4J_SRC_ALPHA, C4J_ONE_MINUS_SRC_ALPHA);
 
     // if the player is falling asleep we render a dark overlay
     if (minecraft->player->getSleepTimer() > 0)
 	{
-        glDisable(GL_DEPTH_TEST);
-        glDisable(GL_ALPHA_TEST);
+        glDisable(C4JDEPTH_TEST);
+        glDisable(C4JALPHA_TEST);
         int timer = minecraft->player->getSleepTimer();
         float amount = (float) timer / (float) Player::SLEEP_DURATION;
         if (amount > 1)
@@ -815,22 +815,22 @@ void Gui::render(float a, bool mouseFree, int xMouse, int yMouse)
 
         int color = (int) (220.0f * amount) << 24 | (0x101020);
         fill(0, 0, screenWidth/fScaleFactorWidth, screenHeight/fScaleFactorHeight, color);
-        glEnable(GL_ALPHA_TEST);
-        glEnable(GL_DEPTH_TEST);
+        glEnable(C4JALPHA_TEST);
+        glEnable(C4JDEPTH_TEST);
     }
 
 	// 4J-PB - Request from Mojang to have a red death screen
 	if (!minecraft->player->isAlive())
 	{
-		glDisable(GL_DEPTH_TEST);
-		glDisable(GL_ALPHA_TEST);
+		glDisable(C4JDEPTH_TEST);
+		glDisable(C4JALPHA_TEST);
 		int timer = minecraft->player->getDeathFadeTimer();
 		float amount = (float) timer / (float) Player::DEATHFADE_DURATION;
 
 		int color = (int) (220.0f * amount) << 24 | (0x200000);
 		fill(0, 0, screenWidth/fScaleFactorWidth, screenHeight/fScaleFactorHeight, color);
-		glEnable(GL_ALPHA_TEST);
-		glEnable(GL_DEPTH_TEST);
+		glEnable(C4JALPHA_TEST);
+		glEnable(C4JDEPTH_TEST);
 
 	}
 
@@ -968,8 +968,8 @@ void Gui::render(float a, bool mouseFree, int xMouse, int yMouse)
 			{
 				glTranslatef(((float)screenWidth) / 2, ((float)screenHeight) - iTooltipsYOffset - 12 -iSafezoneYHalf, 0);
 			}
-            glEnable(GL_BLEND);
-            glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+            glEnable(C4JBLEND);
+            glBlendFunc(C4J_SRC_ALPHA, C4J_ONE_MINUS_SRC_ALPHA);
 
             int col = 0xffffff;
             if (animateOverlayMessageColor)
@@ -978,7 +978,7 @@ void Gui::render(float a, bool mouseFree, int xMouse, int yMouse)
             }
 			// 4J-PB - this is the string displayed when cds are placed in a jukebox
             font->draw(overlayMessageString,-font->width(overlayMessageString) / 2, -20, col + (alpha << 24));
-            glDisable(GL_BLEND);
+            glDisable(C4JBLEND);
             glPopMatrix();
         }
     }
@@ -992,9 +992,9 @@ void Gui::render(float a, bool mouseFree, int xMouse, int yMouse)
         isChatting = true;
     }
 
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    glDisable(GL_ALPHA_TEST);
+    glEnable(C4JBLEND);
+    glBlendFunc(C4J_SRC_ALPHA, C4J_ONE_MINUS_SRC_ALPHA);
+    glDisable(C4JALPHA_TEST);
 
 #if 0 // defined(_WINDOWS64) // Temporarily disable this chat in favor of iggy chat until we have better visual parity
     glPushMatrix();
@@ -1027,7 +1027,8 @@ void Gui::render(float a, bool mouseFree, int xMouse, int yMouse)
 
 					wstring msg = guiMessages[iPad][i].string;
 					this->fill(0, y - 1, screenWidth/fScaleFactorWidth, y + 8, (alpha / 2) << 24);
-					glEnable(GL_BLEND);
+					glEnable(C4JBLEND);
+
 					font->drawShadow(msg, iSafezoneXHalf+4, y, 0xffffff + (alpha << 24));
 				}
 			}
@@ -1069,7 +1070,7 @@ void Gui::render(float a, bool mouseFree, int xMouse, int yMouse)
 
 			fill(xo, yo, xo + slotWidth - 1, yo + 8, 0x20ffffff);
 			glColor4f(1, 1, 1, 1);
-			glEnable(GL_ALPHA_TEST);
+			glEnable(C4JALPHA_TEST);
 
 			if (i < playerInfos.size()) {
 				PlayerInfo pl = playerInfos.get(i);
@@ -1101,8 +1102,8 @@ void Gui::render(float a, bool mouseFree, int xMouse, int yMouse)
 	}
 
 	glColor4f(1, 1, 1, 1);
-    glDisable(GL_BLEND);
-	glEnable(GL_ALPHA_TEST);
+    glDisable(C4JBLEND);
+	glEnable(C4JALPHA_TEST);
 }
 
 // Moved to the xui base scene
@@ -1136,17 +1137,17 @@ void Gui::render(float a, bool mouseFree, int xMouse, int yMouse)
 // 	wstring msg = L"Boss health - NON LOCALISED";
 // 	font->drawShadow(msg, screenWidth / 2 - font->width(msg) / 2, yo - 10, 0xff00ff);
 // 	glColor4f(1, 1, 1, 1);
-// 	glBindTexture(GL_TEXTURE_2D, pMinecraft->textures->loadTexture(TN_GUI_ICONS) );//"/gui/icons.png"));
+// 	glBindTexture(C4JTEXTURE_2D, pMinecraft->textures->loadTexture(TN_GUI_ICONS) );//"/gui/icons.png"));
 //
 // }
 
 void Gui::renderPumpkin(int w, int h)
 {
-    glDisable(GL_DEPTH_TEST);
+    glDisable(C4JDEPTH_TEST);
     glDepthMask(false);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glBlendFunc(C4J_SRC_ALPHA, C4J_ONE_MINUS_SRC_ALPHA);
     glColor4f(1, 1, 1, 1);
-    glDisable(GL_ALPHA_TEST);
+    glDisable(C4JALPHA_TEST);
 
 	MemSect(31);
     minecraft->textures->bindTexture(&PUMPKIN_BLUR_LOCATION);
@@ -1159,8 +1160,8 @@ void Gui::renderPumpkin(int w, int h)
     t->vertexUV((float)(0), (float)( 0), (float)( -90), (float)( 0), (float)( 0));
     t->end();
     glDepthMask(true);
-    glEnable(GL_DEPTH_TEST);
-    glEnable(GL_ALPHA_TEST);
+    glEnable(C4JDEPTH_TEST);
+    glEnable(C4JALPHA_TEST);
     glColor4f(1, 1, 1, 1);
 
 }
@@ -1173,11 +1174,11 @@ void Gui::renderVignette(float br, int w, int h)
     tbr += (br - tbr) * 0.01f;
 
 #if 0  // 4J - removed - TODO put back when we have blend functions implemented
-    glDisable(GL_DEPTH_TEST);
+    glDisable(C4JDEPTH_TEST);
     glDepthMask(false);
-    glBlendFunc(GL_ZERO, GL_ONE_MINUS_SRC_COLOR);
+    glBlendFunc(C4J_ZERO, C4J_ONE_MINUS_SRC_COLOR);
     glColor4f(tbr, tbr, tbr, 1);
-    glBindTexture(GL_TEXTURE_2D, minecraft->textures->loadTexture(TN__BLUR__MISC_VIGNETTE));//L"%blur%/misc/vignette.png"));
+    glBindTexture(C4JTEXTURE_2D, minecraft->textures->loadTexture(TN__BLUR__MISC_VIGNETTE));//L"%blur%/misc/vignette.png"));
     Tesselator *t = Tesselator::getInstance();
     t->begin();
     t->vertexUV((float)(0), (float)( h), (float)( -90), (float)( 0), (float)( 1));
@@ -1186,9 +1187,9 @@ void Gui::renderVignette(float br, int w, int h)
     t->vertexUV((float)(0), (float)( 0), (float)( -90), (float)( 0), (float)( 0));
     t->end();
     glDepthMask(true);
-    glEnable(GL_DEPTH_TEST);
+    glEnable(C4JDEPTH_TEST);
     glColor4f(1, 1, 1, 1);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glBlendFunc(C4J_SRC_ALPHA, C4J_ONE_MINUS_SRC_ALPHA);
 #endif
 }
 
@@ -1201,10 +1202,10 @@ void Gui::renderTp(float br, int w, int h)
         br = br * 0.8f + 0.2f;
     }
 
-    glDisable(GL_ALPHA_TEST);
-    glDisable(GL_DEPTH_TEST);
+    glDisable(C4JALPHA_TEST);
+    glDisable(C4JDEPTH_TEST);
     glDepthMask(false);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glBlendFunc(C4J_SRC_ALPHA, C4J_ONE_MINUS_SRC_ALPHA);
     glColor4f(1, 1, 1, br);
 	MemSect(31);
     minecraft->textures->bindTexture(&TextureAtlas::LOCATION_BLOCKS);
@@ -1223,8 +1224,8 @@ void Gui::renderTp(float br, int w, int h)
     t->vertexUV((float)(0), (float)( 0), (float)( -90), (float)( u0), (float)( v0));
     t->end();
     glDepthMask(true);
-    glEnable(GL_DEPTH_TEST);
-    glEnable(GL_ALPHA_TEST);
+    glEnable(C4JDEPTH_TEST);
+    glEnable(C4JALPHA_TEST);
     glColor4f(1, 1, 1, 1);
 
 }
@@ -1480,7 +1481,7 @@ void Gui::renderGraph(int dataLength, int dataPos, int64_t *dataA, float dataASc
 	int xScale = 1;
 	if(dataA != NULL && dataB != NULL) xScale = 2;
 
-	glClear(GL_DEPTH_BUFFER_BIT);
+	glClear(C4J_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glOrtho(0, (float)minecraft->width, (float)height, 0, 1000, 3000);
@@ -1489,10 +1490,10 @@ void Gui::renderGraph(int dataLength, int dataPos, int64_t *dataA, float dataASc
 	glTranslatef(0, 0, -2000);
 
 	glLineWidth(1);
-	glDisable(GL_TEXTURE_2D);
+	glDisable(C4JTEXTURE_2D);
 	Tesselator *t = Tesselator::getInstance();
 
-	t->begin(GL_LINES);
+	t->begin(C4J_LINES);
 	for (int i = 0; i < dataLength; i++)
 	{
 		int col = ((i - dataPos) & (dataLength - 1)) * 255 / dataLength;
@@ -1537,14 +1538,14 @@ void Gui::renderGraph(int dataLength, int dataPos, int64_t *dataA, float dataASc
 	}
 	t->end();
 
-	glEnable(GL_TEXTURE_2D);
+	glEnable(C4JTEXTURE_2D);
 }
 
 void Gui::renderStackedGraph(int dataPos, int dataLength, int dataSources, int64_t (*func)(unsigned int dataPos, unsigned int dataSource) )
 {
 	int height = minecraft->height;
 
-	glClear(GL_DEPTH_BUFFER_BIT);
+	glClear(C4J_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glOrtho(0, (float)minecraft->width, (float)height, 0, 1000, 3000);
@@ -1553,12 +1554,12 @@ void Gui::renderStackedGraph(int dataPos, int dataLength, int dataSources, int64
 	glTranslatef(0, 0, -2000);
 
 	glLineWidth(1);
-	glDisable(GL_TEXTURE_2D);
+	glDisable(C4JTEXTURE_2D);
 	Tesselator *t = Tesselator::getInstance();
 
-	t->begin(GL_LINES);
-	int64_t thisVal = 0;
-	int64_t topVal = 0;
+	t->begin(C4J_LINES);
+	__int64 thisVal = 0;
+	__int64 topVal = 0;
 	for (int i = 0; i < dataLength; i++)
 	{
 		thisVal = 0;
@@ -1601,5 +1602,5 @@ void Gui::renderStackedGraph(int dataPos, int dataLength, int dataSources, int64
 	}
 	t->end();
 
-	glEnable(GL_TEXTURE_2D);
+	glEnable(C4JTEXTURE_2D);
 }

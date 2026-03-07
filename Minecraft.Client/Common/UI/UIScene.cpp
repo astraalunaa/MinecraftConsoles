@@ -862,7 +862,7 @@ void UIScene::_customDrawSlotControl(CustomDrawData *region, int iPad, shared_pt
 	PIXBeginNamedEvent(0,"Render and decorate");
 	if(m_pItemRenderer == NULL) m_pItemRenderer = new ItemRenderer();
 	RenderManager.StateSetBlendEnable(true);
-	RenderManager.StateSetBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	RenderManager.StateSetBlendFunc(C4J_SRC_ALPHA, C4J_ONE_MINUS_SRC_ALPHA);
 	RenderManager.StateSetBlendFactor(0xffffffff);
 	m_pItemRenderer->renderAndDecorateItem(pMinecraft->font, pMinecraft->textures, item, x, y,scaleX,scaleY,fAlpha,isFoil,false, !usingCommandBuffer);
 	PIXEndNamedEvent();

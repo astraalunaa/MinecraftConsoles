@@ -67,7 +67,7 @@ void UIControl_EnchantmentBook::render(IggyCustomDrawCallbackRegion *region)
     if (ff1 > 1) ff1 = 1;
     if (ff2 > 1) ff2 = 1;
 
-	glEnable(GL_CULL_FACE);
+	glEnable(C4JCULL_FACE);
 
 	if(model == NULL)
 	{
@@ -85,7 +85,7 @@ void UIControl_EnchantmentBook::render(IggyCustomDrawCallbackRegion *region)
 	}
 
     model->render(nullptr, 0, ff1, ff2, o, 0, 1 / 16.0f,true);
-	glDisable(GL_CULL_FACE);
+	glDisable(C4JCULL_FACE);
 
     glPopMatrix();
 	Lighting::turnOff();
