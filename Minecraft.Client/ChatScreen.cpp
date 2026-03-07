@@ -3,9 +3,8 @@
 #include "ClientConnection.h"
 #include "Font.h"
 #include "MultiplayerLocalPlayer.h"
-#include "..\Minecraft.World\SharedConstants.h"
-#include "..\Minecraft.World\StringHelpers.h"
-#include "..\Minecraft.World\ChatPacket.h"
+#include "../Minecraft.World/SharedConstants.h"
+#include "../Minecraft.World/StringHelpers.h"
 
 const wstring ChatScreen::allowedChars = SharedConstants::acceptableLetters;
 vector<wstring> ChatScreen::s_chatHistory;
