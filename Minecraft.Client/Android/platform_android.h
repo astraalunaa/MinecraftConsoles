@@ -4,23 +4,28 @@
 // Replaces Windows and Sony platform types for Android builds.
 // Include this before any 4J headers on Android.
 
-#include <stdint.h>
-#include <stddef.h>
-#include <stdlib.h>
+#include <cstdint>
+#include <cstddef>
+#include <cstdlib>
 #include <string>
-#include <wchar.h>
+#include <cwchar>
+#include <jni.h>
+
+// ─── Android runtime globals ──────────────────────────────────────────────────
+extern JavaVM* g_javaVM;
+extern jobject g_activity;
 
 // ─── Basic Windows scalar types ───────────────────────────────────────────────
-typedef uint8_t   BYTE;
-typedef uint16_t  WORD;
-typedef uint32_t  DWORD;
-typedef uint64_t  QWORD;
-typedef int32_t   BOOL;
-typedef float     FLOAT;
-typedef unsigned int UINT;
-typedef void*     LPVOID;
-typedef long      HRESULT;
-typedef uint8_t*  PBYTE;
+using BYTE = uint8_t;
+using WORD = uint16_t;
+using DWORD = uint32_t;
+using QWORD = uint64_t;
+using BOOL = int32_t;
+using FLOAT = float;
+using UINT = unsigned int;
+using LPVOID = void*;
+using HRESULT = long;
+using PBYTE = uint8_t*;
 
 #ifndef TRUE
 #define TRUE  1
@@ -30,9 +35,9 @@ typedef uint8_t*  PBYTE;
 #endif
 
 // ─── Wide string types ────────────────────────────────────────────────────────
-typedef wchar_t         WCHAR;
-typedef const wchar_t*  LPCWSTR;
-typedef wchar_t*        LPWSTR;
+using WCHAR = wchar_t;
+using LPCWSTR = wchar_t*;
+using LPWSTR = wchar_t*;
 
 // ─── HRESULT helpers ──────────────────────────────────────────────────────────
 #define S_OK       ((HRESULT)0x00000000L)

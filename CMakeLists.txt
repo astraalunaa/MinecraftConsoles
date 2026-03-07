@@ -36,6 +36,7 @@ if(WIN32)
 endif()
 if(ANDROID)
   list(APPEND MINECRAFT_CLIENT_SOURCES
+    "${CMAKE_CURRENT_SOURCE_DIR}/Minecraft.Client/Android/android_globals.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Minecraft.Client/Android/Crossole/libs/Crossole_Input.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Minecraft.Client/Android/Crossole/libs/Crossole_Profile.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Minecraft.Client/Android/Crossole/libs/Crossole_Render.cpp"
