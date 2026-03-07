@@ -8,9 +8,9 @@
 #include "WinsockNetLayer.h"
 #include "../../Common/Network/PlatformNetworkManagerStub.h"
 #include "../../../Minecraft.World/Socket.h"
-#include "..\..\..\Minecraft.World\DisconnectPacket.h"
-#include "..\..\Minecraft.h"
-#include "..\4JLibs\inc\4J_Profile.h"
+#include "../../../Minecraft.World/DisconnectPacket.h"
+#include "../../Minecraft.h"
+#include "../4JLibs/inc/4J_Profile.h"
 
 static bool RecvExact(SOCKET sock, BYTE* buf, int len);
 

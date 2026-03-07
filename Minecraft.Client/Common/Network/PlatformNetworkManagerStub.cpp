@@ -8,8 +8,8 @@
 #include "../../Windows64/Windows64_Xuid.h"
 #include "../../Minecraft.h"
 #include "../../User.h"
-#include "..\..\MinecraftServer.h"
-#include "..\..\PlayerList.h"
+#include "../../MinecraftServer.h"
+#include "../../PlayerList.h"
 #include <iostream>
 #endif
 

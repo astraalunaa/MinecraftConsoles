@@ -2,7 +2,7 @@
 #include "UI.h"
 #include "UIScene_SettingsGraphicsMenu.h"
 #include "../../Minecraft.h"
-#include "..\..\Options.h"
+#include "../../Options.h"
 #include "../../GameRenderer.h"
 
 namespace

@@ -22,8 +22,8 @@
 #include "../../Minecraft.World/net.minecraft.world.level.tile.h"
 
 #include "../ClientConnection.h"
-#include "..\Minecraft.h"
-#include "..\ChatScreen.h"
+#include "../Minecraft.h"
+#include "../ChatScreen.h"
 #include "KeyboardMouseInput.h"
 #include "../User.h"
 #include "../../Minecraft.World/Socket.h"
@@ -44,7 +44,7 @@
 #include "../../Minecraft.World/compression.h"
 #include "../../Minecraft.World/OldChunkStorage.h"
 #include "Common/PostProcesser.h"
-#include "..\GameRenderer.h"
+#include "../GameRenderer.h"
 #include "Network/WinsockNetLayer.h"
 #include "Windows64_Xuid.h"
 
